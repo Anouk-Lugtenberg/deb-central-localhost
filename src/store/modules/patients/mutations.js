@@ -21,6 +21,9 @@ export default {
     Object.keys(patients).map(function (key) {
       let mutations = []
       /* TODO Regex works only for deb-central.org and is hard-coded */
+      /* This saves the mutations per patients as object 'mutations' and the rest of the information as 'information'.
+      Done because the information about the mutations is treated differently by the program.
+       */
       let filteredKeys = filterKeys(patients[key], /cDNAchange/)
       filteredKeys.forEach(function (element) {
         if (patients[key][element]) {

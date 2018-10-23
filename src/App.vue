@@ -10,7 +10,6 @@ import PageHeader from './components/PageHeader'
 import { GET_METADATA } from './store/actions'
 import { GET_ALL_MUTATIONS } from './store/modules/mutation/actions'
 import { GET_ALL_PATIENTS } from './store/modules/patients/actions'
-import { mapGetters } from 'vuex'
 
 export default {
   name: 'App',
@@ -21,11 +20,6 @@ export default {
     this.$store.dispatch(GET_METADATA)
     this.$store.dispatch('mutation/' + GET_ALL_MUTATIONS)
     this.$store.dispatch('patients/' + GET_ALL_PATIENTS)
-  },
-  computed: {
-    ...mapGetters({
-      mutations: 'mutation/getMutations'
-    })
   }
 }
 </script>

@@ -7,7 +7,7 @@ $black: #000;
 $green: #00e389;
 $blue: #2a97be;
 $orange: #f26c22;
-$yellow: #ededed;
+$yellow: #ffc107;
 $red: #e5001e;
 
 // Create grayscale
@@ -17,10 +17,17 @@ $gray-light: #7e7e7e;
 $gray-lighter: #ededed;
 $gray-lightest: #fafafa;
 
+// Custom colors
+// Colors for card headers with option header-bg-variant
+$light: #f6f8fa;
+
+//body background color
+$body-bg: $gray-lightest;
+
 // Set brand colors
 $primary: $blue;
 $success: $green;
-$info: $yellow;
+$info: white;
 $warning: $orange;
 $danger: $red;
 
@@ -53,7 +60,7 @@ $pagination-active-color: white;
 $pagination-active-bg: #1380b5;
 
 // Tabs
-$nav-tabs-link-active-bg: #F2F4F4;
+$nav-tabs-link-active-bg: #f6f8fa;
 
 //Navigation bar
 $navbar-dark-hover-color: #1380b5;
@@ -62,5 +69,3 @@ $navbar-dark-active-color: #017FB7;
 $navbar-brand-padding-y: 0px;
 
 $link-hover-color: #1380b5;
-
-$card-bg: gray-light;

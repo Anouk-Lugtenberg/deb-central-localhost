@@ -68,7 +68,7 @@ export default {
 
 <style scoped>
 .information-mutations {
-  background-color: #F2F4F4;
+  background-color: #f6f8fa;
   padding-left: 10px;
   padding-right: 10px;
 }

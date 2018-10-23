@@ -1,9 +1,9 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="info">
+    <b-navbar toggleable="lg" variant="info">
       <b-navbar-nav>
         <b-navbar-brand :to="{name: 'Home'}">
-          <img src="./../assets/img/deb-register-grey-background.png" class="img-deb-register">
+          <img src="./../assets/img/deb-central-logo.png" class="img-deb-register">
         </b-navbar-brand>
       </b-navbar-nav>
       <b-navbar-nav>

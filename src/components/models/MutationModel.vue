@@ -11,7 +11,7 @@
         </b-col>
         <b-col cols="5" v-for="mutationIdentifier in identifiers" :key="mutationIdentifier">
           <div v-if="mutations[mutationIdentifier]">
-            <b-card header-tag="header" bg-variant="light" class="mt-2">
+            <b-card header-tag="header" header-bg-variant="light" class="mt-2">
               <div slot="header" class="header-card">
                 <field-type-mutation-id :mutationIdentifier="mutationIdentifier">{{ mutationIdentifier }}
                 </field-type-mutation-id>

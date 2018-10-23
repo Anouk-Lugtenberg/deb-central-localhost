@@ -7,7 +7,6 @@ import {
 export const GET_METADATA = '__GET_METADATA__'
 
 /* Variables between different databases */
-
 /* API paths */
 export const MUTATIONS_API_PATH = '/api/v2/col7a1_Mutations'
 export const PATIENTS_API_PATH = '/api/v2/col7a1_Patients'
@@ -22,7 +21,10 @@ export const LOOK_UP_ATTRIBUTE_MUTATIONS = 'cdnanotation'
 /* Tables DEB central */
 const TABLES = [MUTATION_TABLE, PATIENT_TABLE]
 
-/* Visible table columns */
+/*
+This constant variable can be adjusted to determine which fields from the tables are visible
+on loading the page - should be in UPPERCASE, and same as 'name' field from metadata from tables.
+ */
 export const VISIBLE_FIELDS = {
   [MUTATION_TABLE]: ['AANOTATION', 'EXON', 'CONSEQUENCE', 'POS'],
   [PATIENT_TABLE]: ['PHENO', 'PUBMEDID']

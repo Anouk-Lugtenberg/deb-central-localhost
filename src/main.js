@@ -9,11 +9,12 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSearchPlus } from '@fortawesome/free-solid-svg-icons'
+import { faSearchPlus, faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faSearchPlus)
+library.add(faSearchPlus, faCaretRight, faCaretDown)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('field-types', require('./components/field-types/FieldTypes'))
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 

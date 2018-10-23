@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-card header-tag="header" bg-variant="light" no-body class="shadow rounded card mb-2">
+    <b-card header-tag="header" header-bg-variant="light" class="shadow rounded card mb-2">
       <div slot="header">
         <span>
           <font-awesome-icon icon="search-plus" class="fa-icon" v-on:click="changeExpansion()"></font-awesome-icon>
