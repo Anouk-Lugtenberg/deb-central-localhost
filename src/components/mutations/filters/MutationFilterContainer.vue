@@ -1,8 +1,5 @@
 <template>
   <div>
-    Query: {{ this.$route.query }}
-    RSQL: {{ rsql }}
-    Page number: {{ pageNumber }}
     <mutation-string-filter></mutation-string-filter>
   </div>
 </template>

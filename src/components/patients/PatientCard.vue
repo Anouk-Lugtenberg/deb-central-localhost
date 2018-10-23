@@ -31,7 +31,7 @@ import { PATIENT_TABLE, MUTATION_TABLE } from '../../store/actions'
 
 export default {
   name: 'PatientCard',
-  props: ['patientIdentifier', 'patient'],
+  props: ['patientIdentifier', 'patient', 'visibleFields'],
   components: {
     'field-types': FieldTypes,
     'field-type-patient-id': FieldTypePatientID,
@@ -46,18 +46,7 @@ export default {
   computed: {
     ...mapGetters({
       metadata: 'getMetadata'
-    }),
-    visibleFields: function () {
-      let patientTable = this.patientTable
-      let visibleFields = []
-      for (let key in this.metadata[patientTable]) {
-        if (!this.metadata[patientTable].hasOwnProperty(key)) continue
-        if (this.metadata[patientTable][key]['visible'] && this.metadata[patientTable][key]['name'] !== 'ID') {
-          visibleFields.push(this.metadata[patientTable][key])
-        }
-      }
-      return visibleFields
-    }
+    })
   }
 }
 </script>

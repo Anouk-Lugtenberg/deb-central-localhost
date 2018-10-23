@@ -15,7 +15,7 @@
       </b-col>
       <b-col sm="9">
         <div v-for="identifier in patientIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="identifier">
-          <patient-card :patientIdentifier="identifier" :patient="patients[identifier]"></patient-card>
+          <patient-card :patientIdentifier="identifier" :patient="patients[identifier]" :visibleFields="visibleFields"></patient-card>
         </div>
       </b-col>
     </b-row>
@@ -32,7 +32,7 @@ import PatientsFilterContainer from './filters/PatientsFilterContainer'
 
 export default {
   name: 'PatientCardsPaginator',
-  props: ['patientIdentifiers'],
+  props: ['patientIdentifiers', 'visibleFields'],
   components: {
     'patient-card': PatientCard,
     'patients-filter-container': PatientsFilterContainer

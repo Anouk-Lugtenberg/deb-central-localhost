@@ -12,7 +12,7 @@
       <div class="card-text">
         <b-container>
           <b-row>
-            <b-col cols="6" class="extra-information-mutation" v-for="property in visibleFields" :key="property.name">
+            <b-col cols="6" v-for="property in visibleFields" :key="property.name">
               <field-types :property="property" :information="mutation" :entity="mutationTable"></field-types>
             </b-col>
           </b-row>
@@ -41,7 +41,7 @@ import { LOOK_UP_ATTRIBUTE_MUTATIONS, MUTATION_TABLE } from '../../store/actions
 
 export default {
   name: 'MutationCard',
-  props: ['mutationIdentifier', 'mutation'],
+  props: ['mutationIdentifier', 'mutation', 'visibleFields'],
   components: {
     'mutation-card-information-container': MutationCardInformationContainer,
     'field-type-mutation-id': FieldTypeMutationIdentifier,
@@ -57,20 +57,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      patientsPerMutation: 'mutation/getPatientsPerMutation',
-      metadata: 'getMetadata'
-    }),
-    visibleFields: function () {
-      let mutationTable = this.mutationTable
-      let visibleFields = []
-      for (let key in this.metadata[mutationTable]) {
-        if (!this.metadata[mutationTable].hasOwnProperty(key)) continue
-        if (this.metadata[mutationTable][key]['visible'] && this.metadata[mutationTable][key]['name'] !== 'ID') {
-          visibleFields.push(this.metadata[mutationTable][key])
-        }
-      }
-      return visibleFields
-    }
+      patientsPerMutation: 'mutation/getPatientsPerMutation'
+    })
   },
   methods: {
     changeExpansion () {

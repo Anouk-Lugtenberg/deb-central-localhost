@@ -1,8 +1,5 @@
 <template>
   <div>
-    Query: {{ this.$route.query }}
-    RSQL: {{ rsql }}
-    Page number: {{ pageNumber }}
     <patients-string-filter></patients-string-filter>
   </div>
 </template>
