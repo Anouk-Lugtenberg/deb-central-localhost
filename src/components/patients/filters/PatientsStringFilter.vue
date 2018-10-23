@@ -6,9 +6,8 @@
 
 <script>
 import { SET_SEARCH } from '../../../store/mutations'
-
 export default {
-  name: 'StringFilter',
+  name: 'PatientsStringFilter',
   data () {
     return {
       search: ''

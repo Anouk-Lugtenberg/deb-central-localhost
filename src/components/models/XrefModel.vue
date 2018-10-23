@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import FilterContainer from './../mutations/filters/FilterContainer'
+import FilterContainer from '../mutations/filters/MutationFilterContainer'
 import { mapGetters } from 'vuex'
 
 export default {

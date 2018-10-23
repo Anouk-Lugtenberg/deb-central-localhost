@@ -1,5 +1,5 @@
 <template>
-  <b-card header-tag="header" header-bg-variant="light" no-body class="shadow rounded card mb-2">
+  <b-card header-tag="header" header-bg-variant="light" class="shadow rounded card mb-2">
     <div slot="header">
     <span>
       <span class="title-patient">

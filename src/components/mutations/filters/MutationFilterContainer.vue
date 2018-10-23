@@ -3,23 +3,30 @@
     Query: {{ this.$route.query }}
     RSQL: {{ rsql }}
     Page number: {{ pageNumber }}
-    <string-filter></string-filter>
+    <mutation-string-filter></mutation-string-filter>
   </div>
 </template>
 
 <script>
-import StringFilter from './StringFilter'
+import MutationStringFilter from './MutationStringFilter'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_MUTATIONS } from '../../../store/modules/mutation/actions'
 
 export default {
-  name: 'FilterContainer',
+  name: 'MutationFilterContainer',
   props: ['pageNumber'],
   components: {
-    'string-filter': StringFilter
+    'mutation-string-filter': MutationStringFilter
   },
   computed: {
     ...mapGetters(['rsql'])
+  },
+  /* Checks if search query is available in URL on creation, if yes -> use this Query to filter mutations */
+  created () {
+    if (typeof this.$route.query.q !== 'undefined') {
+      let URLrsql = this.$route.query.q
+      this.getMutationIdentifiers(URLrsql)
+    }
   },
   watch: {
     pageNumber () {
@@ -27,12 +34,12 @@ export default {
     },
     rsql () {
       this.createRoute()
-      this.getMutationIdentifiers()
+      this.getMutationIdentifiers(this.rsql)
     }
   },
   methods: {
-    getMutationIdentifiers () {
-      this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS, this.rsql)
+    getMutationIdentifiers (rsql) {
+      this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS, rsql)
     },
     createRoute () {
       if (this.rsql.length > 0) {

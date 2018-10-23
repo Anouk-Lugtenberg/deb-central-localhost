@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import { naturalSort } from '../../helpers'
-import { COLUMN_PATIENT_ID } from '../../actions'
+import {COLUMN_PATIENT_ID} from '../../actions'
 
 export const SET_TOTAL_PATIENTS = '__SET_TOTAL_PATIENTS__'
 export const SET_ALL_PATIENTS = '__SET_ALL_PATIENTS__'
 export const SET_PATIENT_INFORMATION_PATIENT_ID = '__SET_PATIENT_INFORMATION_PATIENT_ID__'
+export const SET_FILTERED_PATIENTS = '__SET_FILTERED_PATIENTS__'
 
 const filterKeys = (obj, filter) => {
   let keys = []
@@ -15,6 +16,7 @@ const filterKeys = (obj, filter) => {
   }
   return keys
 }
+
 export default {
   [SET_ALL_PATIENTS] (state, patients) {
     let identifiers = []
@@ -45,5 +47,12 @@ export default {
   },
   [SET_PATIENT_INFORMATION_PATIENT_ID] (state, [id, information]) {
     Vue.set(state.informationPatients, id, information)
+  },
+  [SET_FILTERED_PATIENTS] (state, patients) {
+    let filteredIdentifiers = []
+    Object.keys(patients).map(function (key) {
+      filteredIdentifiers.push(patients[key][COLUMN_PATIENT_ID])
+    })
+    state.filteredPatientsIdentifiers = filteredIdentifiers
   }
 }

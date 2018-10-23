@@ -11,6 +11,7 @@
     </b-row>
     <b-row>
       <b-col sm="3">
+        <patients-filter-container :pageNumber="currentPage"></patients-filter-container>
       </b-col>
       <b-col sm="9">
         <div v-for="identifier in patientIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="identifier">
@@ -27,12 +28,14 @@
 <script>
 import { mapGetters } from 'vuex'
 import PatientCard from './PatientCard'
+import PatientsFilterContainer from './filters/PatientsFilterContainer'
 
 export default {
   name: 'PatientCardsPaginator',
   props: ['patientIdentifiers'],
   components: {
-    'patient-card': PatientCard
+    'patient-card': PatientCard,
+    'patients-filter-container': PatientsFilterContainer
   },
   data () {
     return {
@@ -54,8 +57,8 @@ export default {
       this.validatePageNum(this.$route.params.pageNumURL)
       this.currentPage = parseInt(this.$route.params.pageNumURL)
     },
-    mutationIdentifiers () {
-      this.totalPages = Math.ceil(this.mutationIdentifiers.length / 20)
+    patientIdentifiers () {
+      this.totalPages = Math.ceil(this.patientIdentifiers.length / 20)
     }
   },
   created () {

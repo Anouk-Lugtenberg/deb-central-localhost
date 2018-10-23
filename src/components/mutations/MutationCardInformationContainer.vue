@@ -6,18 +6,14 @@
           <div v-if="listAllPatients[tabList[current]]" class="information-mutations">
             <field-type-patient-mutations :listMutationsPerPatient="listAllPatients[tabList[current]]['mutations'] "
                                           :entity="patientTable"></field-type-patient-mutations>
-            <div v-for="property in metadata[patientTable]" :key="property.name">
-              <div v-if="property.visible">
-                <div v-if="property.label === 'Mutations'">
-                </div>
-                <div v-else>
-                  <field-type :property="property"
-                              :information="listAllPatients[tabList[current]]['information']"
-                              :entity="patientTable">
-                  </field-type>
-                </div>
-              </div>
-            </div>
+            <b-row>
+              <b-col cols="6" v-for="property in visibleFields" :key="property.name">
+                <field-type :property="property"
+                            :information="listAllPatients[tabList[current]]['information']"
+                            :entity="patientTable">
+                </field-type>
+              </b-col>
+            </b-row>
           </div>
         </div>
       </b-tab>
@@ -61,7 +57,18 @@ export default {
       metadata: 'getMetadata',
       patientInformation: 'patients/getPatientInformation',
       listAllPatients: 'patients/getPatients'
-    })
+    }),
+    visibleFields: function () {
+      let patientTable = this.patientTable
+      let visibleFields = []
+      for (let key in this.metadata[patientTable]) {
+        if (!this.metadata[patientTable].hasOwnProperty(key)) continue
+        if (this.metadata[patientTable][key]['visible'] && this.metadata[patientTable][key]['name'] !== 'ID') {
+          visibleFields.push(this.metadata[patientTable][key])
+        }
+      }
+      return visibleFields
+    }
   }
 }
 </script>

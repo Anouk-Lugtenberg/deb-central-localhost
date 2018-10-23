@@ -4,6 +4,7 @@
       <b-col sm="3">
       </b-col>
       <b-col sm="9">
+        Total pages: {{ totalPages }}
         <b-pagination-nav :use-router="true" size="md" :link-gen="linkGenerator" align="center"
                           :number-of-pages="totalPages" v-model="currentPage">
         </b-pagination-nav>
@@ -11,7 +12,7 @@
     </b-row>
     <b-row>
       <b-col sm="3">
-        <filter-container :pageNumber="currentPage"></filter-container>
+        <mutation-filter-container :pageNumber="currentPage"></mutation-filter-container>
       </b-col>
       <b-col sm="9">
         <div v-for="identifier in mutationIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="identifier">
@@ -34,14 +35,14 @@
 <script>
 import { mapGetters } from 'vuex'
 import MutationCard from './MutationCard'
-import FilterContainer from './filters/FilterContainer'
+import MutationFilterContainer from './filters/MutationFilterContainer'
 
 export default {
   name: 'MutationCardsPaginator',
   props: ['mutationIdentifiers'],
   components: {
     'mutation-card': MutationCard,
-    'filter-container': FilterContainer
+    'mutation-filter-container': MutationFilterContainer
   },
   data () {
     return {

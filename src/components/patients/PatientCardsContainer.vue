@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div v-if="allIdentifiersPatients.length > 0">
+    <div v-if="filteredIdentifiersPatients.length > 0">
+      <patient-cards-paginator :patientIdentifiers="filteredIdentifiersPatients"></patient-cards-paginator>
+    </div>
+    <div v-else-if="allIdentifiersPatients.length > 0">
       <patient-cards-paginator :patientIdentifiers="allIdentifiersPatients"></patient-cards-paginator>
     </div>
     <div v-else>
@@ -20,7 +23,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      allIdentifiersPatients: 'patients/getAllIdentifiersPatients'
+      allIdentifiersPatients: 'patients/getAllIdentifiersPatients',
+      filteredIdentifiersPatients: 'patients/getFilteredPatientsIdentifiers'
     })
   }
 }

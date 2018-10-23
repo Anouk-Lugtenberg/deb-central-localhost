@@ -8,17 +8,13 @@
 
 <script>
 import MutationCardsContainer from './MutationCardsContainer'
-import SettingsModal from './../settings/SettingsModal'
-import FilterContainer from './filters/FilterContainer'
 import { GET_ALL_MUTATIONS } from '../../store/modules/mutation/actions'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'MutationsContainer',
   components: {
-    'mutation-cards-container': MutationCardsContainer,
-    'settings-modal': SettingsModal,
-    'filter-container': FilterContainer
+    'mutation-cards-container': MutationCardsContainer
   },
   computed: {
     ...mapGetters({
