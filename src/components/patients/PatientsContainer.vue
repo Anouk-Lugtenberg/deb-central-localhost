@@ -27,6 +27,11 @@ export default {
     if (Object.keys(this.$store.state.patients.patients).length === 0) {
       this.$store.dispatch('patients/' + GET_ALL_PATIENTS)
     }
+  },
+  watch: {
+    '$route.query': function (newRoute, oldRoute) {
+      console.log('New route: ' + newRoute + ' Old route: ' + oldRoute)
+    }
   }
 }
 </script>

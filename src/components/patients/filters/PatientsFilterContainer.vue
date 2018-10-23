@@ -11,6 +11,7 @@
 import PatientsStringFilter from './PatientsStringFilter'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_PATIENTS } from '../../../store/modules/patients/actions'
+import { SET_SEARCH } from '../../../store/mutations'
 
 export default {
   name: 'PatientsFilterContainer',
@@ -26,6 +27,10 @@ export default {
     if (typeof this.$route.query.q !== 'undefined') {
       let URLrsql = this.$route.query.q
       this.getPatientIdentifiers(URLrsql)
+    } else {
+      /* Resets filtered identifiers when switched between patients - mutations via menu */
+      this.getPatientIdentifiers('')
+      this.$store.commit(SET_SEARCH, '')
     }
   },
   watch: {

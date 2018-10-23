@@ -4,7 +4,6 @@
       <b-col sm="3">
       </b-col>
       <b-col sm="9">
-        Total pages: {{ totalPages }}
         <b-pagination-nav :use-router="true" size="md" :link-gen="linkGenerator" align="center"
                           :number-of-pages="totalPages" v-model="currentPage">
         </b-pagination-nav>

@@ -11,6 +11,7 @@
 import MutationStringFilter from './MutationStringFilter'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_MUTATIONS } from '../../../store/modules/mutation/actions'
+import { SET_SEARCH } from '../../../store/mutations'
 
 export default {
   name: 'MutationFilterContainer',
@@ -26,6 +27,10 @@ export default {
     if (typeof this.$route.query.q !== 'undefined') {
       let URLrsql = this.$route.query.q
       this.getMutationIdentifiers(URLrsql)
+    } else {
+      /* Resets filtered identifiers when switched between patients - mutations via menu */
+      this.getMutationIdentifiers('')
+      this.$store.commit(SET_SEARCH, '')
     }
   },
   watch: {
