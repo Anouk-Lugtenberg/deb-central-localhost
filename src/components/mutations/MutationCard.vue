@@ -60,6 +60,9 @@ export default {
       patientsPerMutation: 'mutation/getPatientsPerMutation'
     })
   },
+  created () {
+    this.getPatients()
+  },
   methods: {
     changeExpansion () {
       this.expand = !this.expand

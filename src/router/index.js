@@ -60,7 +60,6 @@ export default new Router({
       name: 'Mutation',
       component: MutationModel,
       props: (route) => ({
-        mutation: route.params.mutation,
         id: route.params.id
       })
     },
@@ -69,7 +68,6 @@ export default new Router({
       name: 'Patient',
       component: PatientModel,
       props: (route) => ({
-        patient: route.params.patient,
         id: route.params.id
       })
     },
