@@ -10,6 +10,7 @@ import CategoricalModel from '../components/models/CategoricalModel'
 import MutationsContainer from './../components/mutations/MutationsContainer'
 import PatientsContainer from './../components/patients/PatientsContainer'
 import NotFound from './../components/NotFound'
+import GenomeBrowser from './../components/GenomeBrowser'
 
 Vue.use(Router)
 
@@ -100,6 +101,10 @@ export default new Router({
         name: route.params.name,
         attribute: route.params.attribute
       })
+    },
+    {
+      path: '/GenomeBrowser',
+      component: GenomeBrowser
     },
     {
       path: '/404',
