@@ -10,10 +10,10 @@
       </b-col>
     </b-row>
     <b-row>
-      <b-col sm="3">
+      <b-col sm="9">
         <mutation-filter-container :pageNumber="currentPage"></mutation-filter-container>
       </b-col>
-      <b-col sm="9">
+      <b-col sm="3">
         <div v-for="identifier in mutationIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="identifier">
           <mutation-card :mutationIdentifier="identifier"
                          :mutation="mutations[identifier]"

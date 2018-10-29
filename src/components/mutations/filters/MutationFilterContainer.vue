@@ -2,11 +2,13 @@
   <div>
     RSQL: {{ rsql }}
     <mutation-string-filter></mutation-string-filter>
+    <mutation-checkbox-filters></mutation-checkbox-filters>
   </div>
 </template>
 
 <script>
 import MutationStringFilter from './MutationStringFilter'
+import MutationCheckboxFilters from './MutationCheckboxFilters'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_MUTATIONS } from '../../../store/modules/mutation/actions'
 import { SET_SEARCH } from '../../../store/mutations'
@@ -15,7 +17,8 @@ export default {
   name: 'MutationFilterContainer',
   props: ['pageNumber'],
   components: {
-    'mutation-string-filter': MutationStringFilter
+    'mutation-string-filter': MutationStringFilter,
+    'mutation-checkbox-filters': MutationCheckboxFilters
   },
   computed: {
     ...mapGetters(['rsql'])

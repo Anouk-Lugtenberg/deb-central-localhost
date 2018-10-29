@@ -1,9 +1,14 @@
 import { transformToRSQL } from '@molgenis/rsql'
+// import { flatten } from 'lodash'
 import { VISIBLE_FIELDS } from '../actions'
+
+// Example search query
+// ?q=ntchange=in=(%27a%27,%20%27at%27);event=in=(%27insertion%27);*=q=159
 
 export const createRSQLQuery = (state) => transformToRSQL({
   operator: 'AND',
-  operands: state.search ? ['*']
+  operands:
+    state.search ? ['*']
     .map(attr => ({selector: attr, comparison: '=q=', arguments: state.search})) : []
 })
 
@@ -40,11 +45,24 @@ export const getMetadata = (metadata, type, allFieldsVisible) => {
     if (element.fieldType.includes('COMPOUND')) {
       let listCompoundAttributes = []
       Object.keys(element.attributes).map(function (compound) {
-        listCompoundAttributes.push({
-          'name': element.attributes[compound]['name'],
-          'label': element.attributes[compound]['label'],
-          'fieldType': element.attributes[compound]['fieldType']
-        })
+        /*
+        Adds href to metadata object when nested metadata of type COMPOUND is of field CATEGORICAL.
+        This is used to determine the filters for the CATEGORICAL fields.
+         */
+        if (element.attributes[compound]['fieldType'].includes('CATEGORICAL')) {
+          listCompoundAttributes.push({
+            'name': element.attributes[compound]['name'],
+            'label': element.attributes[compound]['label'],
+            'fieldType': element.attributes[compound]['fieldType'],
+            'href': element.attributes[compound]['refEntity']['href']
+          })
+        } else {
+          listCompoundAttributes.push({
+            'name': element.attributes[compound]['name'],
+            'label': element.attributes[compound]['label'],
+            'fieldType': element.attributes[compound]['fieldType']
+          })
+        }
       })
       listMetadata.push({
         'name': element.name,
@@ -52,6 +70,18 @@ export const getMetadata = (metadata, type, allFieldsVisible) => {
         'fieldType': element.fieldType,
         'visible': fieldVisible,
         'attributes': listCompoundAttributes
+      })
+      /*
+      Adds href field to metadata if field is of type CATEGORICAL
+      This is used to determine filter categories
+       */
+    } else if (element.fieldType.includes('CATEGORICAL')) {
+      listMetadata.push({
+        'name': element.name,
+        'label': element.label,
+        'fieldType': element.fieldType,
+        'visible': fieldVisible,
+        'href': element['refEntity']['href']
       })
       /* Mutations are saved differently for patients (and are always shown),
       so they shouldn't be saved in the metadata */

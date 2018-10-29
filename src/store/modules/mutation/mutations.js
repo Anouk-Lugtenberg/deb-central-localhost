@@ -9,6 +9,7 @@ export const SET_ALL_MUTATIONS = '__SET_ALL_MUTATIONS__'
 export const SET_TOTAL_MUTATIONS = '__SET_TOTAL_MUTATIONS__'
 export const SET_PATIENT_FOR_MUTATION = '__SET_PATIENT_FOR_MUTATION__'
 export const SET_FILTERED_MUTATIONS = '__SET_FILTERED_MUTATIONS__'
+export const SET_FILTER_GROUP_INFORMATION = '__SET_FILTER_GROUP_INFORMATION__'
 
 export default {
   [SET_ALL_MUTATIONS] (state, mutations) {
@@ -37,5 +38,24 @@ export default {
       filteredIdentifiers.push(mutations[key][COLUMN_MUTATION_ID])
     })
     state.filteredMutationIdentifiers = filteredIdentifiers
+  },
+  [SET_FILTER_GROUP_INFORMATION] (state, [name, information]) {
+    let filterList = []
+    let keyForItem = information['meta']['attributes'][0]['name']
+    Object.keys(information['items']).map(function (key) {
+      if (information['items'][key]['label']) {
+        filterList.push({
+          'name': information['items'][key][keyForItem],
+          'label': information['items'][key]['label'],
+          'activeFilter': false
+        })
+      } else {
+        filterList.push({
+          'name': information['items'][key][keyForItem],
+          'activeFilter': false
+        })
+      }
+    })
+    Vue.set(state.filterGroupInformation, name, filterList)
   }
 }

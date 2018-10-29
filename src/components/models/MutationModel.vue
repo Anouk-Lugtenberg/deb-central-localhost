@@ -6,16 +6,18 @@
           <b-col cols="3">
             <span>Add mutations:</span>
             <input type="text" v-model.lazy="newMutation">
-            <div v-if="errorMutationNotFound">
-              MUTATION NOT FOUND
+            <div v-if="errorMutationNotFound" class="mutation-not-found">
+              Mutation not found
             </div>
           </b-col>
-          <b-col cols="9" v-for="mutationIdentifier in identifiers" :key="mutationIdentifier">
-            <div v-if="mutations[mutationIdentifier] && Object.keys(metadataAllFieldsVisible).length > 0">
-              <mutation-card :mutationIdentifier="mutationIdentifier"
-                             :mutation="mutations[mutationIdentifier]"
-                             :visibleFields="metadataAllFieldsVisible[mutationTable]">
-              </mutation-card>
+          <b-col cols="9">
+            <div v-for="mutationIdentifier in identifiers" :key="mutationIdentifier">
+              <div v-if="mutations[mutationIdentifier] && Object.keys(metadataAllFieldsVisible).length > 0">
+                <mutation-card :mutationIdentifier="mutationIdentifier"
+                               :mutation="mutations[mutationIdentifier]"
+                               :visibleFields="metadataAllFieldsVisible[mutationTable]">
+                </mutation-card>
+              </div>
             </div>
           </b-col>
         </b-row>
@@ -102,11 +104,13 @@ export default {
         if (this.numericalIdentifiers.has(mutationIdentifier)) {
           this.identifiers.push(identifier)
         }
-        // if (this.numericalIdentifiers.indexOf(mutationIdentifier) > -1) {
-        //   this.identifiers.push(identifier)
-        // }
       }
     }
   }
 }
 </script>
+<style scoped>
+.mutation-not-found {
+  color: #dc3545;
+}
+</style>

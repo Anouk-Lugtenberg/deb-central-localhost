@@ -5,5 +5,6 @@ export default {
   getFilteredMutationIdentifiers: state => state.filteredMutationIdentifiers,
   getMutationDetails: state => state.mutationDetails,
   getPatientsPerMutation: state => state.patientsPerMutation,
-  getMutationIDCDNALink: state => state.mutationIDCDNALink
+  getMutationIDCDNALink: state => state.mutationIDCDNALink,
+  getFilteredGroupInformation: state => state.filterGroupInformation
 }

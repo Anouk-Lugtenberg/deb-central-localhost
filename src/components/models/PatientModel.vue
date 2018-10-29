@@ -2,19 +2,21 @@
   <div>
     <b-container class="pt-4">
       <b-row>
-        <b-col cols="3">
+        <b-col sm="3">
           <span>Add patients:</span>
           <input type="text" v-model.lazy="newPatient">
-          <div v-if="errorPatientNotFound">
-            PATIENT NOT FOUND
+          <div v-if="errorPatientNotFound" class="patient-not-found">
+            Patient not found
           </div>
         </b-col>
-        <b-col cols="9" v-for="patientIdentifier in identifiers" :key="patientIdentifier">
-          <div v-if="patients[patientIdentifier] && Object.keys(metadataAllFieldsVisible).length > 0">
-            <patient-card :patientIdentifier="patientIdentifier"
-                           :patient="patients[patientIdentifier]"
-                           :visibleFields="metadataAllFieldsVisible[patientTable]">
-            </patient-card>
+        <b-col sm="9">
+          <div v-for="patientIdentifier in identifiers" :key="patientIdentifier">
+            <div v-if="patients[patientIdentifier] && Object.keys(metadataAllFieldsVisible).length > 0">
+              <patient-card :patientIdentifier="patientIdentifier"
+                             :patient="patients[patientIdentifier]"
+                             :visibleFields="metadataAllFieldsVisible[patientTable]">
+              </patient-card>
+            </div>
           </div>
         </b-col>
       </b-row>
@@ -87,5 +89,7 @@ export default {
 </script>
 
 <style scoped>
-
+.patient-not-found {
+  color: #dc3545;
+}
 </style>
