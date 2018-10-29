@@ -1,6 +1,5 @@
 <template>
   <div>
-    ID: {{ id }}
     <b-container class="pt-4">
       <div v-if="identifiers.length > 0">
         <b-row>

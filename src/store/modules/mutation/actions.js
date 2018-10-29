@@ -36,9 +36,8 @@ export default {
       })
   },
   [GET_FILTERED_MUTATIONS] ({state, commit}, query) {
-    console.log('Query: ' + query)
     if (query.length > 0) {
-      api.get(MUTATIONS_API_PATH + '?q=' + query)
+      api.get(MUTATIONS_API_PATH + '?q=' + query + '&start=0&num=10000')
         .then(response => response.json())
         .then(response => {
           commit(SET_FILTERED_MUTATIONS, response.items)

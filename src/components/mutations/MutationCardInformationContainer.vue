@@ -1,11 +1,14 @@
 <template>
   <div v-if="tabList.length > 0">
     <b-tabs>
-      <b-tab v-for="(tab, i) in tabList" @click="current = i" :class="{current:i === current}" :title="tab" :key="i">
+      <b-tab v-for="(patient, i) in tabList" @click="current = i" :class="{current:i === current}" :title="patient" :key="i">
         <div v-if="Object.keys(patients).length > 0">
           <div v-if="listAllPatients[tabList[current]]" class="information-mutations">
             <field-type-patient-mutations :listMutationsPerPatient="listAllPatients[tabList[current]]['mutations'] "
                                           :entity="patientTable"></field-type-patient-mutations>
+            <router-link :to="{name: 'Patient', params: {id: patient}}">
+              <b-button variant="outline-primary">Details for {{ patient }}</b-button>
+            </router-link>
             <b-row>
               <b-col cols="6" v-for="property in visibleFields" :key="property.name">
                 <field-type :property="property"

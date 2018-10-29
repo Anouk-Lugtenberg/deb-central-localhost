@@ -1,5 +1,6 @@
 <template>
   <div>
+    RSQL: {{ rsql }}
     <mutation-string-filter></mutation-string-filter>
   </div>
 </template>
@@ -23,7 +24,6 @@ export default {
   created () {
     if (typeof this.$route.query.q !== 'undefined') {
       let URLrsql = this.$route.query.q
-      console.log('URL: ' + URLrsql)
       this.getMutationIdentifiers(URLrsql)
     } else {
       /* Resets filtered identifiers when switched between patients - mutations via menu */
