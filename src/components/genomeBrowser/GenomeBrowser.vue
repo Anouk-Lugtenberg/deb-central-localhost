@@ -1,18 +1,17 @@
 <template>
   <div>
-    <h1>Genome Browser</h1>
-    <a href='http://www.ensembl.org/' id='enslink' target='_newtab'>Link to Ensembl</a>
-    <div id="svgHolder"></div>
+    <div id="dallianceBrowser">Couldn't load Dalliance Browser</div>
   </div>
 </template>
 
 <script>
-import { Browser, Chainset } from '../assets/js/dalliance-all.min'
+import { Browser, Chainset } from './../../assets/js/dalliance-all.min'
 
 export default {
   name: 'GenomeBrowser',
-  created () {
+  mounted () {
     let browser = new Browser({
+      noPersist: true,
       chr: '3',
       viewStart: 48610422,
       viewEnd: 48610522,
@@ -51,14 +50,19 @@ export default {
         label_attr: 'cdnanotation',
         tier_type: 'molgenis',
         uri: 'https://molgenis42.gcc.rug.nl/api/v2/col7a1_Mutations',
-        actions: '[{label:\'show entityreport\',run:\'alert("test")\'}]',
+        actions: '[{' +
+          'label:\'show entityreport\',' +
+          'run:\'alert("test")\'' +
+          '}]',
         track_type: 'VARIANT',
         entity: 'col7a1_Mutations',
         attrs: [
           'ID:Mutation ID',
           'cdnanotation:cDNA change'
         ]
-      }]
+      }],
+      pageName: 'dallianceBrowser',
+      fullScreen: true
     })
     browser.addFeatureInfoPlugin(function (f, info) {
       info.add('Testing', 'This is a test!')

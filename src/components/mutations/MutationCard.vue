@@ -34,8 +34,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import MutationCardInformationContainer from './MutationCardInformationContainer'
-import FieldTypeMutationIdentifier from '../field-types/FieldTypeMutationIdentifier'
-import FieldTypes from '../field-types/FieldTypes'
+import FieldTypeMutationIdentifier from '../fieldTypes/FieldTypeMutationIdentifier'
+import FieldTypes from '../fieldTypes/FieldTypes'
 import { GET_PATIENT_FOR_MUTATION } from '../../store/modules/mutation/actions'
 import { LOOK_UP_ATTRIBUTE_MUTATIONS, MUTATION_TABLE } from '../../store/actions'
 

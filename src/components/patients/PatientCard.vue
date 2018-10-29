@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import FieldTypes from './../field-types/FieldTypes'
-import FieldTypePatientID from './../field-types/FieldTypePatientID'
-import FieldTypePatientMutations from './../field-types/FieldTypePatientMutations'
+import FieldTypes from '../fieldTypes/FieldTypes'
+import FieldTypePatientID from '../fieldTypes/FieldTypePatientID'
+import FieldTypePatientMutations from '../fieldTypes/FieldTypePatientMutations'
 import { mapGetters } from 'vuex'
 import { PATIENT_TABLE, MUTATION_TABLE } from '../../store/actions'
 

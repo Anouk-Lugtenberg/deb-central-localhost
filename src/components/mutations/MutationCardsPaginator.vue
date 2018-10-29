@@ -37,13 +37,15 @@
 import { mapGetters } from 'vuex'
 import MutationCard from './MutationCard'
 import MutationFilterContainer from './filters/MutationFilterContainer'
+import GenomeBrowser from './../genomeBrowser/GenomeBrowser'
 
 export default {
   name: 'MutationCardsPaginator',
   props: ['mutationIdentifiers', 'visibleFields'],
   components: {
     'mutation-card': MutationCard,
-    'mutation-filter-container': MutationFilterContainer
+    'mutation-filter-container': MutationFilterContainer,
+    'genome-browser': GenomeBrowser
   },
   data () {
     return {

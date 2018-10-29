@@ -10,7 +10,7 @@ import CategoricalModel from '../components/models/CategoricalModel'
 import MutationsContainer from './../components/mutations/MutationsContainer'
 import PatientsContainer from './../components/patients/PatientsContainer'
 import NotFound from './../components/NotFound'
-import GenomeBrowser from './../components/GenomeBrowser'
+import GenomeBrowser from '../components/genomeBrowser/GenomeBrowser'
 
 Vue.use(Router)
 

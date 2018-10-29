@@ -16,13 +16,25 @@ export const naturalSort = (arraylist) => {
   return sortedlist
 }
 
-export const getMetadata = (metadata, type) => {
+/**
+ * Helper for setting the metadata fields, there's a distinction between the different tables in the metadata.
+ All metadata fields contain:
+ - fieldType: what kind of field e.g. CATEGORICAL, HREF
+ - label: the label of the field
+ - name: the name of the field
+ - visible: whether the field is visible to the user true/false
+ * @param metadata a json containing the metadata
+ * @param type the type (table name)
+ * @param allFieldsVisible whether all fields are set to true, or only some
+ * @returns {Array} containing the metadata with the four fields described above
+ */
+export const getMetadata = (metadata, type, allFieldsVisible) => {
   let options = VISIBLE_FIELDS[type]
   let listMetadata = []
   metadata.forEach(function (element) {
-    let fieldVisible = false
-    if (options.indexOf(element.name.toUpperCase()) > -1) {
-      fieldVisible = true
+    let fieldVisible = true
+    if (!allFieldsVisible && !(options.indexOf(element.name.toUpperCase()) > -1)) {
+      fieldVisible = false
     }
     /* Compounds exists of other objects, so the objects should be saved as objects from the compound in the metadata */
     if (element.fieldType.includes('COMPOUND')) {

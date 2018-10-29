@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--<genome-browser></genome-browser>-->
     <div v-if="filteredMutationIdentifiers.length > 0">
       <mutation-card-paginator :mutationIdentifiers="filteredMutationIdentifiers" :visibleFields="visibleFields"></mutation-card-paginator>
     </div>
@@ -16,10 +17,12 @@
 import { mapGetters } from 'vuex'
 import MutationCardPaginator from './MutationCardsPaginator'
 import { MUTATION_TABLE } from '../../store/actions'
+import GenomeBrowser from '../genomeBrowser/GenomeBrowser'
 
 export default {
   name: 'MutationCardsContainer',
   components: {
+    GenomeBrowser,
     'mutation-card-paginator': MutationCardPaginator
   },
   data () {

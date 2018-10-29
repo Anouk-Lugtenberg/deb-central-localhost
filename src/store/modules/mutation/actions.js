@@ -36,6 +36,7 @@ export default {
       })
   },
   [GET_FILTERED_MUTATIONS] ({state, commit}, query) {
+    console.log('Query: ' + query)
     if (query.length > 0) {
       api.get(MUTATIONS_API_PATH + '?q=' + query)
         .then(response => response.json())

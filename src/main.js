@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faSearchPlus, faCaretRight, faCaretDown)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-Vue.component('field-types', require('./components/field-types/FieldTypes'))
+Vue.component('field-types', require('./components/fieldTypes/FieldTypes'))
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 

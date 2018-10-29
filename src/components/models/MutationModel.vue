@@ -10,10 +10,10 @@
           </div>
         </b-col>
         <b-col cols="9" v-for="mutationIdentifier in identifiers" :key="mutationIdentifier">
-          <div v-if="mutations[mutationIdentifier]">
+          <div v-if="mutations[mutationIdentifier] && Object.keys(metadata).length > 0">
             <mutation-card :mutationIdentifier="mutationIdentifier"
                            :mutation="mutations[mutationIdentifier]"
-                           :visibleFields="allFieldsVisibleMetadata[mutationTable]">
+                           :visibleFields="metadata[mutationTable]">
             </mutation-card>
           </div>
         </b-col>
@@ -43,13 +43,13 @@ export default {
     }
   },
   created () {
-    /* TODO there's a problem on reloading the page when the URI contains a dot. Ask co-worker. */
+    /* TODO there's a problem on reloading the page when the URI contains a dot. This is a problem with that
+     * connect-history-api-fallback (dev-server.js) sees a dot as a file extension. */
     this.updateIdentifiers()
-    this.setAllFieldsVisible()
   },
   computed: {
     ...mapGetters({
-      metadata: 'getMetadata',
+      metadata: 'getMetadataAllFieldsVisible',
       mutations: 'mutation/getMutations'
     })
   },
@@ -82,17 +82,6 @@ export default {
       } else {
         this.identifiers = this.id
       }
-    },
-    /* Sets all the fields from metadata to visible, so all the information of the mutation is shown in this model */
-    setAllFieldsVisible () {
-      let copyMetadata = this.jsonCopy(this.metadata)
-      copyMetadata[MUTATION_TABLE].forEach(function (field) {
-        field.visible = true
-      })
-      this.allFieldsVisibleMetadata = copyMetadata
-    },
-    jsonCopy (src) {
-      return JSON.parse(JSON.stringify(src))
     }
   }
 }
