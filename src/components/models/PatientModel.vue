@@ -10,10 +10,10 @@
           </div>
         </b-col>
         <b-col cols="9" v-for="patientIdentifier in identifiers" :key="patientIdentifier">
-          <div v-if="patients[patientIdentifier] && Object.keys(metadata).length > 0">
+          <div v-if="patients[patientIdentifier] && Object.keys(metadataAllFieldsVisible).length > 0">
             <patient-card :patientIdentifier="patientIdentifier"
                            :patient="patients[patientIdentifier]"
-                           :visibleFields="metadata[patientTable]">
+                           :visibleFields="metadataAllFieldsVisible[patientTable]">
             </patient-card>
           </div>
         </b-col>
@@ -40,19 +40,15 @@ export default {
       identifiers: [],
       newPatient: '',
       errorPatientNotFound: false,
-      patientTable: PATIENT_TABLE,
-      allFieldsVisibleMetadata: []
+      patientTable: PATIENT_TABLE
     }
   },
   created () {
-    /* TODO there's a problem on reloading the page when the URI contains a dot. This is a problem with that
-     * connect-history-api-fallback (dev-server.js) sees a dot as a file extension. */
-    /* TODO on reload, these methods are executed before metadata is loaded -> leads to no information available. */
     this.updateIdentifiers()
   },
   computed: {
     ...mapGetters({
-      metadata: 'getMetadataAllFieldsVisible',
+      metadataAllFieldsVisible: 'getMetadataAllFieldsVisible',
       patients: 'patients/getPatients'
     })
   },

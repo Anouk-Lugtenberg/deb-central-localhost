@@ -30,6 +30,7 @@ export const VISIBLE_FIELDS = {
   [PATIENT_TABLE]: ['PHENO', 'PUBMEDID']
 }
 
+export const COLUMN_MUTATION_IDENTIFIER_NUMERICAL = 'ID'
 export const COLUMN_MUTATION_ID = 'cdnanotation'
 export const COLUMN_PATIENT_ID = 'PatientID'
 

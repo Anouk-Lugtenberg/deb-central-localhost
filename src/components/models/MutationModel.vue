@@ -1,23 +1,26 @@
 <template>
   <div>
     <b-container class="pt-4">
-      <b-row>
-        <b-col cols="3">
-          <span>Add mutations:</span>
-          <input type="text" v-model.lazy="newMutation">
-          <div v-if="errorMutationNotFound">
-            MUTATION NOT FOUND
-          </div>
-        </b-col>
-        <b-col cols="9" v-for="mutationIdentifier in identifiers" :key="mutationIdentifier">
-          <div v-if="mutations[mutationIdentifier] && Object.keys(metadata).length > 0">
-            <mutation-card :mutationIdentifier="mutationIdentifier"
-                           :mutation="mutations[mutationIdentifier]"
-                           :visibleFields="metadata[mutationTable]">
-            </mutation-card>
-          </div>
-        </b-col>
-      </b-row>
+      <div v-if="identifiers.length > 0">
+        <b-row>
+          <b-col cols="3">
+            <span>Add mutations:</span>
+            <input type="text" v-model.lazy="newMutation">
+            <div v-if="errorMutationNotFound">
+              MUTATION NOT FOUND
+            </div>
+          </b-col>
+          {{ identifiers }}
+          <b-col cols="9" v-for="mutationIdentifier in identifiers" :key="mutationIdentifier">
+            <div v-if="mutations[mutationIdentifier] && Object.keys(metadataAllFieldsVisible).length > 0">
+              <mutation-card :mutationIdentifier="mutationIdentifier"
+                             :mutation="mutations[mutationIdentifier]"
+                             :visibleFields="metadataAllFieldsVisible[mutationTable]">
+              </mutation-card>
+            </div>
+          </b-col>
+        </b-row>
+      </div>
     </b-container>
   </div>
 </template>
@@ -25,7 +28,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import MutationCard from './../mutations/MutationCard'
-import { MUTATION_TABLE } from '../../store/actions'
+import { MUTATION_TABLE, COLUMN_MUTATION_IDENTIFIER_NUMERICAL } from '../../store/actions'
 
 export default {
   name: 'MutationModel',
@@ -35,21 +38,20 @@ export default {
   },
   data () {
     return {
+      numericalIdentifiers: new Set(),
       identifiers: [],
       newMutation: '',
       errorMutationNotFound: false,
-      mutationTable: MUTATION_TABLE,
-      allFieldsVisibleMetadata: []
+      mutationTable: MUTATION_TABLE
     }
   },
   created () {
-    /* TODO there's a problem on reloading the page when the URI contains a dot. This is a problem with that
-     * connect-history-api-fallback (dev-server.js) sees a dot as a file extension. */
     this.updateIdentifiers()
+    this.getMutationIdentifiers()
   },
   computed: {
     ...mapGetters({
-      metadata: 'getMetadataAllFieldsVisible',
+      metadataAllFieldsVisible: 'getMetadataAllFieldsVisible',
       mutations: 'mutation/getMutations'
     })
   },
@@ -57,30 +59,52 @@ export default {
     newMutation: function () {
       if (this.mutations[this.newMutation]) {
         this.errorMutationNotFound = false
-        this.identifiers.push(this.newMutation)
+        this.numericalIdentifiers.add(this.mutations[this.newMutation][COLUMN_MUTATION_IDENTIFIER_NUMERICAL])
         this.createNewRoute()
+        this.getMutationIdentifiers()
       } else {
         this.errorMutationNotFound = true
       }
     },
     id: function () {
       this.updateIdentifiers()
+    },
+    mutations: function () {
+      this.updateIdentifiers()
+      this.getMutationIdentifiers()
     }
   },
   methods: {
     createNewRoute () {
-      let stringIdentifiers = this.identifiers.join('&')
+      let stringIdentifiers = [...this.numericalIdentifiers].join('&')
       this.$router.push('/Mutation/' + stringIdentifiers)
     },
     updateIdentifiers () {
-      this.identifiers = []
+      this.numericalIdentifiers = new Set()
       if (this.id.substring('&')) {
-        let identifiers = this.id.split('&')
-        for (let item in identifiers) {
-          this.identifiers.push(identifiers[item])
+        let singleNumericalIdentifier = this.id.split('&')
+        for (let item in singleNumericalIdentifier) {
+          this.numericalIdentifiers.add(singleNumericalIdentifier[item])
         }
       } else {
-        this.identifiers = this.id
+        this.numericalIdentifiers = this.id
+      }
+    },
+    /*
+    CDNA notation is retrieved, bases on numerical identifier from mutation.
+    This is done, because the router doesn't deal well with URLs containing a dot, and dots are found in CDNA notation.
+     */
+    getMutationIdentifiers () {
+      this.identifiers = []
+      for (let identifier in this.mutations) {
+        if (!this.mutations.hasOwnProperty(identifier)) continue
+        let mutationIdentifier = this.mutations[identifier][COLUMN_MUTATION_IDENTIFIER_NUMERICAL]
+        if (this.numericalIdentifiers.has(mutationIdentifier)) {
+          this.identifiers.push(identifier)
+        }
+        // if (this.numericalIdentifiers.indexOf(mutationIdentifier) > -1) {
+        //   this.identifiers.push(identifier)
+        // }
       }
     }
   }
