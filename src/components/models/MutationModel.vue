@@ -1,5 +1,6 @@
 <template>
   <div>
+    ID: {{ id }}
     <b-container class="pt-4">
       <div v-if="identifiers.length > 0">
         <b-row>
@@ -10,7 +11,6 @@
               MUTATION NOT FOUND
             </div>
           </b-col>
-          {{ identifiers }}
           <b-col cols="9" v-for="mutationIdentifier in identifiers" :key="mutationIdentifier">
             <div v-if="mutations[mutationIdentifier] && Object.keys(metadataAllFieldsVisible).length > 0">
               <mutation-card :mutationIdentifier="mutationIdentifier"
@@ -68,6 +68,7 @@ export default {
     },
     id: function () {
       this.updateIdentifiers()
+      this.getMutationIdentifiers()
     },
     mutations: function () {
       this.updateIdentifiers()

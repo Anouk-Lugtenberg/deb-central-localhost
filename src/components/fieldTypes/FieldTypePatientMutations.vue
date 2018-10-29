@@ -5,7 +5,7 @@
         <tr v-for="(mutation, index) in mutations" :key="index">
           <td class="bold mutation-id">
             Mutation:
-            <router-link :to="{name: 'Mutation', params: {id: mutation}}">
+            <router-link :to="{name: 'Mutation', params: {id: allMutations[mutation][columnMutationIdentifierNumerical]}}">
               {{ mutation }}
             </router-link>
           </td>
@@ -18,20 +18,20 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { LOOK_UP_ATTRIBUTE_MUTATIONS } from '../../store/actions'
+import { LOOK_UP_ATTRIBUTE_MUTATIONS, COLUMN_MUTATION_IDENTIFIER_NUMERICAL } from '../../store/actions'
 
 export default {
   name: 'FieldTypePatientMutations',
   props: ['listMutationsPerPatient', 'entity'],
   data () {
     return {
-      mutations: []
+      mutations: [],
+      columnMutationIdentifierNumerical: COLUMN_MUTATION_IDENTIFIER_NUMERICAL
     }
   },
   computed: {
     ...mapGetters({
-      allMutations: 'mutation/getMutations',
-      listLinkMutationCDNA: 'mutation/getMutationIDCDNALink'
+      allMutations: 'mutation/getMutations'
     })
   },
   watch: {
