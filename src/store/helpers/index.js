@@ -1,5 +1,4 @@
 import { transformToRSQL } from '@molgenis/rsql'
-// import { flatten } from 'lodash'
 import { VISIBLE_FIELDS } from '../actions'
 
 // Example search query

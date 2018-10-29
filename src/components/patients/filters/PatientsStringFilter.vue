@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { SET_SEARCH } from '../../../store/mutations'
+import { SET_SEARCH_PATIENTS } from '../../../store/modules/patients/mutations'
 export default {
   name: 'PatientsStringFilter',
   data () {
@@ -15,7 +15,7 @@ export default {
   },
   watch: {
     search: function () {
-      this.$store.commit(SET_SEARCH, this.search)
+      this.$store.commit('patients/' + SET_SEARCH_PATIENTS, this.search)
     }
   }
 }

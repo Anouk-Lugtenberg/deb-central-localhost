@@ -3,5 +3,6 @@ export default {
   patients: {},
   allIdentifiersPatients: [],
   totalPatients: '',
-  filteredPatientsIdentifiers: []
+  filteredPatientsIdentifiers: [],
+  search: ''
 }

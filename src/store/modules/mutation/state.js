@@ -7,5 +7,6 @@ export default {
   identifiers: undefined,
   mutationDetails: {},
   patientsPerMutation: {},
-  filterGroupInformation: {}
+  filterGroupInformation: {},
+  search: ''
 }

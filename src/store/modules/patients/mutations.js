@@ -5,6 +5,7 @@ import {COLUMN_PATIENT_ID} from '../../actions'
 export const SET_TOTAL_PATIENTS = '__SET_TOTAL_PATIENTS__'
 export const SET_ALL_PATIENTS = '__SET_ALL_PATIENTS__'
 export const SET_PATIENT_INFORMATION_PATIENT_ID = '__SET_PATIENT_INFORMATION_PATIENT_ID__'
+export const SET_SEARCH_PATIENTS = '__SET_SEARCH_PATIENTS__'
 export const SET_FILTERED_PATIENTS = '__SET_FILTERED_PATIENTS__'
 
 const filterKeys = (obj, filter) => {
@@ -47,6 +48,9 @@ export default {
   },
   [SET_PATIENT_INFORMATION_PATIENT_ID] (state, [id, information]) {
     Vue.set(state.informationPatients, id, information)
+  },
+  [SET_SEARCH_PATIENTS] (state, search) {
+    state.search = search
   },
   [SET_FILTERED_PATIENTS] (state, patients) {
     let filteredIdentifiers = []

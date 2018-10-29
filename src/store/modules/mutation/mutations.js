@@ -8,6 +8,7 @@ import {
 export const SET_ALL_MUTATIONS = '__SET_ALL_MUTATIONS__'
 export const SET_TOTAL_MUTATIONS = '__SET_TOTAL_MUTATIONS__'
 export const SET_PATIENT_FOR_MUTATION = '__SET_PATIENT_FOR_MUTATION__'
+export const SET_SEARCH_MUTATION = '__SET_SEARCH_MUTATION__'
 export const SET_FILTERED_MUTATIONS = '__SET_FILTERED_MUTATIONS__'
 export const SET_FILTER_GROUP_INFORMATION = '__SET_FILTER_GROUP_INFORMATION__'
 
@@ -31,6 +32,9 @@ export default {
       patients.push(information[patient][COLUMN_PATIENT_ID])
     })
     Vue.set(state.patientsPerMutation, id, naturalSort(patients))
+  },
+  [SET_SEARCH_MUTATION] (state, search) {
+    state.search = search
   },
   [SET_FILTERED_MUTATIONS] (state, mutations) {
     let filteredIdentifiers = []

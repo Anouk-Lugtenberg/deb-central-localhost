@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { SET_SEARCH } from '../../../store/mutations'
+import { SET_SEARCH_MUTATION } from '../../../store/modules/mutation/mutations'
 
 export default {
   name: 'MutationStringFilter',
@@ -16,7 +16,7 @@ export default {
   },
   watch: {
     search: function () {
-      this.$store.commit(SET_SEARCH, this.search)
+      this.$store.commit('mutation/' + SET_SEARCH_MUTATION, this.search)
     }
   }
 }

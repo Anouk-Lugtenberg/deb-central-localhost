@@ -2,7 +2,7 @@
   <div>
     RSQL: {{ rsql }}
     <mutation-string-filter></mutation-string-filter>
-    <mutation-checkbox-filters></mutation-checkbox-filters>
+    <!--<mutation-checkbox-filters></mutation-checkbox-filters>-->
   </div>
 </template>
 
@@ -11,7 +11,6 @@ import MutationStringFilter from './MutationStringFilter'
 import MutationCheckboxFilters from './MutationCheckboxFilters'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_MUTATIONS } from '../../../store/modules/mutation/actions'
-import { SET_SEARCH } from '../../../store/mutations'
 
 export default {
   name: 'MutationFilterContainer',
@@ -21,17 +20,15 @@ export default {
     'mutation-checkbox-filters': MutationCheckboxFilters
   },
   computed: {
-    ...mapGetters(['rsql'])
+    ...mapGetters({
+      rsql: 'mutation/rsqlMutation'
+    })
   },
   /* Checks if search query is available in URL on creation, if yes -> use this Query to filter mutations */
   created () {
     if (typeof this.$route.query.q !== 'undefined') {
       let URLrsql = this.$route.query.q
       this.getMutationIdentifiers(URLrsql)
-    } else {
-      /* Resets filtered identifiers when switched between patients - mutations via menu */
-      this.getMutationIdentifiers('')
-      this.$store.commit(SET_SEARCH, '')
     }
   },
   watch: {

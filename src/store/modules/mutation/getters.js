@@ -1,3 +1,5 @@
+import { createRSQLQuery } from '../../helpers'
+
 export default {
   getMutations: state => state.mutations,
   getTotalMutations: state => state.totalMutations,
@@ -6,5 +8,6 @@ export default {
   getMutationDetails: state => state.mutationDetails,
   getPatientsPerMutation: state => state.patientsPerMutation,
   getMutationIDCDNALink: state => state.mutationIDCDNALink,
-  getFilteredGroupInformation: state => state.filterGroupInformation
+  getFilteredGroupInformation: state => state.filterGroupInformation,
+  rsqlMutation: createRSQLQuery
 }
