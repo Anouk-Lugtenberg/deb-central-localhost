@@ -8,9 +8,21 @@
 </template>
 
 <script>
+import { SET_FILTERS_CHECKBOX } from '../../../store/modules/mutation/mutations'
+
 export default {
   name: 'MutationSingleCheckboxFilterGroup',
-  props: ['singleCheckboxInformation']
+  props: ['singleCheckboxInformation'],
+  computed: {
+    filter () {
+      return this.singleCheckboxInformation.activeFilter
+    }
+  },
+  watch: {
+    filter () {
+      this.$store.commit('mutation/' + SET_FILTERS_CHECKBOX)
+    }
+  }
 }
 </script>
 

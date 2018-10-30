@@ -8,11 +8,13 @@ import store from './store'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import lodash from 'lodash'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSearchPlus, faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faSearchPlus, faCaretRight, faCaretDown)
+// Object.defineProperty(Vue.prototype, '$lodash', { value: lodash })
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('field-types', require('./components/fieldTypes/FieldTypes'))
 Vue.use(BootstrapVue)

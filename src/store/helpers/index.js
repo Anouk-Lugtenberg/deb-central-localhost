@@ -1,15 +1,38 @@
 import { transformToRSQL } from '@molgenis/rsql'
 import { VISIBLE_FIELDS } from '../actions'
+import flattenDeep from 'lodash/flattenDeep'
 
 // Example search query
 // ?q=ntchange=in=(%27a%27,%20%27at%27);event=in=(%27insertion%27);*=q=159
 
 export const createRSQLQuery = (state) => transformToRSQL({
   operator: 'AND',
-  operands:
-    state.search ? ['*']
-    .map(attr => ({selector: attr, comparison: '=q=', arguments: state.search})) : []
+  operands: flattenDeep([
+    state.activeFiltersCheckbox,
+    state.search ? [{
+      operator: 'OR',
+      operands: ['*'].map(attr => ({selector: attr, comparison: '=q=', arguments: state.search}))
+    }] : []
+  ])
 })
+
+export const createActiveFilterQueries = (attribute, filters) => {
+  let activeFilters = []
+  Object.keys(filters).map(function (filter) {
+    if (filters[filter].activeFilter === true) {
+      activeFilters.push(filters[filter].name)
+    }
+  })
+  return createInQuery(attribute, activeFilters)
+}
+/**
+ * Create an RSQL 'in' query for filters
+ * @example in query for event filter
+ * event=in=(complex, deletion)
+ */
+export const createInQuery = (attribute, filters) => filters.length > 0
+  ? [{selector: attribute, comparison: '=in=', arguments: filters}]
+  : []
 
 export const naturalSort = (arraylist) => {
   let collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'})

@@ -9,5 +9,7 @@ export default {
   getPatientsPerMutation: state => state.patientsPerMutation,
   getMutationIDCDNALink: state => state.mutationIDCDNALink,
   getFilteredGroupInformation: state => state.filterGroupInformation,
+  getStringSearch: state => state.stringSearch,
+  getActiveFiltersCheckbox: state => state.activeFiltersCheckbox,
   rsqlMutation: createRSQLQuery
 }

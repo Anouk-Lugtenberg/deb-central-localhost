@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ filteredGroupInformation }}
     <div v-if="metadata[mutationTable]">
       <div v-for="property in metadata[mutationTable]">
         <div v-if="property.fieldType === 'CATEGORICAL'">

@@ -8,9 +8,10 @@
 import { SET_SEARCH_PATIENTS } from '../../../store/modules/patients/mutations'
 export default {
   name: 'PatientsStringFilter',
+  props: ['rsqlQuery'],
   data () {
     return {
-      search: ''
+      search: this.rsqlQuery
     }
   },
   watch: {

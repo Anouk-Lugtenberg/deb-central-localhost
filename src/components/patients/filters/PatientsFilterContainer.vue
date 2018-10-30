@@ -1,6 +1,6 @@
 <template>
   <div>
-    <patients-string-filter></patients-string-filter>
+    <patients-string-filter :rsqlQuery="rsqlQuery"></patients-string-filter>
   </div>
 </template>
 
@@ -8,10 +8,16 @@
 import PatientsStringFilter from './PatientsStringFilter'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_PATIENTS } from '../../../store/modules/patients/actions'
+import { SET_SEARCH_PATIENTS } from '../../../store/modules/patients/mutations'
 
 export default {
   name: 'PatientsFilterContainer',
   props: ['pageNumber'],
+  data () {
+    return {
+      rsqlQuery: ''
+    }
+  },
   components: {
     'patients-string-filter': PatientsStringFilter
   },
@@ -24,7 +30,11 @@ export default {
   created () {
     if (typeof this.$route.query.q !== 'undefined') {
       let URLrsql = this.$route.query.q
+      this.rsqlQuery = URLrsql.split('=').pop()
       this.getPatientIdentifiers(URLrsql)
+      /* Resets the filters if there's no query available in the URL */
+    } else {
+      this.$store.commit('patients/' + SET_SEARCH_PATIENTS, '')
     }
   },
   watch: {
