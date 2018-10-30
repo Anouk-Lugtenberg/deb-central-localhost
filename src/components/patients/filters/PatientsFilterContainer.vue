@@ -1,25 +1,31 @@
 <template>
   <div>
+    RSQL: {{ rsqlQuery }}
     <patients-string-filter :rsqlQuery="rsqlQuery"></patients-string-filter>
+    <checkbox-filters :table="patientTable"></checkbox-filters>
   </div>
 </template>
 
 <script>
 import PatientsStringFilter from './PatientsStringFilter'
+import CheckboxFilters from './../../filters/CheckboxFilters'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_PATIENTS } from '../../../store/modules/patients/actions'
 import { SET_SEARCH_PATIENTS } from '../../../store/modules/patients/mutations'
+import { PATIENT_TABLE } from '../../../store/actions'
 
 export default {
   name: 'PatientsFilterContainer',
   props: ['pageNumber'],
   data () {
     return {
-      rsqlQuery: ''
+      rsqlQuery: '',
+      patientTable: PATIENT_TABLE
     }
   },
   components: {
-    'patients-string-filter': PatientsStringFilter
+    'patients-string-filter': PatientsStringFilter,
+    'checkbox-filters': CheckboxFilters
   },
   computed: {
     ...mapGetters({

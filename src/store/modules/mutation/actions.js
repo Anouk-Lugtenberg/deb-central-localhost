@@ -3,6 +3,7 @@ import {
   SET_ALL_MUTATIONS,
   SET_TOTAL_MUTATIONS,
   SET_PATIENT_FOR_MUTATION,
+  SET_MUTATIONS_FILTER_ACTIVE,
   SET_FILTERED_MUTATIONS,
   SET_FILTER_GROUP_INFORMATION
 } from './mutations'
@@ -39,12 +40,14 @@ export default {
   },
   [GET_FILTERED_MUTATIONS] ({state, commit}, query) {
     if (query.length > 0) {
+      commit(SET_MUTATIONS_FILTER_ACTIVE, true)
       api.get(MUTATIONS_API_PATH + '?q=' + query + '&start=0&num=10000')
         .then(response => response.json())
         .then(response => {
           commit(SET_FILTERED_MUTATIONS, response.items)
         })
     } else {
+      commit(SET_MUTATIONS_FILTER_ACTIVE, false)
       commit(SET_FILTERED_MUTATIONS, [])
     }
   },

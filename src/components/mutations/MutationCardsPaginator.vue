@@ -14,10 +14,17 @@
         <mutation-filter-container :pageNumber="currentPage"></mutation-filter-container>
       </b-col>
       <b-col sm="9">
-        <div v-for="identifier in mutationIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="identifier">
-          <mutation-card :mutationIdentifier="identifier"
-                         :mutation="mutations[identifier]"
-                         :visibleFields="visibleFields"></mutation-card>
+        <div v-if="mutationIdentifiers.length > 0">
+          <div v-for="identifier in mutationIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="identifier">
+            <mutation-card :mutationIdentifier="identifier"
+                           :mutation="mutations[identifier]"
+                           :visibleFields="visibleFields"></mutation-card>
+          </div>
+        </div>
+        <div v-else>
+          <b-card class="no-mutations-found">
+            No mutations found with these filters
+          </b-card>
         </div>
       </b-col>
     </b-row>
@@ -97,5 +104,9 @@ export default {
 <style scoped>
 .top-row-container {
   margin-top: 1rem;
+}
+.no-mutations-found {
+  color: #dc3545;
+  text-align: center;
 }
 </style>

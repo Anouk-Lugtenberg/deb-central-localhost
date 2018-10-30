@@ -1,34 +1,41 @@
 <template>
-  <div>
-    RSQL: {{ rsqlQuery }}
+  <b-card header-tag="header" header-bg-variant="light" class="rounded-0" no-body>
+    <div slot="header" class="text-center">
+      <span class="title-filters">
+        Filters
+      </span>
+    </div>
     <mutation-string-filter :rsqlQuery="rsqlQuery"></mutation-string-filter>
-    <mutation-checkbox-filters></mutation-checkbox-filters>
-  </div>
+    <checkbox-filters :table="mutationTable"></checkbox-filters>
+  </b-card>
 </template>
 
 <script>
 import MutationStringFilter from './MutationStringFilter'
-import MutationCheckboxFilters from './MutationCheckboxFilters'
+import CheckboxFilters from '../../filters/CheckboxFilters'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_MUTATIONS } from '../../../store/modules/mutation/actions'
 import { SET_SEARCH_MUTATION } from '../../../store/modules/mutation/mutations'
+import { MUTATION_TABLE } from '../../../store/actions'
 
 export default {
   name: 'MutationFilterContainer',
   props: ['pageNumber'],
   data () {
     return {
-      rsqlQuery: ''
+      rsqlQuery: '',
+      mutationTable: MUTATION_TABLE
     }
   },
   components: {
     'mutation-string-filter': MutationStringFilter,
-    'mutation-checkbox-filters': MutationCheckboxFilters
+    'checkbox-filters': CheckboxFilters
   },
   computed: {
     ...mapGetters({
       rsql: 'mutation/rsqlMutation',
-      activeFilters: 'mutation/getActiveFiltersCheckbox'
+      activeFilters: 'mutation/getActiveFiltersCheckbox',
+      mutationsFiltersActive: 'mutation/getMutationsFiltersActive'
     })
   },
   /* Checks if search query is available in URL on creation, if yes -> use this Query to filter mutations */
@@ -85,4 +92,10 @@ export default {
 </script>
 
 <style scoped>
+.title-filters {
+  font-size: 20px;
+  font-weight: bold;
+  color: #4497be;
+
+}
 </style>

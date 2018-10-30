@@ -5,6 +5,7 @@ import {
 
 /* ACTION CONSTANTS */
 export const GET_METADATA = '__GET_METADATA__'
+export const GET_FILTER_GROUP_INFORMATION = '__GET_FILTER_GROUP_INFORMATION__'
 
 /* Variables between different databases */
 /* API paths */
@@ -28,6 +29,11 @@ on loading the page - should be in UPPERCASE, and same as 'name' field from meta
 export const VISIBLE_FIELDS = {
   [MUTATION_TABLE]: ['AANOTATION', 'EXON', 'CONSEQUENCE', 'POS'],
   [PATIENT_TABLE]: ['PHENO', 'PUBMEDID']
+}
+
+export const VISIBLE_FILTERS = {
+  [MUTATION_TABLE]: ['CONSEQUENCE'],
+  [PATIENT_TABLE]: ['LOCATION']
 }
 
 export const COLUMN_MUTATION_IDENTIFIER_NUMERICAL = 'ID'

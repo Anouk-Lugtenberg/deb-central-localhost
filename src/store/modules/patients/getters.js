@@ -6,5 +6,6 @@ export default {
   getAllIdentifiersPatients: state => state.allIdentifiersPatients,
   getTotalPatients: state => state.totalPatients,
   getFilteredPatientsIdentifiers: state => state.filteredPatientsIdentifiers,
-  rsqlPatients: createRSQLQuery
+  rsqlPatients: createRSQLQuery,
+  getStringSearch: state => state.stringSearch
 }

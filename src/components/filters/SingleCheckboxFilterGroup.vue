@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import { SET_FILTERS_CHECKBOX } from '../../../store/modules/mutation/mutations'
+import { SET_FILTERS_CHECKBOX } from '../../store/modules/mutation/mutations'
 
 export default {
-  name: 'MutationSingleCheckboxFilterGroup',
+  name: 'SingleCheckboxFilterGroup',
   props: ['singleCheckboxInformation'],
   computed: {
     filter () {

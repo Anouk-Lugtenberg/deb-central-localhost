@@ -50,6 +50,8 @@ export default {
     Vue.set(state.informationPatients, id, information)
   },
   [SET_SEARCH_PATIENTS] (state, search) {
+    console.log('Search patients: ' + search)
+    state.stringSearch = search
     state.search = search
   },
   [SET_FILTERED_PATIENTS] (state, patients) {

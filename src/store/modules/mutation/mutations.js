@@ -9,6 +9,7 @@ export const SET_ALL_MUTATIONS = '__SET_ALL_MUTATIONS__'
 export const SET_TOTAL_MUTATIONS = '__SET_TOTAL_MUTATIONS__'
 export const SET_PATIENT_FOR_MUTATION = '__SET_PATIENT_FOR_MUTATION__'
 export const SET_SEARCH_MUTATION = '__SET_SEARCH_MUTATION__'
+export const SET_MUTATIONS_FILTER_ACTIVE = '__SET_MUTATION_FILTER_ACTIVE__'
 export const SET_FILTERS_CHECKBOX = '__SET_FILTERS_CHECKBOX__'
 export const SET_FILTERED_MUTATIONS = '__SET_FILTERED_MUTATIONS__'
 export const SET_FILTER_GROUP_INFORMATION = '__SET_FILTER_GROUP_INFORMATION__'
@@ -38,9 +39,14 @@ export default {
     state.stringSearch = search
     state.search = search
   },
+  [SET_MUTATIONS_FILTER_ACTIVE] (state, boolean) {
+    state.mutationsFiltersActive = boolean
+  },
   [SET_FILTERS_CHECKBOX] (state) {
+    console.log('SETTING FILTERS')
     let activeFilters = []
     Object.keys(state.filterGroupInformation).map(function (attribute) {
+      console.log('Filter group information: ' + state.filterGroupInformation)
       activeFilters.push(createActiveFilterQueries(attribute, state.filterGroupInformation[attribute]))
     })
     console.log('Active filters: ' + activeFilters)
@@ -71,5 +77,15 @@ export default {
       }
     })
     Vue.set(state.filterGroupInformation, name, filterList)
+  },
+  [SET_FILTERS_CHECKBOX] (state) {
+    console.log('SETTING FILTERS')
+    let activeFilters = []
+    Object.keys(state.filterGroupInformation).map(function (attribute) {
+      console.log('Filter group information: ' + state.filterGroupInformation)
+      activeFilters.push(createActiveFilterQueries(attribute, state.filterGroupInformation[attribute]))
+    })
+    console.log('Active filters: ' + activeFilters)
+    state.activeFiltersCheckbox = activeFilters
   }
 }

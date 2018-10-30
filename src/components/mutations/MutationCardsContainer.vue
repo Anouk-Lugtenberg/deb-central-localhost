@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--<genome-browser></genome-browser>-->
-    <div v-if="filteredMutationIdentifiers.length > 0">
+    <div v-if="mutationsFiltersActive">
       <mutation-card-paginator :mutationIdentifiers="filteredMutationIdentifiers" :visibleFields="visibleFields"></mutation-card-paginator>
     </div>
     <div v-else-if="allIdentifiersMutation.length !== 0">
@@ -34,6 +34,7 @@ export default {
     ...mapGetters({
       allIdentifiersMutation: 'mutation/getAllMutationIdentifiers',
       filteredMutationIdentifiers: 'mutation/getFilteredMutationIdentifiers',
+      mutationsFiltersActive: 'mutation/getMutationsFiltersActive',
       metadata: 'getMetadata'
     }),
     visibleFields: function () {

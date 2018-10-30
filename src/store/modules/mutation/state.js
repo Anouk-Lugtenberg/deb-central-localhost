@@ -7,8 +7,9 @@ export default {
   identifiers: undefined,
   mutationDetails: {},
   patientsPerMutation: {},
-  filterGroupInformation: {},
-  activeFiltersCheckbox: [],
+  mutationsFiltersActive: false,
   search: '',
-  stringSearch: ''
+  stringSearch: '',
+  filterGroupInformation: {},
+  activeFiltersCheckbox: []
 }

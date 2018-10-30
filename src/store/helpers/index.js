@@ -1,5 +1,5 @@
 import { transformToRSQL } from '@molgenis/rsql'
-import { VISIBLE_FIELDS } from '../actions'
+import { VISIBLE_FIELDS, VISIBLE_FILTERS } from '../actions'
 import flattenDeep from 'lodash/flattenDeep'
 
 // Example search query
@@ -50,6 +50,8 @@ export const naturalSort = (arraylist) => {
  - label: the label of the field
  - name: the name of the field
  - visible: whether the field is visible to the user true/false
+ Some metadata fields contain:
+ - href: this is set when field is an entity with references, so this field can be used as filter
  * @param metadata a json containing the metadata
  * @param type the type (table name)
  * @param allFieldsVisible whether all fields are set to true, or only some
@@ -57,6 +59,7 @@ export const naturalSort = (arraylist) => {
  */
 export const getMetadata = (metadata, type, allFieldsVisible) => {
   let options = VISIBLE_FIELDS[type]
+  let filters = VISIBLE_FILTERS[type]
   let listMetadata = []
   metadata.forEach(function (element) {
     let fieldVisible = true
@@ -68,10 +71,10 @@ export const getMetadata = (metadata, type, allFieldsVisible) => {
       let listCompoundAttributes = []
       Object.keys(element.attributes).map(function (compound) {
         /*
-        Adds href to metadata object when nested metadata of type COMPOUND is of field CATEGORICAL.
-        This is used to determine the filters for the CATEGORICAL fields.
+        Adds href to metadata object when nested metadata of type COMPOUND is in VISIBLE_FILTERS list.
+        This is used to determine the filters.
          */
-        if (element.attributes[compound]['fieldType'].includes('CATEGORICAL')) {
+        if (filters.includes(element.attributes[compound]['name'].toUpperCase())) {
           listCompoundAttributes.push({
             'name': element.attributes[compound]['name'],
             'label': element.attributes[compound]['label'],
@@ -94,10 +97,10 @@ export const getMetadata = (metadata, type, allFieldsVisible) => {
         'attributes': listCompoundAttributes
       })
       /*
-      Adds href field to metadata if field is of type CATEGORICAL
+      Adds href field to metadata if field is in VISIBLE_FILTERS list
       This is used to determine filter categories
        */
-    } else if (element.fieldType.includes('CATEGORICAL')) {
+    } else if (filters.includes(element.name.toUpperCase())) {
       listMetadata.push({
         'name': element.name,
         'label': element.label,

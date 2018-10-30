@@ -4,5 +4,7 @@ export default {
   allIdentifiersPatients: [],
   totalPatients: '',
   filteredPatientsIdentifiers: [],
-  search: ''
+  search: '',
+  stringSearch: '',
+  activeFiltersCheckbox: []
 }
