@@ -1,7 +1,7 @@
 /**
  * VARIABLES CHD7 DATABASE
  */
-/* API paths */
+// /* API paths */
 // export const MUTATIONS_API_PATH = '/api/v2/aaaaczwj26wwl6w3nzb5kyyaae'
 // export const PATIENTS_API_PATH = '/api/v2/aaaaczwj3f7yf6w3nzb5kyyaai'
 //

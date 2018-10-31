@@ -1,5 +1,5 @@
 import { transformToRSQL } from '@molgenis/rsql'
-import { VISIBLE_FIELDS, VISIBLE_FILTERS } from '../config'
+import { VISIBLE_FIELDS, VISIBLE_FILTERS, MUTATION_COLUMNS_FOR_PATIENT } from '../config'
 import flattenDeep from 'lodash/flattenDeep'
 
 // Example search query
@@ -123,7 +123,7 @@ export const getMetadata = (metadata, type, allFieldsVisible) => {
       })
       /* Mutations are saved differently for patients (and are always shown),
       so they shouldn't be saved in the metadata */
-    } else if (element.name !== 'cDNAchange1' && element.name !== 'cDNAchange2') {
+    } else if (!(MUTATION_COLUMNS_FOR_PATIENT.includes(element.name))) {
       listMetadata.push({
         'name': element.name,
         'label': element.label,

@@ -1,9 +1,8 @@
 <template>
   <div>
-    <b-nav-item v-b-modal.settingsModal>
-      Settings
       <b-modal id="settingsModal"
-               ref="settingsModal">
+               ref="settingsModal"
+               v-model="modalVisible">
         <div slot="modal-title">
           Settings
         </div>
@@ -26,7 +25,6 @@
           </b-btn>
         </div>
       </b-modal>
-    </b-nav-item>
   </div>
 </template>
 
@@ -39,10 +37,24 @@ export default {
   components: {
     'settings': Settings
   },
+  props: ['showModal'],
   computed: {
     ...mapGetters({
       metadata: 'getMetadata'
     })
+  },
+  data () {
+    return {
+      modalVisible: false
+    }
+  },
+  watch: {
+    showModal: function () {
+      this.modalVisible = this.showModal
+    },
+    modalVisible: function () {
+      this.$emit('setVisibility', this.modalVisible)
+    }
   },
   methods: {
     hideModal () {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container class="pt-4">
+    <b-container class="margin-model-top">
       <div v-if="identifiers.length > 0">
         <b-row>
           <b-col cols="3">
@@ -112,5 +112,8 @@ export default {
 <style scoped>
 .mutation-not-found {
   color: #dc3545;
+}
+.margin-model-top {
+  margin-top: 70px;
 }
 </style>

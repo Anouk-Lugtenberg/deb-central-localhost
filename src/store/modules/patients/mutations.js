@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { naturalSort } from '../../helpers'
-import { COLUMN_PATIENT_ID } from '../../config'
+import { COLUMN_PATIENT_ID, MUTATION_COLUMNS_FOR_PATIENT } from '../../config'
 
 export const SET_TOTAL_PATIENTS = '__SET_TOTAL_PATIENTS__'
 export const SET_ALL_PATIENTS = '__SET_ALL_PATIENTS__'
@@ -24,11 +24,11 @@ export default {
     let identifiers = []
     Object.keys(patients).map(function (key) {
       let mutations = []
-      /* TODO Regex works only for deb-central.org and is hard-coded */
       /* This saves the mutations per patients as object 'mutations' and the rest of the information as 'information'.
       Done because the information about the mutations is treated differently by the program.
        */
-      let filteredKeys = filterKeys(patients[key], /cDNAchange/)
+      let regexFromArray = new RegExp(MUTATION_COLUMNS_FOR_PATIENT.join('|'))
+      let filteredKeys = filterKeys(patients[key], regexFromArray)
       filteredKeys.forEach(function (element) {
         if (patients[key][element]) {
           mutations.push(patients[key][element])

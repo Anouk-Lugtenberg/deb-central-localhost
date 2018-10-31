@@ -1,5 +1,5 @@
 <template>
-  <b-card header-tag="header" header-bg-variant="light" class="rounded-0" no-body>
+  <b-card header-tag="header" header-bg-variant="light" class="rounded-1" no-body>
     <div slot="header" class="text-center">
       <span class="title-filters">
         Filters
@@ -96,6 +96,5 @@ export default {
   font-size: 20px;
   font-weight: bold;
   color: #4497be;
-
 }
 </style>

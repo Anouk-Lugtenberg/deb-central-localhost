@@ -12,8 +12,9 @@
         <b-nav-item :to="'/GenomeBrowser'">Genome Browser</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
-        <b-nav-item>
-          <settings-modal></settings-modal>
+        <b-nav-item @click="showModal = !showModal">
+          Settings
+          <settings-modal v-on:setVisibility="setVisibilityModal" :showModal="showModal"></settings-modal>
         </b-nav-item>
       </b-navbar-nav>
     </b-navbar>
@@ -27,6 +28,16 @@ export default {
   name: 'PageHeader',
   components: {
     'settings-modal': SettingsModal
+  },
+  data () {
+    return {
+      showModal: false
+    }
+  },
+  methods: {
+    setVisibilityModal (isVisible) {
+      this.showModal = isVisible
+    }
   }
 }
 </script>

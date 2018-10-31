@@ -36,7 +36,8 @@ export default {
     MUTATION_COLUMNS_FOR_PATIENT.forEach(function (column) {
       query.push(createInQueryPatientsPerMutation(column, mutation))
     })
-    api.get(PATIENTS_API_PATH + '?q=' + createRSQLQueryPatientsPerMutation(query))
+    /* '+' is not handled right in the URL, so it's converted to '%2B' */
+    api.get(PATIENTS_API_PATH + '?q=' + createRSQLQueryPatientsPerMutation(query).replace(new RegExp('\\+', 'g'), '%2B'))
       .then(response => response.json())
       .then(response => {
         commit(SET_PATIENT_FOR_MUTATION, [id, response.items])

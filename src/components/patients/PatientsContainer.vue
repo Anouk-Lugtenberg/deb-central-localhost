@@ -1,10 +1,8 @@
 <template>
   <div>
-    <b-container>
-      <patient-cards-container>
-        <router-view></router-view>
-      </patient-cards-container>
-    </b-container>
+    <patient-cards-container>
+      <router-view></router-view>
+    </patient-cards-container>
   </div>
 </template>
 

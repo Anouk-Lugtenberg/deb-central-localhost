@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <input type="text" v-model.lazy="search">
+  <div class="search-field ml-1 mr-1 mt-3">
+    <input type="text" placeholder="Search data values" v-model.lazy="search">
   </div>
 </template>
 
@@ -24,5 +24,10 @@ export default {
 </script>
 
 <style scoped>
-
+  input {
+    width: 100%;
+  }
+  .search-field {
+    text-align: center;
+  }
 </style>

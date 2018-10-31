@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container class="pt-4">
+    <b-container class="margin-model-top">
       <b-row>
         <b-col sm="3">
           <span>Add patients:</span>
@@ -91,5 +91,8 @@ export default {
 <style scoped>
 .patient-not-found {
   color: #dc3545;
+}
+.margin-model-top {
+  margin-top: 70px;
 }
 </style>

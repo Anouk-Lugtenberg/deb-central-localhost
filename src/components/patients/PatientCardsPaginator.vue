@@ -1,19 +1,19 @@
 <template>
   <div>
     <b-row class="top-row-container">
-      <b-col sm="3">
+      <b-col md="3">
       </b-col>
-      <b-col sm="9">
+      <b-col md="9">
     <b-pagination-nav :use-router="true" size="md" :link-gen="linkGenerator" align="center"
                       :number-of-pages="totalPages" v-model="currentPage">
     </b-pagination-nav>
       </b-col>
     </b-row>
     <b-row>
-      <b-col sm="3">
+      <b-col md="3">
         <patients-filter-container :pageNumber="currentPage"></patients-filter-container>
       </b-col>
-      <b-col sm="9">
+      <b-col md="9">
         <div v-for="identifier in patientIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="identifier">
           <patient-card :patientIdentifier="identifier" :patient="patients[identifier]" :visibleFields="visibleFields"></patient-card>
         </div>

@@ -1,9 +1,7 @@
 <template>
-  <b-container>
-    <mutation-cards-container>
-      <router-view></router-view>
-    </mutation-cards-container>
-  </b-container>
+  <mutation-cards-container>
+    <router-view></router-view>
+  </mutation-cards-container>
 </template>
 
 <script>

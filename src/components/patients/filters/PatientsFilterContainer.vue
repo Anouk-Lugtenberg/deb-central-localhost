@@ -1,9 +1,13 @@
 <template>
-  <div>
-    RSQL: {{ rsqlQuery }}
+  <b-card header-tag="header" header-bg-variant="light" class="rounded-1" no-body>
+    <div slot="header" class="text-center">
+      <span class="title-filters">
+        Filters
+      </span>
+    </div>
     <patients-string-filter :rsqlQuery="rsqlQuery"></patients-string-filter>
     <checkbox-filters :table="patientTable"></checkbox-filters>
-  </div>
+  </b-card>
 </template>
 
 <script>
@@ -86,4 +90,9 @@ export default {
 </script>
 
 <style scoped>
+  .title-filters {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4497be;
+  }
 </style>

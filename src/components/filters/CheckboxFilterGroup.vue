@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-card class="mt-2">
+    <b-card class="mt-2 ml-1 mr-1 mb-1">
       <div @click="toggleCollapse =! toggleCollapse" class="clickable">
         <span v-if="toggleCollapse">
           <font-awesome-icon icon="caret-down" class="fa-icon"></font-awesome-icon>
