@@ -10,7 +10,7 @@ import {
 import {
   MUTATIONS_API_PATH,
   PATIENTS_API_PATH
-} from '../../actions'
+} from '../../config'
 
 /* Action constants */
 export const GET_FILTERED_MUTATIONS = '__GET_FILTERED_MUTATIONS__'

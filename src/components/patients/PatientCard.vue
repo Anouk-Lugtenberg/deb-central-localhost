@@ -27,7 +27,7 @@ import FieldTypes from '../fieldTypes/FieldTypes'
 import FieldTypePatientID from '../fieldTypes/FieldTypePatientID'
 import FieldTypePatientMutations from '../fieldTypes/FieldTypePatientMutations'
 import { mapGetters } from 'vuex'
-import { PATIENT_TABLE, MUTATION_TABLE } from '../../store/actions'
+import { PATIENT_TABLE, MUTATION_TABLE } from '../../store/config'
 
 export default {
   name: 'PatientCard',

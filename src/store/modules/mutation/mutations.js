@@ -3,7 +3,7 @@ import { naturalSort } from '../../helpers'
 import {
   COLUMN_MUTATION_ID,
   COLUMN_PATIENT_ID
-} from '../../actions'
+} from '../../config'
 
 export const SET_ALL_MUTATIONS = '__SET_ALL_MUTATIONS__'
 export const SET_TOTAL_MUTATIONS = '__SET_TOTAL_MUTATIONS__'

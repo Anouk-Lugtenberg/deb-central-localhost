@@ -18,7 +18,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { LOOK_UP_ATTRIBUTE_MUTATIONS, COLUMN_MUTATION_IDENTIFIER_NUMERICAL } from '../../store/actions'
+import { LOOK_UP_ATTRIBUTE_MUTATIONS, COLUMN_MUTATION_IDENTIFIER_NUMERICAL } from '../../store/config'
 
 export default {
   name: 'FieldTypePatientMutations',

@@ -12,7 +12,7 @@ import CheckboxFilters from './../../filters/CheckboxFilters'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_PATIENTS } from '../../../store/modules/patients/actions'
 import { SET_SEARCH_PATIENTS } from '../../../store/modules/patients/mutations'
-import { PATIENT_TABLE } from '../../../store/actions'
+import { PATIENT_TABLE } from '../../../store/config'
 
 export default {
   name: 'PatientsFilterContainer',

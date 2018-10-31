@@ -14,7 +14,7 @@
 
 <script>
 import PatientCardsPaginator from './PatientCardsPaginator'
-import { PATIENT_TABLE } from '../../store/actions'
+import { PATIENT_TABLE } from '../../store/config'
 import { mapGetters } from 'vuex'
 
 export default {

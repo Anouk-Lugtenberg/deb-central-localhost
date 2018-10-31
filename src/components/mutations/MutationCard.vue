@@ -37,7 +37,7 @@ import MutationCardInformationContainer from './MutationCardInformationContainer
 import FieldTypeMutationIdentifier from '../fieldTypes/FieldTypeMutationIdentifier'
 import FieldTypes from '../fieldTypes/FieldTypes'
 import { GET_PATIENT_FOR_MUTATION } from '../../store/modules/mutation/actions'
-import { LOOK_UP_ATTRIBUTE_MUTATIONS, MUTATION_TABLE } from '../../store/actions'
+import { LOOK_UP_ATTRIBUTE_MUTATIONS, MUTATION_TABLE } from '../../store/config'
 
 export default {
   name: 'MutationCard',

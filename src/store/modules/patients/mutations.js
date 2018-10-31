@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { naturalSort } from '../../helpers'
-import {COLUMN_PATIENT_ID} from '../../actions'
+import { COLUMN_PATIENT_ID } from '../../config'
 
 export const SET_TOTAL_PATIENTS = '__SET_TOTAL_PATIENTS__'
 export const SET_ALL_PATIENTS = '__SET_ALL_PATIENTS__'

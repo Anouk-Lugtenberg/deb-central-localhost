@@ -29,7 +29,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import MutationCard from './../mutations/MutationCard'
-import { MUTATION_TABLE, COLUMN_MUTATION_IDENTIFIER_NUMERICAL } from '../../store/actions'
+import { MUTATION_TABLE, COLUMN_MUTATION_IDENTIFIER_NUMERICAL } from '../../store/config'
 
 export default {
   name: 'MutationModel',

@@ -8,7 +8,7 @@ import {
 /* API paths */
 import {
   PATIENTS_API_PATH
-} from '../../actions'
+} from '../../config'
 
 export const GET_PATIENTS_INFORMATION_PATIENT_ID = '__GET_PATIENTS_INFORMATION_PATIENT_ID__'
 export const GET_ALL_PATIENTS = '__GET_ALL_PATIENTS__'

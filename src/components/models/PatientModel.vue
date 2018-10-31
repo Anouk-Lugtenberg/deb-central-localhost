@@ -27,7 +27,7 @@
 <script>
 import FieldTypes from '../fieldTypes/FieldTypes'
 import PatientCard from '../patients/PatientCard'
-import { PATIENT_TABLE } from '../../store/actions'
+import { PATIENT_TABLE } from '../../store/config'
 import { mapGetters } from 'vuex'
 
 export default {

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { COLUMN_MUTATION_IDENTIFIER_NUMERICAL } from '../../store/actions'
+import { COLUMN_MUTATION_IDENTIFIER_NUMERICAL } from '../../store/config'
 
 export default {
   name: 'FieldTypeMutationIdentifier',

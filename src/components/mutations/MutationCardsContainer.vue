@@ -16,7 +16,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import MutationCardPaginator from './MutationCardsPaginator'
-import { MUTATION_TABLE } from '../../store/actions'
+import { MUTATION_TABLE } from '../../store/config'
 import GenomeBrowser from '../genomeBrowser/GenomeBrowser'
 
 export default {

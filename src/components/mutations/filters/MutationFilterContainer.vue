@@ -16,7 +16,7 @@ import CheckboxFilters from '../../filters/CheckboxFilters'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_MUTATIONS } from '../../../store/modules/mutation/actions'
 import { SET_SEARCH_MUTATION } from '../../../store/modules/mutation/mutations'
-import { MUTATION_TABLE } from '../../../store/actions'
+import { MUTATION_TABLE } from '../../../store/config'
 
 export default {
   name: 'MutationFilterContainer',
