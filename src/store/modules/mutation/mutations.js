@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { naturalSort } from '../../helpers'
 import {
-  COLUMN_MUTATION_ID,
+  COLUMN_MUTATION_CDNANOTATION,
   COLUMN_PATIENT_ID
 } from '../../config'
 
@@ -17,9 +17,9 @@ export default {
   [SET_ALL_MUTATIONS] (state, mutations) {
     let identifiers = []
     Object.keys(mutations).map(function (key) {
-      identifiers.push(mutations[key][COLUMN_MUTATION_ID])
+      identifiers.push(mutations[key][COLUMN_MUTATION_CDNANOTATION])
       Vue.set(state.mutations,
-        mutations[key][COLUMN_MUTATION_ID],
+        mutations[key][COLUMN_MUTATION_CDNANOTATION],
         mutations[key])
     })
     state.allMutationIdentifiers = naturalSort(identifiers)
@@ -44,7 +44,7 @@ export default {
   [SET_FILTERED_MUTATIONS] (state, mutations) {
     let filteredIdentifiers = []
     Object.keys(mutations).map(function (key) {
-      filteredIdentifiers.push(mutations[key][COLUMN_MUTATION_ID])
+      filteredIdentifiers.push(mutations[key][COLUMN_MUTATION_CDNANOTATION])
     })
     state.filteredMutationIdentifiers = filteredIdentifiers
   },

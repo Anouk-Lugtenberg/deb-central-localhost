@@ -9,8 +9,10 @@ import {
 /* API paths */
 import {
   MUTATIONS_API_PATH,
-  PATIENTS_API_PATH
+  PATIENTS_API_PATH,
+  MUTATION_COLUMNS_FOR_PATIENT
 } from '../../config'
+import { createInQueryPatientsPerMutation, createRSQLQueryPatientsPerMutation } from '../../helpers'
 
 /* Action constants */
 export const GET_FILTERED_MUTATIONS = '__GET_FILTERED_MUTATIONS__'
@@ -30,7 +32,11 @@ export default {
       })
   },
   [GET_PATIENT_FOR_MUTATION] ({commit}, [id, mutation]) {
-    api.get(PATIENTS_API_PATH + '?q=cDNAchange1=="' + mutation + '",cDNAchange2=="' + mutation + '"')
+    let query = []
+    MUTATION_COLUMNS_FOR_PATIENT.forEach(function (column) {
+      query.push(createInQueryPatientsPerMutation(column, mutation))
+    })
+    api.get(PATIENTS_API_PATH + '?q=' + createRSQLQueryPatientsPerMutation(query))
       .then(response => response.json())
       .then(response => {
         commit(SET_PATIENT_FOR_MUTATION, [id, response.items])

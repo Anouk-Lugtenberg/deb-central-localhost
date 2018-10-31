@@ -15,7 +15,7 @@
       </b-col>
       <b-col sm="9">
         <div v-if="mutationIdentifiers.length > 0">
-          <div v-for="identifier in mutationIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="identifier">
+          <div v-for="(identifier, index) in mutationIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="index">
             <mutation-card :mutationIdentifier="identifier"
                            :mutation="mutations[identifier]"
                            :visibleFields="visibleFields"></mutation-card>
