@@ -11,9 +11,13 @@
         {{ filterGroup.label }}
       </div>
       <b-collapse v-model="toggleCollapse" id="collapsed">
-        <div v-if="filteredGroupInformation[filterGroup.name]">
-          <div v-for="singleInformation in filteredGroupInformation[filterGroup.name]">
-            <single-checkbox-filter-group :singleCheckboxInformation="singleInformation"></single-checkbox-filter-group>
+        <div v-if="Object.keys(filteredGroupInformation).length > 0">
+          <div v-if="filteredGroupInformation[table]">
+            <div v-if="filteredGroupInformation[table][filterGroup.name]">
+              <div v-for="singleInformation in filteredGroupInformation[table][filterGroup.name]">
+                <single-checkbox-filter-group :singleCheckboxInformation="singleInformation"></single-checkbox-filter-group>
+              </div>
+            </div>
           </div>
         </div>
       </b-collapse>
@@ -23,12 +27,12 @@
 
 <script>
 import SingleCheckboxFilterGroup from './SingleCheckboxFilterGroup'
-import { GET_FILTER_GROUP_INFORMATION } from '../../store/modules/mutation/actions'
+import { GET_FILTER_GROUP_INFORMATION } from '../../store/actions'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'CheckboxFilterGroup',
-  props: ['filterGroup'],
+  props: ['filterGroup', 'table'],
   data () {
     return {
       toggleCollapse: false
@@ -39,12 +43,12 @@ export default {
   },
   computed: {
     ...mapGetters({
-      filteredGroupInformation: 'mutation/getFilteredGroupInformation'
+      filteredGroupInformation: 'getFilteredGroupInformation'
     })
   },
   created () {
     if (!(this.filteredGroupInformation.hasOwnProperty(this.filterGroup.name))) {
-      this.$store.dispatch('mutation/' + GET_FILTER_GROUP_INFORMATION, [this.filterGroup.name, this.filterGroup.href])
+      this.$store.dispatch(GET_FILTER_GROUP_INFORMATION, [this.table, this.filterGroup.name, this.filterGroup.href])
     }
   }
 }

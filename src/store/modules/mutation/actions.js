@@ -4,8 +4,7 @@ import {
   SET_TOTAL_MUTATIONS,
   SET_PATIENT_FOR_MUTATION,
   SET_MUTATIONS_FILTER_ACTIVE,
-  SET_FILTERED_MUTATIONS,
-  SET_FILTER_GROUP_INFORMATION
+  SET_FILTERED_MUTATIONS
 } from './mutations'
 /* API paths */
 import {
@@ -17,7 +16,6 @@ import {
 export const GET_FILTERED_MUTATIONS = '__GET_FILTERED_MUTATIONS__'
 export const GET_ALL_MUTATIONS = '__GET_ALL_MUTATIONS__'
 export const GET_PATIENT_FOR_MUTATION = '__GET_PATIENT_FOR_MUTATION__'
-export const GET_FILTER_GROUP_INFORMATION = '__GET_FILTER_GROUP_INFORMATION__'
 
 export default {
   [GET_ALL_MUTATIONS] ({commit}) {
@@ -50,13 +48,5 @@ export default {
       commit(SET_MUTATIONS_FILTER_ACTIVE, false)
       commit(SET_FILTERED_MUTATIONS, [])
     }
-  },
-  [GET_FILTER_GROUP_INFORMATION] ({commit}, [name, href]) {
-    console.log('GET FILTERS STARTED')
-    api.get(href)
-      .then(response => response.json())
-      .then(response => {
-        commit(SET_FILTER_GROUP_INFORMATION, [name, response])
-      })
   }
 }

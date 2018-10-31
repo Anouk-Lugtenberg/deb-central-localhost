@@ -3,12 +3,12 @@
     <div v-if="metadata[table]">
       <div v-for="property in metadata[table]">
         <div v-if="property.hasOwnProperty('href')">
-          <checkbox-filter-group :filterGroup="property"></checkbox-filter-group>
+          <checkbox-filter-group :filterGroup="property" :table="table"></checkbox-filter-group>
         </div>
         <div v-else-if="property.fieldType === 'COMPOUND'">
           <div v-for="nestedProperty in property.attributes">
             <div v-if="nestedProperty.hasOwnProperty('href')">
-              <checkbox-filter-group :filterGroup="nestedProperty"></checkbox-filter-group>
+              <checkbox-filter-group :filterGroup="nestedProperty" :table="table"></checkbox-filter-group>
             </div>
           </div>
         </div>

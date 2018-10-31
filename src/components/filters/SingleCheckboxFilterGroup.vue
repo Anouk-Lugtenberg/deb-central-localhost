@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { SET_FILTERS_CHECKBOX } from '../../store/modules/mutation/mutations'
+import { SET_FILTERS_CHECKBOX } from '../../store/actions'
 
 export default {
   name: 'SingleCheckboxFilterGroup',
@@ -20,7 +20,7 @@ export default {
   },
   watch: {
     filter () {
-      this.$store.commit('mutation/' + SET_FILTERS_CHECKBOX)
+      this.$store.dispatch(SET_FILTERS_CHECKBOX)
     }
   }
 }

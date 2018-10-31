@@ -48,6 +48,7 @@ export default {
       this.createRoute()
     },
     rsql () {
+      this.rsqlQuery = this.rsql
       this.createRoute()
       this.getPatientIdentifiers(this.rsql)
     }

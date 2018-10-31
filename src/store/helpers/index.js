@@ -60,6 +60,7 @@ export const naturalSort = (arraylist) => {
 export const getMetadata = (metadata, type, allFieldsVisible) => {
   let options = VISIBLE_FIELDS[type]
   let filters = VISIBLE_FILTERS[type]
+  console.log('Filters: ' + filters)
   let listMetadata = []
   metadata.forEach(function (element) {
     let fieldVisible = true
@@ -75,6 +76,7 @@ export const getMetadata = (metadata, type, allFieldsVisible) => {
         This is used to determine the filters.
          */
         if (filters.includes(element.attributes[compound]['name'].toUpperCase())) {
+          console.log('Visible filters has: ' + element.attributes[compound]['name'])
           listCompoundAttributes.push({
             'name': element.attributes[compound]['name'],
             'label': element.attributes[compound]['label'],
@@ -101,6 +103,7 @@ export const getMetadata = (metadata, type, allFieldsVisible) => {
       This is used to determine filter categories
        */
     } else if (filters.includes(element.name.toUpperCase())) {
+      console.log('IS FILTER: ' + element.name)
       listMetadata.push({
         'name': element.name,
         'label': element.label,

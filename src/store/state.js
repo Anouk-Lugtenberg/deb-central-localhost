@@ -1,4 +1,5 @@
 export default {
   metadata: {},
-  metadataAllFieldsVisible: {}
+  metadataAllFieldsVisible: {},
+  filterGroupInformation: {}
 }
