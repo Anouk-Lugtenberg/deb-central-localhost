@@ -19,9 +19,15 @@
         </div>
       </b-col>
     </b-row>
-    <b-pagination-nav :use-router="true" size="md" :link-gen="linkGenerator" align="center"
-                      :number-of-pages="totalPages" v-model="currentPage">
-    </b-pagination-nav>
+    <b-row>
+      <b-col md="3">
+      </b-col>
+      <b-col md="9">
+        <b-pagination-nav :use-router="true" size="md" :link-gen="linkGenerator" align="center"
+                          :number-of-pages="totalPages" v-model="currentPage">
+        </b-pagination-nav>
+      </b-col>
+    </b-row>
   </div>
 </template>
 

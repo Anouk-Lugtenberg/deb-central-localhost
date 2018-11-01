@@ -46,6 +46,7 @@ export default {
   [GET_FILTERED_MUTATIONS] ({state, commit}, query) {
     if (query.length > 0) {
       commit(SET_MUTATIONS_FILTER_ACTIVE, true)
+      console.log('Query: ' + query)
       api.get(MUTATIONS_API_PATH + '?q=' + query + '&start=0&num=10000')
         .then(response => response.json())
         .then(response => {
