@@ -1,13 +1,18 @@
 <template>
   <div>
     <div v-if="property.fieldType === 'COMPOUND'">
-      <field-type-compound :information="information" :property="property" :entity="entity"></field-type-compound>
+      <field-type-compound :information="information" :property="property" :entity="entity"
+                           :showPropertyName="showPropertyName"></field-type-compound>
     </div>
     <div v-else-if="typeof singleInformation !== 'undefined'">
-      <field-type-xref v-if="property.fieldType === 'XREF'" :information="information" :property="property" :entity="entity"></field-type-xref>
-      <field-type-mref v-else-if="property.fieldType === 'MREF'" :information="information" :property="property" :entity="entity"></field-type-mref>
-      <field-type-categorical v-else-if="property.fieldType === 'CATEGORICAL'" :information="information" :property="property" :entity="entity"></field-type-categorical>
-      <field-type-other v-else :information="information" :property="property"></field-type-other>
+      <field-type-xref v-if="property.fieldType === 'XREF'" :information="information" :property="property" :entity="entity"
+                       :showPropertyName="showPropertyName"></field-type-xref>
+      <field-type-mref v-else-if="property.fieldType === 'MREF'" :information="information" :property="property" :entity="entity"
+                       :showPropertyName="showPropertyName"></field-type-mref>
+      <field-type-categorical v-else-if="property.fieldType === 'CATEGORICAL'" :information="information" :property="property" :entity="entity"
+                              :showPropertyName="showPropertyName"></field-type-categorical>
+      <field-type-other v-else :information="information" :property="property"
+                        :showPropertyName="showPropertyName"></field-type-other>
     </div>
     <div v-else>
       {{ property.label }}: N/A
@@ -24,7 +29,22 @@ import FieldTypeOther from './FieldTypeOther'
 
 export default {
   name: 'FieldTypes',
-  props: ['property', 'information', 'entity', 'showPropertyName'],
+  props: {
+    property: {
+      type: Object
+    },
+    information: {
+      type: Object
+    },
+    entity: {
+      type: String
+    },
+    showPropertyName: {
+      default: true,
+      type: Boolean
+    }
+  },
+  // props: ['property', 'information', 'entity', 'showPropertyName'],
   components: {
     'field-type-xref': FieldTypeXREF,
     'field-type-mref': FieldTypeMREF,

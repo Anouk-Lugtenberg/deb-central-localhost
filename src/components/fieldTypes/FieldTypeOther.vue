@@ -1,13 +1,16 @@
 <template>
   <div>
-    {{ property.label }}: {{ information[property.name] }}
+    <span v-if="showPropertyName">
+      {{ property.label }}:
+    </span>
+    {{ information[property.name] }}
   </div>
 </template>
 
 <script>
 export default {
   name: 'FieldTypeOther',
-  props: ['information', 'property']
+  props: ['information', 'property', 'showPropertyName']
 }
 </script>
 

@@ -1,18 +1,19 @@
 <template>
   <div>
-    <div v-if="attribute === 'N/A'">
-      {{ label }}: {{ attribute }}
-    </div>
-    <div v-else>
-      {{ label }}: <router-link :to="{name: 'XREF', params: {name: name, attribute: attribute, entity: entity}}">{{ attribute }}</router-link>
-    </div>
+    <span v-if="showPropertyName">{{ label }}: </span>
+    <span v-if="attribute === 'N/A'">
+      {{ attribute }}
+    </span>
+    <span v-else>
+      <router-link :to="{name: 'XREF', params: {name: name, attribute: attribute, entity: entity}}">{{ attribute }}</router-link>
+    </span>
   </div>
 </template>
 
 <script>
 export default {
   name: 'FieldTypeXREF',
-  props: ['information', 'property', 'entity'],
+  props: ['information', 'property', 'entity', 'showPropertyName'],
   data: function () {
     return {
       name: this.property.name,

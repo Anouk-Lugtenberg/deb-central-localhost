@@ -1,18 +1,19 @@
 <template>
   <div>
-    <div v-if="attribute.includes('N/A')">
-      {{ label }}: N/A
-    </div>
-    <div v-else>
-      {{ label }}: <router-link :to="{name: 'MREF', params: {label: label, attribute: attribute, entity: entity}}">{{ attribute }}</router-link>
-    </div>
+    <span v-if="showPropertyName">{{ label }}: </span>
+    <span v-if="attribute.includes('N/A')">
+      N/A
+    </span>
+    <span v-else>
+      <router-link :to="{name: 'MREF', params: {label: label, attribute: attribute, entity: entity}}">{{ attribute }}</router-link>
+    </span>
   </div>
 </template>
 
 <script>
 export default {
   name: 'FieldTypeMREF',
-  props: ['property', 'information', 'entity'],
+  props: ['property', 'information', 'entity', 'showPropertyName'],
   data () {
     return {
       label: this.property.label,

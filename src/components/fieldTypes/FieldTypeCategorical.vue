@@ -1,13 +1,14 @@
 <template>
   <div>
-    {{ label }}: <router-link :to="{name: 'CATEGORICAL', params: {name: name, attribute: attribute, entity: entity}}">{{ attribute }}</router-link>
+    <span v-if="showPropertyName">{{ label }}: </span>
+     <router-link :to="{name: 'CATEGORICAL', params: {name: name, attribute: attribute, entity: entity}}">{{ attribute }}</router-link>
   </div>
 </template>
 
 <script>
 export default {
   name: 'FieldTypeCategorical',
-  props: ['information', 'property', 'entity'],
+  props: ['information', 'property', 'entity', 'showPropertyName'],
   data () {
     return {
       name: this.property.name,
