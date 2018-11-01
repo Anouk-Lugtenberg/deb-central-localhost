@@ -3,11 +3,11 @@
     <b-tabs>
       <b-tab v-for="(patient, i) in tabList" @click="current = i" :class="{current:i === current}" :title="patient" :key="i">
         <div v-if="Object.keys(patients).length > 0">
-          <div v-if="listAllPatients[tabList[current]]" class="information-mutations">
+          <div v-if="listAllPatients[tabList[current]]" class="information-mutations pt-1">
             <field-type-patient-mutations :listMutationsPerPatient="listAllPatients[tabList[current]]['mutations'] "
                                           :entity="patientTable"></field-type-patient-mutations>
             <router-link :to="{name: 'Patient', params: {id: patient}}">
-              <b-button variant="outline-primary">Details for {{ patient }}</b-button>
+              Show details for {{ patient }}
             </router-link>
             <b-row>
               <b-col cols="6" v-for="property in visibleFields" :key="property.name">

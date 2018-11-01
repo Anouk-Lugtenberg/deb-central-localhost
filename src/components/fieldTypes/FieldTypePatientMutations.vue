@@ -2,22 +2,18 @@
   <div>
     <div v-if="mutations.length > 0">
       <table class="mutation-table pure-table pure-table-horizontal">
-        <tr v-for="(mutation, index) in mutations" :key="index">
-          <!--<th class="bold mutation-id">Mutation</th>-->
-          <!--<th v-for="column in visibleColumnsMutationPatientsCard">{{ column }}</th>-->
-          <td class="bold mutation-id">
-            Mutation:
+        <b-row v-for="(mutation, index) in mutations" :key="index">
+          <b-col cols="3" class="bold">
             <router-link :to="{name: 'Mutation', params: {id: allMutations[mutation][columnMutationIdentifierNumerical]}}">
               {{ mutation }}
             </router-link>
-          </td>
-          <!--{{ metadataColumnsMutations}}-->
-          <td v-for="column in metadataColumnsMutations[mutationTable]">
-            <!--{{ column }}-->
-            <field-types :property="column" :information="allMutations[mutation]" :entity="mutationTable"
-                         :showPropertyName="false"></field-types>
-          </td>
-        </tr>
+          </b-col>
+          <b-col v-for="(column, index) in metadataColumnsMutations[mutationTable]" class="mutation-information"
+                 :key="index">
+              <field-types :property="column" :information="allMutations[mutation]" :entity="mutationTable"
+                           :showPropertyName="false"></field-types>
+          </b-col>
+        </b-row>
       </table>
     </div>
     <div class="line"></div>
@@ -55,7 +51,7 @@ export default {
       this.getMutationsForPatientID()
     }
   },
-  created () {
+  created: function () {
     this.getMutationsForPatientID()
   },
   methods: {
@@ -107,5 +103,8 @@ export default {
     align-content: center;
     border-bottom: 1px solid #afc3cc;
     margin: 5px auto 10px auto;
+  }
+  .other-column {
+    width: 400px;
   }
 </style>

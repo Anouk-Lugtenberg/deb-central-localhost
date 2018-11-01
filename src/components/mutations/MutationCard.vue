@@ -1,16 +1,22 @@
 <template>
   <div>
-    <b-card header-tag="header" header-bg-variant="light" class="shadow rounded card mb-2">
-      <div slot="header">
-        <span>
-          <font-awesome-icon icon="search-plus" class="fa-icon" v-on:click="changeExpansion()"></font-awesome-icon>
-          <span class="title-mutation">
-            <field-type-mutation-id :mutation="mutation" :mutationIdentifier="mutationIdentifier">{{ mutationIdentifier }}</field-type-mutation-id>
-          </span>
-        </span>
-      </div>
+    <b-card header-tag="header" header-bg-variant="light" no-body class="shadow rounded card mb-2">
+      <!--<div slot="header">-->
+        <!--<span>-->
+          <!--<font-awesome-icon icon="search-plus" class="fa-icon" v-on:click="changeExpansion()"></font-awesome-icon>-->
+          <!--<span class="title-mutation">-->
+            <!--<field-type-mutation-id :mutation="mutation" :mutationIdentifier="mutationIdentifier">{{ mutationIdentifier }}</field-type-mutation-id>-->
+          <!--</span>-->
+        <!--</span>-->
+      <!--</div>-->
       <div class="card-text">
         <b-container>
+          <span>
+            <font-awesome-icon icon="search-plus" class="fa-icon" v-on:click="changeExpansion()"></font-awesome-icon>
+            <span class="title-mutation">
+              <field-type-mutation-id :mutation="mutation" :mutationIdentifier="mutationIdentifier">{{ mutationIdentifier }}</field-type-mutation-id>
+            </span>
+            </span>
           <b-row>
             <b-col cols="6" v-for="property in visibleFields" :key="property.name">
               <field-types :property="property" :information="mutation" :entity="mutationTable"></field-types>

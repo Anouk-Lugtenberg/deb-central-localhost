@@ -1,15 +1,18 @@
 <template>
-  <b-card header-tag="header" header-bg-variant="light" class="shadow rounded card mb-2">
-    <div slot="header">
-    <span>
-      <span class="title-patient">
-        <field-type-patient-id :patient="patient" :patientIdentifier="patientIdentifier">{{ patientIdentifier }}</field-type-patient-id>
-      </span>
-    </span>
-    </div>
+  <b-card header-tag="header" header-bg-variant="light" no-body class="shadow rounded card mb-2">
+    <!--<div slot="header">-->
+    <!--<span>-->
+      <!--<div class="title-patient">-->
+        <!--<field-type-patient-id :patient="patient" :patientIdentifier="patientIdentifier">{{ patientIdentifier }}</field-type-patient-id>-->
+      <!--</div>-->
+    <!--</span>-->
+    <!--</div>-->
     <div class="card-text">
       <b-container bg-variant="white">
-      <field-type-patient-mutations :listMutationsPerPatient="patient['mutations']" :entity="mutationTable"></field-type-patient-mutations>
+        <div class="title-patient">
+          <field-type-patient-id :patient="patient" :patientIdentifier="patientIdentifier">{{ patientIdentifier }}</field-type-patient-id>
+        </div>
+        <field-type-patient-mutations :listMutationsPerPatient="patient['mutations']" :entity="mutationTable"></field-type-patient-mutations>
         <b-row>
           <b-col cols="6" class="extra-information-patient" v-for="property in visibleFields" :key="property.name">
             <div v-if="property.visible">
