@@ -24,7 +24,7 @@ import FieldTypeOther from './FieldTypeOther'
 
 export default {
   name: 'FieldTypes',
-  props: ['property', 'information', 'entity'],
+  props: ['property', 'information', 'entity', 'showPropertyName'],
   components: {
     'field-type-xref': FieldTypeXREF,
     'field-type-mref': FieldTypeMREF,

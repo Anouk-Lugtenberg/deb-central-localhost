@@ -139,7 +139,8 @@ export const getMetadataColumnsMutations = (metadata) => {
   let listMetadata = []
   metadata.forEach(function (element) {
     if (VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD.includes(element.name.toUpperCase())) {
-      listMetadata.push(element.name, {
+      listMetadata.push({
+        'name': element.name,
         'label': element.label,
         'fieldType': element.fieldType
       })
