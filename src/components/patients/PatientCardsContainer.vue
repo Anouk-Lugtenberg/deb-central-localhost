@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="filteredIdentifiersPatients.length > 0">
+    <div v-if="patientsFiltersActive">
       <patient-cards-paginator :patientIdentifiers="filteredIdentifiersPatients" :visibleFields="visibleFields"></patient-cards-paginator>
     </div>
     <div v-else-if="allIdentifiersPatients.length > 0">
@@ -26,7 +26,8 @@ export default {
     ...mapGetters({
       allIdentifiersPatients: 'patients/getAllIdentifiersPatients',
       filteredIdentifiersPatients: 'patients/getFilteredPatientsIdentifiers',
-      metadata: 'getMetadata'
+      metadata: 'getMetadata',
+      patientsFiltersActive: 'patients/getPatientsFilterActive'
     }),
     visibleFields: function () {
       let visibleFields = []

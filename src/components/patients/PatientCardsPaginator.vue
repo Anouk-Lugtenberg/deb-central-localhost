@@ -14,8 +14,18 @@
         <patients-filter-container :pageNumber="currentPage"></patients-filter-container>
       </b-col>
       <b-col md="9">
-        <div v-for="identifier in patientIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="identifier">
-          <patient-card :patientIdentifier="identifier" :patient="patients[identifier]" :visibleFields="visibleFields"></patient-card>
+        <div v-if="patientsSearching">
+          Searching patients...
+        </div>
+        <div v-else-if="patientIdentifiers.length > 0">
+          <div v-for="identifier in patientIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="identifier">
+            <patient-card :patientIdentifier="identifier" :patient="patients[identifier]" :visibleFields="visibleFields"></patient-card>
+          </div>
+        </div>
+        <div v-else>
+          <b-card class="no-patients-found">
+            No patients found with these filters
+          </b-card>
         </div>
       </b-col>
     </b-row>
@@ -52,7 +62,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      patients: 'patients/getPatients'
+      patients: 'patients/getPatients',
+      patientsSearching: 'patients/getPatientsSearching'
     })
   },
   watch: {
@@ -93,5 +104,9 @@ export default {
 <style scoped>
 .top-row-container {
   margin-top: 1rem;
+}
+.no-patients-found {
+  color: #dc3545;
+  text-align: center;
 }
 </style>

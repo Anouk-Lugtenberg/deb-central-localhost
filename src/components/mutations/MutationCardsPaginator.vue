@@ -14,7 +14,10 @@
         <mutation-filter-container :pageNumber="currentPage"></mutation-filter-container>
       </b-col>
       <b-col sm="9">
-        <div v-if="mutationIdentifiers.length > 0">
+        <div v-if="mutationsSearching">
+          Searching mutations...
+        </div>
+        <div v-else-if="mutationIdentifiers.length > 0">
           <div v-for="(identifier, index) in mutationIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="index">
             <mutation-card :mutationIdentifier="identifier"
                            :mutation="mutations[identifier]"
@@ -63,7 +66,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      mutations: 'mutation/getMutations'
+      mutations: 'mutation/getMutations',
+      mutationsSearching: 'mutation/getMutationsSearching'
     })
   },
   watch: {

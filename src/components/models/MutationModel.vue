@@ -15,7 +15,8 @@
               <div v-if="mutations[mutationIdentifier] && Object.keys(metadataAllFieldsVisible).length > 0">
                 <mutation-card :mutationIdentifier="mutationIdentifier"
                                :mutation="mutations[mutationIdentifier]"
-                               :visibleFields="metadataAllFieldsVisible[mutationTable]">
+                               :visibleFields="metadataAllFieldsVisible[mutationTable]"
+                               :expanded="true">
                 </mutation-card>
               </div>
             </div>

@@ -8,6 +8,8 @@ export const SET_PATIENT_INFORMATION_PATIENT_ID = '__SET_PATIENT_INFORMATION_PAT
 export const SET_SEARCH_PATIENTS = '__SET_SEARCH_PATIENTS__'
 export const SET_FILTERED_PATIENTS = '__SET_FILTERED_PATIENTS__'
 export const SET_ACTIVE_FILTERS_PATIENTS = '__SET_ACTIVE_FILTERS_PATIENTS__'
+export const SET_PATIENTS_FILTER_ACTIVE = '__SET_PATIENTS_FILTER_ACTIVE__'
+export const SET_PATIENTS_SEARCHING = '__SET_PATIENTS_SEARCHING__'
 
 const filterKeys = (obj, filter) => {
   let keys = []
@@ -60,8 +62,15 @@ export default {
       filteredIdentifiers.push(patients[key][COLUMN_PATIENT_ID])
     })
     state.filteredPatientsIdentifiers = filteredIdentifiers
+    state.patientsSearching = false
   },
   [SET_ACTIVE_FILTERS_PATIENTS] (state, filters) {
     state.activeFiltersCheckbox = filters
+  },
+  [SET_PATIENTS_FILTER_ACTIVE] (state, boolean) {
+    state.patientsFilterActive = boolean
+  },
+  [SET_PATIENTS_SEARCHING] (state, boolean) {
+    state.patientsSearching = boolean
   }
 }

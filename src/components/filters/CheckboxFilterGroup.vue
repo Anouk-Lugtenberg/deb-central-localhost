@@ -14,8 +14,17 @@
         <div v-if="Object.keys(filteredGroupInformation).length > 0">
           <div v-if="filteredGroupInformation[table]">
             <div v-if="filteredGroupInformation[table][filterGroup.name]">
-              <div v-for="singleInformation in filteredGroupInformation[table][filterGroup.name]">
+              <div v-for="singleInformation in filteredGroupInformation[table][filterGroup.name].slice(0, 10)">
                 <single-checkbox-filter-group :singleCheckboxInformation="singleInformation"></single-checkbox-filter-group>
+              </div>
+              <b-collapse v-model="showAllFilters" id="collapsedFilters">
+                <div v-for="singleInformation in filteredGroupInformation[table][filterGroup.name].slice(10)">
+                  <single-checkbox-filter-group :singleCheckboxInformation="singleInformation"></single-checkbox-filter-group>
+                </div>
+              </b-collapse>
+              <div @click="showAllFilters = !showAllFilters" class="show-more-filters">
+                <div v-if="showAllFilters">Show less</div>
+                <div v-else>Show more</div>
               </div>
             </div>
           </div>
@@ -35,7 +44,8 @@ export default {
   props: ['filterGroup', 'table'],
   data () {
     return {
-      toggleCollapse: false
+      toggleCollapse: false,
+      showAllFilters: false
     }
   },
   components: {
@@ -61,5 +71,11 @@ export default {
   span {
     display: inline-block;
     width: 10px;
+  }
+  .show-more-filters {
+    font-size: 14px;
+    text-align: right;
+    cursor: pointer;
+    font-weight: bold;
   }
 </style>

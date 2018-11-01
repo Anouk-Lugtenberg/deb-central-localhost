@@ -12,6 +12,7 @@ export const SET_SEARCH_MUTATION = '__SET_SEARCH_MUTATION__'
 export const SET_MUTATIONS_FILTER_ACTIVE = '__SET_MUTATION_FILTER_ACTIVE__'
 export const SET_ACTIVE_FILTERS_MUTATIONS = '__SET_ACTIVE_FILTERS_MUTATIONS__'
 export const SET_FILTERED_MUTATIONS = '__SET_FILTERED_MUTATIONS__'
+export const SET_MUTATIONS_SEARCHING = '__SET_MUTATIONS_SEARCHING__'
 
 export default {
   [SET_ALL_MUTATIONS] (state, mutations) {
@@ -47,8 +48,12 @@ export default {
       filteredIdentifiers.push(mutations[key][COLUMN_MUTATION_CDNANOTATION])
     })
     state.filteredMutationIdentifiers = filteredIdentifiers
+    state.mutationsSearching = false
   },
   [SET_ACTIVE_FILTERS_MUTATIONS] (state, filters) {
     state.activeFiltersCheckbox = filters
+  },
+  [SET_MUTATIONS_SEARCHING] (state, boolean) {
+    state.mutationsSearching = boolean
   }
 }

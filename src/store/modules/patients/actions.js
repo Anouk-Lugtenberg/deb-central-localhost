@@ -3,7 +3,9 @@ import {
   SET_TOTAL_PATIENTS,
   SET_ALL_PATIENTS,
   SET_PATIENT_INFORMATION_PATIENT_ID,
-  SET_FILTERED_PATIENTS
+  SET_FILTERED_PATIENTS,
+  SET_PATIENTS_FILTER_ACTIVE,
+  SET_PATIENTS_SEARCHING
 } from './mutations'
 /* API paths */
 import {
@@ -32,13 +34,15 @@ export default {
   },
   [GET_FILTERED_PATIENTS] ({commit}, query) {
     if (query.length > 0) {
-      console.log('URL: ' + PATIENTS_API_PATH + '?q=' + query)
+      commit(SET_PATIENTS_FILTER_ACTIVE, true)
+      commit(SET_PATIENTS_SEARCHING, true)
       api.get(PATIENTS_API_PATH + '?q=' + query)
         .then(response => response.json())
         .then(response => {
           commit(SET_FILTERED_PATIENTS, response.items)
         })
     } else {
+      commit(SET_PATIENTS_FILTER_ACTIVE, false)
       commit(SET_FILTERED_PATIENTS, [])
     }
   }

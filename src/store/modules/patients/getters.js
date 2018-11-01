@@ -7,5 +7,7 @@ export default {
   getTotalPatients: state => state.totalPatients,
   getFilteredPatientsIdentifiers: state => state.filteredPatientsIdentifiers,
   rsqlPatients: createRSQLQuery,
-  getStringSearch: state => state.stringSearch
+  getStringSearch: state => state.stringSearch,
+  getPatientsFilterActive: state => state.patientsFilterActive,
+  getPatientsSearching: state => state.patientsSearching
 }

@@ -4,7 +4,8 @@ import {
   SET_TOTAL_MUTATIONS,
   SET_PATIENT_FOR_MUTATION,
   SET_MUTATIONS_FILTER_ACTIVE,
-  SET_FILTERED_MUTATIONS
+  SET_FILTERED_MUTATIONS,
+  SET_MUTATIONS_SEARCHING
 } from './mutations'
 /* API paths */
 import {
@@ -46,6 +47,7 @@ export default {
   [GET_FILTERED_MUTATIONS] ({state, commit}, query) {
     if (query.length > 0) {
       commit(SET_MUTATIONS_FILTER_ACTIVE, true)
+      commit(SET_MUTATIONS_SEARCHING, true)
       console.log('Query: ' + query)
       api.get(MUTATIONS_API_PATH + '?q=' + query + '&start=0&num=10000')
         .then(response => response.json())

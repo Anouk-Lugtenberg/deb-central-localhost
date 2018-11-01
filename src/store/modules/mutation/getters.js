@@ -11,5 +11,6 @@ export default {
   getMutationsFiltersActive: state => state.mutationsFiltersActive,
   getStringSearch: state => state.stringSearch,
   getActiveFiltersCheckbox: state => state.activeFiltersCheckbox,
-  rsqlMutation: createRSQLQuery
+  rsqlMutation: createRSQLQuery,
+  getMutationsSearching: state => state.mutationsSearching
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-card header-tag="header" header-bg-variant="light" no-body class="shadow rounded card mb-2">
+    <b-card header-tag="header" header-bg-variant="light" no-body class="shadow card mb-2">
       <!--<div slot="header">-->
         <!--<span>-->
           <!--<font-awesome-icon icon="search-plus" class="fa-icon" v-on:click="changeExpansion()"></font-awesome-icon>-->
@@ -47,7 +47,21 @@ import { LOOK_UP_ATTRIBUTE_MUTATIONS, MUTATION_TABLE } from '../../store/config'
 
 export default {
   name: 'MutationCard',
-  props: ['mutationIdentifier', 'mutation', 'visibleFields'],
+  props: {
+    mutationIdentifier: {
+      type: String
+    },
+    mutation: {
+      type: Object
+    },
+    visibleFields: {
+      type: Array
+    },
+    expanded: {
+      type: Boolean,
+      default: false
+    }
+  },
   components: {
     'mutation-card-information-container': MutationCardInformationContainer,
     'field-type-mutation-id': FieldTypeMutationIdentifier,
@@ -55,7 +69,7 @@ export default {
   },
   data () {
     return {
-      expand: false,
+      expand: this.expanded,
       current: 0,
       tabList: [],
       mutationTable: MUTATION_TABLE

@@ -10,5 +10,6 @@ export default {
   mutationsFiltersActive: false,
   search: '',
   stringSearch: '',
-  activeFiltersCheckbox: []
+  activeFiltersCheckbox: [],
+  mutationsSearching: false
 }
