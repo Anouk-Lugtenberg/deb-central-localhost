@@ -63,6 +63,7 @@ export const LOOK_UP_ATTRIBUTE_MUTATIONS = 'cdnanotation'
 /* Column(s) where Mutations are stored per Patient */
 export const MUTATION_COLUMNS_FOR_PATIENT = ['cDNAchange1', 'cDNAchange2']
 
+export const VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD = ['AANOTATION', 'EXON']
 /*
 This constant variable can be adjusted to determine which fields from the tables are visible
 on loading the page - should be in UPPERCASE, and same as 'name' field from metadata from tables.

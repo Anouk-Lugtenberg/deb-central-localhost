@@ -29,7 +29,6 @@ export default {
       metadata: 'getMetadata'
     }),
     visibleFields: function () {
-      // let patientTable = PATIENT_TABLE
       let visibleFields = []
       for (let key in this.metadata[PATIENT_TABLE]) {
         if (!this.metadata[PATIENT_TABLE].hasOwnProperty(key)) continue

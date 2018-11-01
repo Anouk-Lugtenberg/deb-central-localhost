@@ -1,5 +1,6 @@
 export default {
   metadata: {},
   metadataAllFieldsVisible: {},
-  filterGroupInformation: {}
+  filterGroupInformation: {},
+  metadataColumnsMutations: {}
 }

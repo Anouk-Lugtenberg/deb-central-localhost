@@ -1,5 +1,5 @@
 import { transformToRSQL } from '@molgenis/rsql'
-import { VISIBLE_FIELDS, VISIBLE_FILTERS, MUTATION_COLUMNS_FOR_PATIENT } from '../config'
+import { VISIBLE_FIELDS, VISIBLE_FILTERS, VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD, MUTATION_COLUMNS_FOR_PATIENT } from '../config'
 import flattenDeep from 'lodash/flattenDeep'
 
 // Example search query
@@ -134,3 +134,17 @@ export const getMetadata = (metadata, type, allFieldsVisible) => {
   })
   return listMetadata
 }
+
+export const getMetadataColumnsMutations = (metadata) => {
+  let listMetadata = []
+  metadata.forEach(function (element) {
+    if (VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD.includes(element.name.toUpperCase())) {
+      listMetadata.push(element.name, {
+        'label': element.label,
+        'fieldType': element.fieldType
+      })
+    }
+  })
+  return listMetadata
+}
+
