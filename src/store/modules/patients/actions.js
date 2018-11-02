@@ -4,8 +4,7 @@ import {
   SET_ALL_PATIENTS,
   SET_PATIENT_INFORMATION_PATIENT_ID,
   SET_FILTERED_PATIENTS,
-  SET_PATIENTS_FILTER_ACTIVE,
-  SET_PATIENTS_SEARCHING
+  SET_PATIENTS_FILTER_ACTIVE
 } from './mutations'
 /* API paths */
 import {
@@ -35,7 +34,7 @@ export default {
   [GET_FILTERED_PATIENTS] ({commit}, query) {
     if (query.length > 0) {
       commit(SET_PATIENTS_FILTER_ACTIVE, true)
-      commit(SET_PATIENTS_SEARCHING, true)
+      // commit(SET_PATIENTS_SEARCHING, true)
       api.get(PATIENTS_API_PATH + '?q=' + query)
         .then(response => response.json())
         .then(response => {

@@ -5,6 +5,7 @@
         Filters
       </span>
     </div>
+    RSQL: {{ rsqlQuery }}
     <patients-string-filter :rsqlQuery="rsqlQuery"></patients-string-filter>
     <checkbox-filters :table="patientTable"></checkbox-filters>
   </b-card>
@@ -15,7 +16,7 @@ import PatientsStringFilter from './PatientsStringFilter'
 import CheckboxFilters from './../../filters/CheckboxFilters'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_PATIENTS } from '../../../store/modules/patients/actions'
-import { SET_SEARCH_PATIENTS } from '../../../store/modules/patients/mutations'
+import { SET_SEARCH_PATIENTS, SET_PATIENTS_SEARCHING } from '../../../store/modules/patients/mutations'
 import { PATIENT_TABLE } from '../../../store/config'
 
 export default {
@@ -40,7 +41,7 @@ export default {
   created () {
     if (typeof this.$route.query.q !== 'undefined') {
       let URLrsql = this.$route.query.q
-      this.rsqlQuery = URLrsql.split('=').pop()
+      this.rsqlQuery = URLrsql
       this.getPatientIdentifiers(URLrsql)
       /* Resets the filters if there's no query available in the URL */
     } else {
@@ -52,6 +53,7 @@ export default {
       this.createRoute()
     },
     rsql () {
+      this.$store.commit('patients/' + SET_PATIENTS_SEARCHING, true)
       this.rsqlQuery = this.rsql
       this.createRoute()
       this.getPatientIdentifiers(this.rsql)

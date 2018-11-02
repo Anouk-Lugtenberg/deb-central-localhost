@@ -15,7 +15,7 @@ import MutationStringFilter from './MutationStringFilter'
 import CheckboxFilters from '../../filters/CheckboxFilters'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_MUTATIONS } from '../../../store/modules/mutation/actions'
-import { SET_SEARCH_MUTATION } from '../../../store/modules/mutation/mutations'
+import { SET_SEARCH_MUTATION, SET_MUTATIONS_SEARCHING } from '../../../store/modules/mutation/mutations'
 import { MUTATION_TABLE } from '../../../store/config'
 
 export default {
@@ -42,7 +42,6 @@ export default {
   created () {
     if (typeof this.$route.query.q !== 'undefined') {
       let URLrsql = this.$route.query.q
-      this.rsqlQuery = URLrsql.split('=').pop()
       this.getMutationIdentifiers(URLrsql)
       /* Resets the filters if there's no query available in the URL */
     } else {
@@ -54,6 +53,7 @@ export default {
       this.createRoute()
     },
     rsql () {
+      this.$store.commit('mutation/' + SET_MUTATIONS_SEARCHING, true)
       this.rsqlQuery = this.rsql
       this.createRoute()
       this.getMutationIdentifiers(this.rsql)
