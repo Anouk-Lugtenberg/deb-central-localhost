@@ -18,7 +18,6 @@
         </div>
       </b-col>
       <b-col sm="9">
-        {{ filteredGroupInformation }}
         <div v-if="mutationIdentifiers.length > 0">
           <div v-for="(identifier, index) in mutationIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="index">
             <mutation-card :mutationIdentifier="identifier"

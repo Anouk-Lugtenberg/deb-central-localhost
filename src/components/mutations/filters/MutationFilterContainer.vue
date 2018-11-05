@@ -5,6 +5,8 @@
         Filters
       </span>
     </div>
+    RSQL: {{ rsqlQueryFromFilters }}
+    String: {{ stringSearch }}
     <mutation-string-filter></mutation-string-filter>
     <div v-if="filteredGroupInformation[mutationTable]">
       <div v-for="filterGroupName in Object.keys(filteredGroupInformation[mutationTable])">
@@ -38,7 +40,8 @@ export default {
       rsqlQueryFromFilters: 'mutation/rsqlMutation',
       activeFilters: 'mutation/getActiveFiltersCheckbox',
       mutationsFiltersActive: 'mutation/getMutationsFiltersActive',
-      filteredGroupInformation: 'getFilteredGroupInformation'
+      filteredGroupInformation: 'getFilteredGroupInformation',
+      stringSearch: 'mutation/getStringSearch'
     })
   },
   created () {
@@ -46,6 +49,9 @@ export default {
   },
   watch: {
     activeFilters () {
+      this.createRoute()
+    },
+    stringSearch () {
       this.createRoute()
     },
     '$route.query.q' () {

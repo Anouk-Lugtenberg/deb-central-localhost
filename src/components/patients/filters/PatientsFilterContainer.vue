@@ -5,6 +5,8 @@
         Filters
       </span>
     </div>
+    RSQL: {{ rsqlQueryFromFilters }}
+    String search: {{ stringSearch }}
     <patients-string-filter></patients-string-filter>
     <div v-if="filteredGroupInformation[patientTable]">
       <div v-for="filterGroupName in Object.keys(filteredGroupInformation[patientTable])">
@@ -38,7 +40,8 @@ export default {
       rsqlQueryFromFilters: 'patients/rsqlPatients',
       activeFilters: 'patients/getActiveFiltersCheckbox',
       patientsFiltersActive: 'patients/getPatientsFilterActive',
-      filteredGroupInformation: 'getFilteredGroupInformation'
+      filteredGroupInformation: 'getFilteredGroupInformation',
+      stringSearch: 'patients/getStringSearch'
     })
   },
   /* Checks if search query is available in URL on creation, if yes -> use this Query to filter patients */
@@ -47,6 +50,9 @@ export default {
   },
   watch: {
     activeFilters () {
+      this.createRoute()
+    },
+    stringSearch () {
       this.createRoute()
     },
     '$route.query.q' () {
