@@ -11,13 +11,14 @@
     </b-row>
     <b-row>
       <b-col sm="3">
-        <div v-if="Object.keys(filteredGroupInformation).length > 0">
+        <div v-if="filteredGroupInformation.hasOwnProperty(mutationTable)">
           <div v-if="Object.keys(filteredGroupInformation[mutationTable]).length === visibleFiltersMutations.length">
             <mutation-filter-container :pageNumber="currentPage"></mutation-filter-container>
           </div>
         </div>
       </b-col>
       <b-col sm="9">
+        {{ filteredGroupInformation }}
         <div v-if="mutationIdentifiers.length > 0">
           <div v-for="(identifier, index) in mutationIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="index">
             <mutation-card :mutationIdentifier="identifier"

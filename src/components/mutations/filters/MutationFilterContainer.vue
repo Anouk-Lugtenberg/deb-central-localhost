@@ -42,12 +42,14 @@ export default {
     })
   },
   created () {
-    console.log('CREATED')
     this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS)
   },
   watch: {
     activeFilters () {
       this.createRoute()
+    },
+    '$route.query.q' () {
+      this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS)
     }
   },
   methods: {

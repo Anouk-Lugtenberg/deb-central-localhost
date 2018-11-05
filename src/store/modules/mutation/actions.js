@@ -57,6 +57,7 @@ export default {
           commit(SET_FILTERED_MUTATIONS, response.items)
         })
     } else {
+      rootState.filterGroupInformation = setFilterGroupInformationFromURL(rootState.filterGroupInformation, '', MUTATION_TABLE)
       commit(SET_MUTATIONS_FILTER_ACTIVE, false)
       commit(SET_FILTERED_MUTATIONS, [])
     }

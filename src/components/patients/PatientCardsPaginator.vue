@@ -11,7 +11,7 @@
     </b-row>
     <b-row>
       <b-col sm="3">
-        <div v-if="Object.keys(filteredGroupInformation).length > 0">
+        <div v-if="filteredGroupInformation.hasOwnProperty(patientTable)">
           <div v-if="Object.keys(filteredGroupInformation[patientTable]).length === visibleFiltersPatients.length">
             <patients-filter-container :pageNumber="currentPage"></patients-filter-container>
           </div>

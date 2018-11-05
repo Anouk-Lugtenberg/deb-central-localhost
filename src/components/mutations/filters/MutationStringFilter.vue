@@ -16,6 +16,7 @@ export default {
   },
   watch: {
     search: function () {
+      console.log('SET SEARCHING')
       this.$store.commit('mutation/' + SET_SEARCH_MUTATION, this.search)
     }
   }

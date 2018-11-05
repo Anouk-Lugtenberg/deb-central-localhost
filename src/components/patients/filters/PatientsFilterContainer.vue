@@ -48,6 +48,9 @@ export default {
   watch: {
     activeFilters () {
       this.createRoute()
+    },
+    '$route.query.q' () {
+      this.$store.dispatch('patients/' + GET_FILTERED_PATIENTS)
     }
   },
   methods: {

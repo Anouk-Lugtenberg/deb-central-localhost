@@ -43,6 +43,7 @@ export default {
           commit(SET_FILTERED_PATIENTS, response.items)
         })
     } else {
+      rootState.filterGroupInformation = setFilterGroupInformationFromURL(rootState.filterGroupInformation, '', PATIENT_TABLE)
       commit(SET_PATIENTS_FILTER_ACTIVE, false)
       commit(SET_FILTERED_PATIENTS, [])
     }

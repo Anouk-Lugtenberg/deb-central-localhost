@@ -53,6 +53,8 @@ export const setFilterGroupInformationFromURL = (information, query, table) => {
         information[table][filterGroup].forEach(function (elementFilterGroup) {
           if (strippedFilters.includes(elementFilterGroup.name)) {
             elementFilterGroup.activeFilter = true
+          } else {
+            elementFilterGroup.activeFilter = false
           }
         })
       }
