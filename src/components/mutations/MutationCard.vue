@@ -1,14 +1,6 @@
 <template>
   <div>
     <b-card header-tag="header" header-bg-variant="light" no-body class="shadow card mb-2">
-      <!--<div slot="header">-->
-        <!--<span>-->
-          <!--<font-awesome-icon icon="search-plus" class="fa-icon" v-on:click="changeExpansion()"></font-awesome-icon>-->
-          <!--<span class="title-mutation">-->
-            <!--<field-type-mutation-id :mutation="mutation" :mutationIdentifier="mutationIdentifier">{{ mutationIdentifier }}</field-type-mutation-id>-->
-          <!--</span>-->
-        <!--</span>-->
-      <!--</div>-->
       <div class="card-text">
         <b-container>
           <span>

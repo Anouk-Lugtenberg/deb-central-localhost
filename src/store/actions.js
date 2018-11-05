@@ -13,8 +13,8 @@ import { SET_ACTIVE_FILTERS_MUTATIONS } from './modules/mutation/mutations'
 
 /* ACTION CONSTANTS */
 export const GET_METADATA = '__GET_METADATA__'
-export const GET_FILTER_GROUP_INFORMATION = '__GET_FILTER_GROUP_INFORMATION__'
 export const SET_FILTERS_CHECKBOX = '__SET_FILTERS_CHECKBOX__'
+export const GET_FILTERED_GROUP_INFORMATION = '__GET_FILTERED_GROUP_INFORMATION__'
 
 /* Tables */
 const TABLES = [MUTATION_TABLE, PATIENT_TABLE]
@@ -29,12 +29,27 @@ export default {
         })
     }
   },
-  [GET_FILTER_GROUP_INFORMATION] ({commit}, [table, name, href]) {
-    api.get(href)
-      .then(response => response.json())
-      .then(response => {
-        commit(SET_FILTER_GROUP_INFORMATION, [table, name, response])
-      })
+  [GET_FILTERED_GROUP_INFORMATION] ({commit, state}, table) {
+    Object.keys(state.metadata[table].map(function (field) {
+      if (field.hasOwnProperty('href')) {
+        api.get(field.href)
+          .then(response => response.json())
+          .then(response => {
+            commit(SET_FILTER_GROUP_INFORMATION, [table, field.name, response])
+          })
+      }
+      if (field.fieldType === 'COMPOUND') {
+        field.attributes.forEach(function (attribute) {
+          if (attribute.hasOwnProperty('href')) {
+            api.get(attribute.href)
+              .then(response => response.json())
+              .then(response => {
+                commit(SET_FILTER_GROUP_INFORMATION, [table, attribute.name, response])
+              })
+          }
+        })
+      }
+    }))
   },
   [SET_FILTERS_CHECKBOX] ({commit, state}) {
     Object.keys(state.filterGroupInformation).map(function (attribute) {

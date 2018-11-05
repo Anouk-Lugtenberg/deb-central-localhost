@@ -37,6 +37,9 @@ export default {
       mutationsFiltersActive: 'mutation/getMutationsFiltersActive',
       metadata: 'getMetadata'
     }),
+    /* This is created instead of using the visible fields property from the metadata, because otherwise the spots from the metadata fields are
+    reserved, and this leaves blank spots on the cards.
+     */
     visibleFields: function () {
       let mutationTable = this.mutationTable
       let visibleFields = []

@@ -69,9 +69,5 @@ export default {
   },
   [SET_PATIENTS_FILTER_ACTIVE] (state, boolean) {
     state.patientsFilterActive = boolean
-  },
-  [SET_PATIENTS_SEARCHING] (state, boolean) {
-    console.log('SEARCHING: ' + boolean)
-    state.patientsSearching = boolean
   }
 }

@@ -2,8 +2,8 @@
  * VARIABLES CHD7 DATABASE
  */
 // /* API paths */
-// export const MUTATIONS_API_PATH = '/api/v2/aaaaczwj26wwl6w3nzb5kyyaae'
-// export const PATIENTS_API_PATH = '/api/v2/aaaaczwj3f7yf6w3nzb5kyyaai'
+// export const MUTATIONS_API_PATH = '/api/v2/CHD7_Mutations'
+// export const PATIENTS_API_PATH = '/api/v2/CHD7_Patients'
 //
 // /* Column names */
 // /* Column name for Numerical Identifier from mutation (column which contains 'M100') */
@@ -16,14 +16,16 @@
 // export const COLUMN_PATIENT_ID = 'Molgenis_ID'
 //
 // /* Table names */
-// export const MUTATION_TABLE = 'aaaaczwj26wwl6w3nzb5kyyaae'
-// export const PATIENT_TABLE = 'aaaaczwj3f7yf6w3nzb5kyyaai'
+// export const MUTATION_TABLE = 'CHD7_Mutations'
+// export const PATIENT_TABLE = 'CHD7_Patients'
 //
 // /* The column which links mutations to patients */
 // export const LOOK_UP_ATTRIBUTE_MUTATIONS = 'Mutation_ID'
 //
 // /* Column(s) where Mutations are stored per Patient */
 // export const MUTATION_COLUMNS_FOR_PATIENT = ['Mutation_ID']
+//
+// export const VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD = ['EXON', 'PATHOGENICITY', 'MUTATION_TYPE']
 //
 // export const VISIBLE_FIELDS = {
 //   [MUTATION_TABLE]: ['CHD7_C', 'CHD7_P', 'EXON', 'PATHOGENICITY'],
@@ -79,5 +81,5 @@ UPPERCASE, and same as 'name' field from metadata from tables.
  */
 export const VISIBLE_FILTERS = {
   [MUTATION_TABLE]: ['CONSEQUENCE', 'EXON'],
-  [PATIENT_TABLE]: ['LOCATION']
+  [PATIENT_TABLE]: ['LOCATION', 'ANCHORINGFIBRILSNUMBER']
 }

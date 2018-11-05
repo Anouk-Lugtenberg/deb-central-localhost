@@ -8,8 +8,10 @@ import {
 } from './mutations'
 /* API paths */
 import {
+  PATIENT_TABLE,
   PATIENTS_API_PATH
 } from '../../config'
+import { setFilterGroupInformationFromURL } from '../../helpers'
 
 export const GET_PATIENTS_INFORMATION_PATIENT_ID = '__GET_PATIENTS_INFORMATION_PATIENT_ID__'
 export const GET_ALL_PATIENTS = '__GET_ALL_PATIENTS__'
@@ -31,11 +33,11 @@ export default {
         commit(SET_PATIENT_INFORMATION_PATIENT_ID, [id, response])
       })
   },
-  [GET_FILTERED_PATIENTS] ({commit}, query) {
-    if (query.length > 0) {
+  [GET_FILTERED_PATIENTS] ({state, commit, rootState}) {
+    if (typeof (rootState.route.query.q) !== 'undefined' && rootState.route.query.q.length > 0) {
       commit(SET_PATIENTS_FILTER_ACTIVE, true)
-      // commit(SET_PATIENTS_SEARCHING, true)
-      api.get(PATIENTS_API_PATH + '?q=' + query)
+      rootState.filterGroupInformation = setFilterGroupInformationFromURL(rootState.filterGroupInformation, rootState.route.query.q, PATIENT_TABLE)
+      api.get(PATIENTS_API_PATH + '?q=' + rootState.route.query.q + '&start=0&num=10000')
         .then(response => response.json())
         .then(response => {
           commit(SET_FILTERED_PATIENTS, response.items)

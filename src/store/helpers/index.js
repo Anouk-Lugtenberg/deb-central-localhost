@@ -2,9 +2,6 @@ import { transformToRSQL } from '@molgenis/rsql'
 import { VISIBLE_FIELDS, VISIBLE_FILTERS, VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD, MUTATION_COLUMNS_FOR_PATIENT } from '../config'
 import flattenDeep from 'lodash/flattenDeep'
 
-// Example search query
-// ?q=ntchange=in=(%27a%27,%20%27at%27);event=in=(%27insertion%27);*=q=159
-
 export const createRSQLQuery = (state) => transformToRSQL({
   operator: 'AND',
   operands: flattenDeep([
@@ -33,6 +30,36 @@ export const createActiveFilterQueries = (attribute, filters) => {
 export const createInQuery = (attribute, filters) => filters.length > 0
   ? [{selector: attribute, comparison: '=in=', arguments: filters}]
   : []
+
+/**
+ * Helper to set the filter checkboxes to true when filter is given in the URL
+ * @param information contains the different filters and their options
+ * @param query the query from the URL
+ * @param table which table the query is for (mutation/patients)
+ * @returns {*}
+ */
+export const setFilterGroupInformationFromURL = (information, query, table) => {
+  let queries = query.split(';')
+  queries.forEach(function (singleQuery) {
+    console.log('Query: ' + singleQuery)
+    let strippedFilters = []
+    let attribute = singleQuery.split('=').shift()
+    let activeFilters = singleQuery.split('=').pop()
+    activeFilters.split(',').forEach(function (filter) {
+      strippedFilters.push(filter.replace(/['()]/g, ''))
+    })
+    Object.keys(information[table]).forEach(function (filterGroup) {
+      if (filterGroup.includes(attribute)) {
+        information[table][filterGroup].forEach(function (elementFilterGroup) {
+          if (strippedFilters.includes(elementFilterGroup.name)) {
+            elementFilterGroup.activeFilter = true
+          }
+        })
+      }
+    })
+  })
+  return information
+}
 
 export const naturalSort = (arraylist) => {
   let collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'})

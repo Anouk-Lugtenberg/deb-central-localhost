@@ -5,17 +5,20 @@
         Filters
       </span>
     </div>
-    <mutation-string-filter :rsqlQuery="rsqlQuery"></mutation-string-filter>
-    <checkbox-filters :table="mutationTable"></checkbox-filters>
+    <mutation-string-filter></mutation-string-filter>
+    <div v-if="filteredGroupInformation[mutationTable]">
+      <div v-for="filterGroupName in Object.keys(filteredGroupInformation[mutationTable])">
+        <checkbox-filter-group :filterGroupName="filterGroupName" :filters="filteredGroupInformation[mutationTable][filterGroupName]"></checkbox-filter-group>
+      </div>
+    </div>
   </b-card>
 </template>
 
 <script>
 import MutationStringFilter from './MutationStringFilter'
-import CheckboxFilters from '../../filters/CheckboxFilters'
+import CheckboxFilterGroup from '../../filters/CheckboxFilterGroup'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_MUTATIONS } from '../../../store/modules/mutation/actions'
-import { SET_SEARCH_MUTATION, SET_MUTATIONS_SEARCHING } from '../../../store/modules/mutation/mutations'
 import { MUTATION_TABLE } from '../../../store/config'
 
 export default {
@@ -23,52 +26,38 @@ export default {
   props: ['pageNumber'],
   data () {
     return {
-      rsqlQuery: '',
       mutationTable: MUTATION_TABLE
     }
   },
   components: {
     'mutation-string-filter': MutationStringFilter,
-    'checkbox-filters': CheckboxFilters
+    'checkbox-filter-group': CheckboxFilterGroup
   },
   computed: {
     ...mapGetters({
-      rsql: 'mutation/rsqlMutation',
+      rsqlQueryFromFilters: 'mutation/rsqlMutation',
       activeFilters: 'mutation/getActiveFiltersCheckbox',
-      mutationsFiltersActive: 'mutation/getMutationsFiltersActive'
+      mutationsFiltersActive: 'mutation/getMutationsFiltersActive',
+      filteredGroupInformation: 'getFilteredGroupInformation'
     })
   },
-  /* Checks if search query is available in URL on creation, if yes -> use this Query to filter mutations */
   created () {
-    if (typeof this.$route.query.q !== 'undefined') {
-      let URLrsql = this.$route.query.q
-      this.getMutationIdentifiers(URLrsql)
-      /* Resets the filters if there's no query available in the URL */
-    } else {
-      this.$store.commit('mutation/' + SET_SEARCH_MUTATION, '')
-    }
+    console.log('CREATED')
+    this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS)
   },
   watch: {
-    pageNumber () {
+    activeFilters () {
       this.createRoute()
-    },
-    rsql () {
-      this.$store.commit('mutation/' + SET_MUTATIONS_SEARCHING, true)
-      this.rsqlQuery = this.rsql
-      this.createRoute()
-      this.getMutationIdentifiers(this.rsql)
     }
   },
   methods: {
-    getMutationIdentifiers (rsql) {
-      this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS, rsql)
-    },
     createRoute () {
-      if (this.rsql.length > 0) {
+      if (this.rsqlQueryFromFilters.length > 0) {
         this.createRouteWithQuery()
       } else {
         this.createRouteWithoutQuery()
       }
+      this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS)
     },
     createRouteWithQuery () {
       this.$router.push({
@@ -76,7 +65,7 @@ export default {
         params: {
           pageNumURL: this.pageNumber
         },
-        query: {q: this.rsql}
+        query: {q: this.rsqlQueryFromFilters}
       })
     },
     createRouteWithoutQuery () {

@@ -5,18 +5,20 @@
         Filters
       </span>
     </div>
-    RSQL: {{ rsqlQuery }}
-    <patients-string-filter :rsqlQuery="rsqlQuery"></patients-string-filter>
-    <checkbox-filters :table="patientTable"></checkbox-filters>
+    <patients-string-filter></patients-string-filter>
+    <div v-if="filteredGroupInformation[patientTable]">
+      <div v-for="filterGroupName in Object.keys(filteredGroupInformation[patientTable])">
+        <checkbox-filter-group :filterGroupName="filterGroupName" :filters="filteredGroupInformation[patientTable][filterGroupName]"></checkbox-filter-group>
+      </div>
+    </div>
   </b-card>
 </template>
 
 <script>
 import PatientsStringFilter from './PatientsStringFilter'
-import CheckboxFilters from './../../filters/CheckboxFilters'
+import CheckboxFilterGroup from './../../filters/CheckboxFilterGroup'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_PATIENTS } from '../../../store/modules/patients/actions'
-import { SET_SEARCH_PATIENTS, SET_PATIENTS_SEARCHING } from '../../../store/modules/patients/mutations'
 import { PATIENT_TABLE } from '../../../store/config'
 
 export default {
@@ -24,51 +26,38 @@ export default {
   props: ['pageNumber'],
   data () {
     return {
-      rsqlQuery: '',
       patientTable: PATIENT_TABLE
     }
   },
   components: {
     'patients-string-filter': PatientsStringFilter,
-    'checkbox-filters': CheckboxFilters
+    'checkbox-filter-group': CheckboxFilterGroup
   },
   computed: {
     ...mapGetters({
-      rsql: 'patients/rsqlPatients'
+      rsqlQueryFromFilters: 'patients/rsqlPatients',
+      activeFilters: 'patients/getActiveFiltersCheckbox',
+      patientsFiltersActive: 'patients/getPatientsFilterActive',
+      filteredGroupInformation: 'getFilteredGroupInformation'
     })
   },
   /* Checks if search query is available in URL on creation, if yes -> use this Query to filter patients */
   created () {
-    if (typeof this.$route.query.q !== 'undefined') {
-      let URLrsql = this.$route.query.q
-      this.rsqlQuery = URLrsql
-      this.getPatientIdentifiers(URLrsql)
-      /* Resets the filters if there's no query available in the URL */
-    } else {
-      this.$store.commit('patients/' + SET_SEARCH_PATIENTS, '')
-    }
+    this.$store.dispatch('patients/' + GET_FILTERED_PATIENTS)
   },
   watch: {
-    pageNumber () {
+    activeFilters () {
       this.createRoute()
-    },
-    rsql () {
-      this.$store.commit('patients/' + SET_PATIENTS_SEARCHING, true)
-      this.rsqlQuery = this.rsql
-      this.createRoute()
-      this.getPatientIdentifiers(this.rsql)
     }
   },
   methods: {
-    getPatientIdentifiers (rsql) {
-      this.$store.dispatch('patients/' + GET_FILTERED_PATIENTS, rsql)
-    },
     createRoute () {
-      if (this.rsql.length > 0) {
+      if (this.rsqlQueryFromFilters.length > 0) {
         this.createRouteWithQuery()
       } else {
         this.createRouteWithoutQuery()
       }
+      this.$store.dispatch('patients/' + GET_FILTERED_PATIENTS)
     },
     createRouteWithQuery () {
       this.$router.push({
@@ -76,7 +65,7 @@ export default {
         params: {
           pageNumURL: this.pageNumber
         },
-        query: {q: this.rsql}
+        query: {q: this.rsqlQueryFromFilters}
       })
     },
     createRouteWithoutQuery () {

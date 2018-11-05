@@ -1,17 +1,8 @@
 <template>
   <div>
-    <div v-if="metadata[table]">
-      <div v-for="property in metadata[table]">
-        <div v-if="property.hasOwnProperty('href')">
-          <checkbox-filter-group :filterGroup="property" :table="table"></checkbox-filter-group>
-        </div>
-        <div v-else-if="property.fieldType === 'COMPOUND'">
-          <div v-for="nestedProperty in property.attributes">
-            <div v-if="nestedProperty.hasOwnProperty('href')">
-              <checkbox-filter-group :filterGroup="nestedProperty" :table="table"></checkbox-filter-group>
-            </div>
-          </div>
-        </div>
+    <div v-if="filteredGroupInformation[table]">
+      <div v-for="filterGroupName in Object.keys(filteredGroupInformation[table])">
+        <checkbox-filter-group :filterGroupName="filterGroupName" :filters="filteredGroupInformation[table][filterGroupName]"></checkbox-filter-group>
       </div>
     </div>
   </div>
@@ -29,12 +20,12 @@ export default {
   },
   computed: {
     ...mapGetters({
-      metadata: 'getMetadata'
+      metadata: 'getMetadata',
+      filteredGroupInformation: 'getFilteredGroupInformation'
     })
   }
 }
 </script>
 
 <style scoped>
-
 </style>

@@ -1,10 +1,12 @@
 <template>
   <div>
     <div v-if="patientsFiltersActive">
-      <patient-cards-paginator :patientIdentifiers="filteredIdentifiersPatients" :visibleFields="visibleFields"></patient-cards-paginator>
+      <patient-cards-paginator :patientIdentifiers="filteredIdentifiersPatients" :visibleFields="visibleFields"
+                               :filtersActive="true"></patient-cards-paginator>
     </div>
     <div v-else-if="allIdentifiersPatients.length > 0">
-      <patient-cards-paginator :patientIdentifiers="allIdentifiersPatients" :visibleFields="visibleFields"></patient-cards-paginator>
+      <patient-cards-paginator :patientIdentifiers="allIdentifiersPatients" :visibleFields="visibleFields"
+                               :filtersActive="false"></patient-cards-paginator>
     </div>
     <div v-else>
       Loading patients...
@@ -29,6 +31,9 @@ export default {
       metadata: 'getMetadata',
       patientsFiltersActive: 'patients/getPatientsFilterActive'
     }),
+    /* This is created instead of using the visible fields from the metadata, because otherwise the spots from the metadata fields are
+    reserved, and this leaves blank spots on the cards.
+     */
     visibleFields: function () {
       let visibleFields = []
       for (let key in this.metadata[PATIENT_TABLE]) {

@@ -6,14 +6,18 @@ import {
   SET_MUTATIONS_FILTER_ACTIVE,
   SET_FILTERED_MUTATIONS
 } from './mutations'
+// import {
+//   GET_FILTERED_GROUP_INFORMATION
+// } from '../../../store/actions'
+
 /* API paths */
 import {
   MUTATIONS_API_PATH,
   PATIENTS_API_PATH,
-  MUTATION_COLUMNS_FOR_PATIENT
+  MUTATION_COLUMNS_FOR_PATIENT,
+  MUTATION_TABLE
 } from '../../config'
-import { createInQueryPatientsPerMutation, createRSQLQueryPatientsPerMutation } from '../../helpers'
-
+import { createInQueryPatientsPerMutation, createRSQLQueryPatientsPerMutation, setFilterGroupInformationFromURL } from '../../helpers'
 /* Action constants */
 export const GET_FILTERED_MUTATIONS = '__GET_FILTERED_MUTATIONS__'
 export const GET_ALL_MUTATIONS = '__GET_ALL_MUTATIONS__'
@@ -43,11 +47,11 @@ export default {
         commit(SET_PATIENT_FOR_MUTATION, [id, response.items])
       })
   },
-  [GET_FILTERED_MUTATIONS] ({state, commit}, query) {
-    if (query.length > 0) {
+  [GET_FILTERED_MUTATIONS] ({state, commit, rootState}) {
+    if (typeof (rootState.route.query.q) !== 'undefined' && rootState.route.query.q.length > 0) {
       commit(SET_MUTATIONS_FILTER_ACTIVE, true)
-      console.log('Query: ' + query)
-      api.get(MUTATIONS_API_PATH + '?q=' + query + '&start=0&num=10000')
+      rootState.filterGroupInformation = setFilterGroupInformationFromURL(rootState.filterGroupInformation, rootState.route.query.q, MUTATION_TABLE)
+      api.get(MUTATIONS_API_PATH + '?q=' + rootState.route.query.q + '&start=0&num=10000')
         .then(response => response.json())
         .then(response => {
           commit(SET_FILTERED_MUTATIONS, response.items)

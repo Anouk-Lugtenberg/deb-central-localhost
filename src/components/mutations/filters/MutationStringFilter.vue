@@ -9,10 +9,9 @@ import { SET_SEARCH_MUTATION } from '../../../store/modules/mutation/mutations'
 
 export default {
   name: 'MutationStringFilter',
-  props: ['rsqlQuery'],
   data () {
     return {
-      search: this.rsqlQuery
+      search: ''
     }
   },
   watch: {
