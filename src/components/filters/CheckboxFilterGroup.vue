@@ -2,13 +2,13 @@
   <div>
     <b-card class="mt-2 ml-1 mr-1 mb-1">
       <div @click="toggleCollapse =! toggleCollapse" class="clickable">
-            <span v-if="toggleCollapse">
-              <font-awesome-icon icon="caret-down" class="fa-icon"></font-awesome-icon>
-            </span>
+        <span v-if="toggleCollapse">
+          <font-awesome-icon icon="caret-down" class="fa-icon"></font-awesome-icon>
+        </span>
         <span v-else>
-              <font-awesome-icon icon="caret-right" class="fa-icon"></font-awesome-icon>
-            </span>
-        {{ filterGroupName }}
+          <font-awesome-icon icon="caret-right" class="fa-icon"></font-awesome-icon>
+        </span>
+        {{ groupName }}
       </div>
       <b-collapse v-model="toggleCollapse" id="collapsed">
         <div v-for="singleCheckboxInformation in filters.slice(0, 10)">
@@ -39,11 +39,29 @@ export default {
   data () {
     return {
       toggleCollapse: false,
-      showAllFilters: false
+      showAllFilters: false,
+      groupName: ''
     }
   },
   components: {
     'single-checkbox-filter-group': SingleCheckboxFilterGroup
+  },
+  created () {
+    this.groupName = this.setGroupName(this.filterGroupName)
+  },
+  methods: {
+    /* Capitalizes and adds spaces to the group name for readability of the user */
+    setGroupName: function (filterGroupName) {
+      filterGroupName = this.addSpaceBeforeUppercase(filterGroupName)
+      filterGroupName = this.capitalizeFirstCharacter(filterGroupName)
+      return filterGroupName
+    },
+    capitalizeFirstCharacter: function (filterGroupName) {
+      return filterGroupName.charAt(0).toUpperCase() + filterGroupName.slice(1)
+    },
+    addSpaceBeforeUppercase: function (filterGroupName) {
+      return filterGroupName.replace(/([A-Z])/g, ' $1').trim()
+    }
   }
 }
 </script>

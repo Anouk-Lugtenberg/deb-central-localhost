@@ -91,8 +91,6 @@ export default {
     }
     /* Filtered group information is only set on first load, so it doesn't get overwritten */
     if (typeof this.filteredGroupInformation[this.patientTable] === 'undefined') {
-      console.log('FILTERED GROUP INFORMATION IS UNDEFINED')
-      console.log('Patient table: ' + this.patientTable)
       this.$store.dispatch(GET_FILTERED_GROUP_INFORMATION, this.patientTable)
     }
   },

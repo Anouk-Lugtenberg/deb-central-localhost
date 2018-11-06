@@ -17,7 +17,6 @@ export default {
     Vue.set(state.metadataAllFieldsVisible, type, listMetadataAllFieldsVisible)
   },
   [SET_FILTER_GROUP_INFORMATION] (state, [table, name, information]) {
-    console.log('SETTING FILTER GROUP INFORMATION: ' + name)
     let filterList = []
     let keyForItem = information['meta']['attributes'][0]['name']
     Object.keys(information['items']).map(function (key) {
@@ -40,7 +39,6 @@ export default {
     }
     /* Adds the filter lists to the table they belong with (either mutation or patient), with as key the name
      * of the filter. */
-    console.log('FILTERED GROUP INFORMATION SET FOR: ' + name)
     Vue.set(state.filterGroupInformation[table], name, filterList)
   }
 }
