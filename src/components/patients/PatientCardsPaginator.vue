@@ -96,8 +96,18 @@ export default {
   },
   methods: {
     linkGenerator (pageNum) {
-      return {
-        path: '/Patients/page/' + pageNum
+      if (typeof this.$route.query.q !== 'undefined') {
+        return {
+          name: 'PatientsContainer',
+          params: {
+            pageNumURL: pageNum
+          },
+          query: {q: this.$route.query.q}
+        }
+      } else {
+        return {
+          path: '/Patients/page/' + pageNum
+        }
       }
     },
     validatePageNum (pageNum) {

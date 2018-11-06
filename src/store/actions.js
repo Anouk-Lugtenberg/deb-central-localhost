@@ -56,6 +56,7 @@ export default {
       let activeFilters = []
       let filterListPerAttribute = state.filterGroupInformation[attribute]
       Object.keys(filterListPerAttribute).map(function (filterName) {
+        console.log('Filtername: ' + filterName)
         activeFilters.push(createActiveFilterQueries(filterName, filterListPerAttribute[filterName]))
       })
       if (attribute.includes(PATIENT_TABLE)) {

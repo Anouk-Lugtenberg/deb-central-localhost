@@ -98,8 +98,18 @@ export default {
   },
   methods: {
     linkGenerator (pageNum) {
-      return {
-        path: '/Mutations/page/' + pageNum
+      if (typeof this.$route.query.q !== 'undefined') {
+        return {
+          name: 'MutationsContainer',
+          params: {
+            pageNumURL: pageNum
+          },
+          query: {q: this.$route.query.q}
+        }
+      } else {
+        return {
+          path: '/Mutations/page/' + pageNum
+        }
       }
     },
     validatePageNum (pageNum) {

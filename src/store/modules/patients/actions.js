@@ -34,6 +34,7 @@ export default {
       })
   },
   [GET_FILTERED_PATIENTS] ({state, commit, rootState}) {
+    console.log('FILTERING STARTED')
     if (typeof (rootState.route.query.q) !== 'undefined' && rootState.route.query.q.length > 0) {
       commit(SET_PATIENTS_FILTER_ACTIVE, true)
       rootState.filterGroupInformation = setFilterGroupInformationFromURL(rootState.filterGroupInformation, rootState.route.query.q, PATIENT_TABLE)

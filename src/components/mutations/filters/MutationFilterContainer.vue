@@ -5,8 +5,16 @@
         Filters
       </span>
     </div>
-    RSQL: {{ rsqlQueryFromFilters }}
-    String: {{ stringSearch }}
+    <div v-for="filterGroup in filteredGroupInformation[mutationTable]">
+      <ul class="list-inline">
+        <template v-for="filter in filterGroup">
+          <li v-if="filter.activeFilter" class="list-inline-item active-filter" @click="filter.activeFilter = false">
+            <small>{{ filter.name }}</small>
+            <i title="remove this filter" class="fa fa-times remove-filter-btn"></i>
+          </li>
+        </template>
+      </ul>
+    </div>
     <mutation-string-filter></mutation-string-filter>
     <div v-if="filteredGroupInformation[mutationTable]">
       <div v-for="filterGroupName in Object.keys(filteredGroupInformation[mutationTable])">
@@ -93,5 +101,15 @@ export default {
   font-size: 20px;
   font-weight: bold;
   color: #4497be;
+}
+.active-filter {
+  padding: 0.1em 0.3em 0.3em;
+  border: solid 1px;
+  margin-bottom: 0.2em;
+}
+
+.active-filter:hover {
+  cursor: pointer;
+  color: red;
 }
 </style>

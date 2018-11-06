@@ -5,8 +5,6 @@
         Filters
       </span>
     </div>
-    RSQL: {{ rsqlQueryFromFilters }}
-    String search: {{ stringSearch }}
     <patients-string-filter></patients-string-filter>
     <div v-if="filteredGroupInformation[patientTable]">
       <div v-for="filterGroupName in Object.keys(filteredGroupInformation[patientTable])">
