@@ -5,15 +5,11 @@
         Filters
       </span>
     </div>
-    <div v-for="filterGroup in filteredGroupInformation[mutationTable]">
-      <ul class="list-inline">
-        <template v-for="filter in filterGroup">
-          <li v-if="filter.activeFilter" class="list-inline-item active-filter" @click="filter.activeFilter = false">
-            <small>{{ filter.name }}</small>
-            <i title="remove this filter" class="fa fa-times remove-filter-btn"></i>
-          </li>
-        </template>
-      </ul>
+    <div v-if="rsqlQueryFromFilters.length > 0">
+      <small>Active filters:</small>
+      <div v-for="filterGroup in filteredGroupInformation[mutationTable]">
+        <active-filters :filterGroup="filterGroup"></active-filters>
+      </div>
     </div>
     <mutation-string-filter></mutation-string-filter>
     <div v-if="filteredGroupInformation[mutationTable]">
@@ -27,6 +23,7 @@
 <script>
 import MutationStringFilter from './MutationStringFilter'
 import CheckboxFilterGroup from '../../filters/CheckboxFilterGroup'
+import ActiveFilters from '../../filters/ActiveFilters'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_MUTATIONS } from '../../../store/modules/mutation/actions'
 import { MUTATION_TABLE } from '../../../store/config'
@@ -40,6 +37,7 @@ export default {
     }
   },
   components: {
+    ActiveFilters,
     'mutation-string-filter': MutationStringFilter,
     'checkbox-filter-group': CheckboxFilterGroup
   },
@@ -101,15 +99,5 @@ export default {
   font-size: 20px;
   font-weight: bold;
   color: #4497be;
-}
-.active-filter {
-  padding: 0.1em 0.3em 0.3em;
-  border: solid 1px;
-  margin-bottom: 0.2em;
-}
-
-.active-filter:hover {
-  cursor: pointer;
-  color: red;
 }
 </style>

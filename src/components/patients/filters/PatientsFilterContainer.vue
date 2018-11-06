@@ -5,6 +5,12 @@
         Filters
       </span>
     </div>
+    <div v-if="rsqlQueryFromFilters.length > 0">
+      <small>Active filters:</small>
+      <div v-for="filterGroup in filteredGroupInformation[patientTable]">
+        <active-filters :filterGroup="filterGroup"></active-filters>
+      </div>
+    </div>
     <patients-string-filter></patients-string-filter>
     <div v-if="filteredGroupInformation[patientTable]">
       <div v-for="filterGroupName in Object.keys(filteredGroupInformation[patientTable])">
@@ -17,6 +23,7 @@
 <script>
 import PatientsStringFilter from './PatientsStringFilter'
 import CheckboxFilterGroup from './../../filters/CheckboxFilterGroup'
+import ActiveFilters from './../../filters/ActiveFilters'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_PATIENTS } from '../../../store/modules/patients/actions'
 import { PATIENT_TABLE } from '../../../store/config'
@@ -31,7 +38,8 @@ export default {
   },
   components: {
     'patients-string-filter': PatientsStringFilter,
-    'checkbox-filter-group': CheckboxFilterGroup
+    'checkbox-filter-group': CheckboxFilterGroup,
+    'active-filters': ActiveFilters
   },
   computed: {
     ...mapGetters({
