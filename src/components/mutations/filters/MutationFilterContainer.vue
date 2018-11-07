@@ -56,9 +56,11 @@ export default {
   },
   watch: {
     '$route.query.q' () {
+      console.log('$route.query.q CHANGED')
       this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS)
     },
     rsqlQueryFromFilters () {
+      console.log('rsqlQueryFromFilters CHANGED')
       this.createRoute()
     }
   },

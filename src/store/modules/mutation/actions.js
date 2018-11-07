@@ -6,9 +6,6 @@ import {
   SET_MUTATIONS_FILTER_ACTIVE,
   SET_FILTERED_MUTATIONS
 } from './mutations'
-// import {
-//   GET_FILTERED_GROUP_INFORMATION
-// } from '../../../store/actions'
 
 /* API paths */
 import {

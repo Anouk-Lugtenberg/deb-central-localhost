@@ -35,7 +35,6 @@ export default {
     Vue.set(state.patientsPerMutation, id, naturalSort(patients))
   },
   [SET_SEARCH_MUTATION] (state, search) {
-    state.stringSearch = search
     state.search = search
   },
   [SET_FILTERED_MUTATIONS] (state, mutations) {
@@ -44,7 +43,6 @@ export default {
       filteredIdentifiers.push(mutations[key][COLUMN_MUTATION_CDNANOTATION])
     })
     state.filteredMutationIdentifiers = filteredIdentifiers
-    state.mutationsSearching = false
   },
   [SET_ACTIVE_FILTERS_MUTATIONS] (state, filters) {
     state.activeFiltersCheckbox = filters

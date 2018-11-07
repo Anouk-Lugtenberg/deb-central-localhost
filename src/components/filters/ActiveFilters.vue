@@ -2,9 +2,9 @@
   <div>
     <ul class="list-inline">
       <template v-for="filter in filterGroup">
-        <li v-if="filter.activeFilter" class="list-inline-item active-filter" @click="filter.activeFilter = false">
+        <li v-if="filter.activeFilter" class="list-inline-item active-filter custom-border" @click="filter.activeFilter = false">
           <small>{{ filter.name }}</small>
-          <i title="remove this filter" class="fa fa-times remove-filter-btn"></i>
+          <font-awesome-icon icon="times" class="fa-icon small"></font-awesome-icon>
         </li>
       </template>
     </ul>
@@ -25,8 +25,17 @@ export default {
   margin-bottom: 0.2em;
 }
 
+.custom-border {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-radius: 25px;
+  background-color: #ededed;
+  color: black;
+  font-weight: bold;
+  font-size: 17px;
+}
 .active-filter:hover {
   cursor: pointer;
-  color: red;
+  background-color: #dc3545;
 }
 </style>

@@ -9,6 +9,5 @@ export default {
   patientsPerMutation: {},
   mutationsFiltersActive: false,
   search: '',
-  stringSearch: '',
   activeFiltersCheckbox: []
 }
