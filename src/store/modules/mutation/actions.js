@@ -50,7 +50,7 @@ export default {
   [GET_FILTERED_MUTATIONS] ({state, commit, rootState}) {
     if (typeof (rootState.route.query.q) !== 'undefined' && rootState.route.query.q.length > 0) {
       commit(SET_MUTATIONS_FILTER_ACTIVE, true)
-      rootState.filterGroupInformation = setFilterGroupInformationFromURL(rootState.filterGroupInformation, rootState.route.query.q, MUTATION_TABLE)
+      console.log('Query used for retrieving MUTATIONS: ' + rootState.route.query.q)
       api.get(MUTATIONS_API_PATH + '?q=' + rootState.route.query.q + '&start=0&num=10000')
         .then(response => response.json())
         .then(response => {

@@ -7,14 +7,16 @@ import {
   MUTATION_TABLE,
   PATIENT_TABLE
 } from './config'
-import { createActiveFilterQueries } from './helpers'
+import {createActiveFilterQueries, setFilterGroupInformationFromURL} from './helpers'
 import { SET_ACTIVE_FILTERS_PATIENTS } from './modules/patients/mutations'
 import { SET_ACTIVE_FILTERS_MUTATIONS } from './modules/mutation/mutations'
 
 /* ACTION CONSTANTS */
 export const GET_METADATA = '__GET_METADATA__'
-export const SET_FILTERS_CHECKBOX = '__SET_FILTERS_CHECKBOX__'
+export const SET_FILTERS_FROM_ACTIVE_CHECKBOXES = '__SET_FILTERS_CHECKBOX__'
 export const GET_FILTERED_GROUP_INFORMATION = '__GET_FILTERED_GROUP_INFORMATION__'
+export const GET_FILTERS_FROM_URL = '__GET_FILTERS_FROM_URL__'
+export const GET_PUBLICATION_FOR_ID = '__GET_PUBLICATION_FOR_ID__'
 
 /* Tables */
 const TABLES = [MUTATION_TABLE, PATIENT_TABLE]
@@ -51,12 +53,11 @@ export default {
       }
     }))
   },
-  [SET_FILTERS_CHECKBOX] ({commit, state}) {
+  [SET_FILTERS_FROM_ACTIVE_CHECKBOXES] ({commit, state}) {
     Object.keys(state.filterGroupInformation).map(function (attribute) {
       let activeFilters = []
       let filterListPerAttribute = state.filterGroupInformation[attribute]
       Object.keys(filterListPerAttribute).map(function (filterName) {
-        console.log('Filtername: ' + filterName)
         activeFilters.push(createActiveFilterQueries(filterName, filterListPerAttribute[filterName]))
       })
       if (attribute.includes(PATIENT_TABLE)) {
@@ -65,5 +66,16 @@ export default {
         commit('mutation/' + SET_ACTIVE_FILTERS_MUTATIONS, activeFilters)
       }
     })
+  },
+  [GET_FILTERS_FROM_URL] ({commit, state, dispatch}) {
+    state.filterGroupInformation = setFilterGroupInformationFromURL(state.filterGroupInformation, state.route.query.q)
+    dispatch(SET_FILTERS_FROM_ACTIVE_CHECKBOXES)
+  },
+  [GET_PUBLICATION_FOR_ID] ({commit}, pubmedIdentifier) {
+    api.get('/api/v2/col7a1_Publications/' + pubmedIdentifier)
+      .then(response => response.json())
+      .then(response => {
+        console.log('Response: ' + response)
+      })
   }
 }

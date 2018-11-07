@@ -5,7 +5,7 @@
         Filters
       </span>
     </div>
-    <div v-if="rsqlQueryFromFilters.length > 0">
+    <div v-if="$route.query.q">
       <small>Active filters:</small>
       <div v-for="filterGroup in filteredGroupInformation[patientTable]">
         <active-filters :filterGroup="filterGroup"></active-filters>

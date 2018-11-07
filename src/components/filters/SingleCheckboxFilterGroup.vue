@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { SET_FILTERS_CHECKBOX } from '../../store/actions'
+import { SET_FILTERS_FROM_ACTIVE_CHECKBOXES } from '../../store/actions'
 
 export default {
   name: 'SingleCheckboxFilterGroup',
@@ -25,7 +25,7 @@ export default {
   },
   watch: {
     filter () {
-      this.$store.dispatch(SET_FILTERS_CHECKBOX)
+      this.$store.dispatch(SET_FILTERS_FROM_ACTIVE_CHECKBOXES)
     }
   },
   methods: {

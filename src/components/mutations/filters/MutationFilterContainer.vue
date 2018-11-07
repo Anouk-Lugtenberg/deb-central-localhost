@@ -5,7 +5,10 @@
         Filters
       </span>
     </div>
-    <div v-if="rsqlQueryFromFilters.length > 0">
+    <p>Active filters: {{ activeFilters }}</p>
+    <p>String search: {{ stringSearch }}</p>
+    <p>RSQL Query from filters: {{ rsqlQueryFromFilters }}</p>
+    <div v-if="$route.query.q">
       <small>Active filters:</small>
       <div v-for="filterGroup in filteredGroupInformation[mutationTable]">
         <active-filters :filterGroup="filterGroup"></active-filters>
@@ -27,6 +30,7 @@ import ActiveFilters from '../../filters/ActiveFilters'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_MUTATIONS } from '../../../store/modules/mutation/actions'
 import { MUTATION_TABLE } from '../../../store/config'
+import { GET_FILTERS_FROM_URL } from '../../../store/actions'
 
 export default {
   name: 'MutationFilterContainer',
@@ -51,17 +55,14 @@ export default {
     })
   },
   created () {
-    this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS)
+    if (this.$route.query.q) {
+      console.log('Query in route')
+      this.$store.dispatch(GET_FILTERS_FROM_URL)
+    }
   },
   watch: {
-    activeFilters () {
+    rsqlQueryFromFilters () {
       this.createRoute()
-    },
-    stringSearch () {
-      this.createRoute()
-    },
-    '$route.query.q' () {
-      this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS)
     }
   },
   methods: {

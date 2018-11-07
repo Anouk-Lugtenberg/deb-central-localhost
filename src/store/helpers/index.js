@@ -38,38 +38,33 @@ export const createInQuery = (attribute, filters) => filters.length > 0
  * @param table which table the query is for (mutation/patients)
  * @returns {*}
  */
-export const setFilterGroupInformationFromURL = (information, query, table) => {
-  let queries = query.split(';')
-  queries.forEach(function (singleQuery) {
-    console.log('Single query: ' + singleQuery)
-    let strippedFilters = []
-    let attribute = singleQuery.split('=').shift()
-    let activeFilters = singleQuery.split('=').pop()
-    /* Filters which contain ',' are treated differently, cause otherwise they would be split */
-    let filtersBetweenQuotes = activeFilters.match(/'[a-z, ]*'/g)
-    if (filtersBetweenQuotes) {
-      filtersBetweenQuotes.forEach(function (filter) {
-        strippedFilters.push(filter.replace(/'/g, ''))
-      })
-    }
-    activeFilters.split(',').forEach(function (filter) {
-      strippedFilters.push(filter.replace(/['()]/g, ''))
-    })
-    console.log('Stripped filters: ' + strippedFilters)
-    Object.keys(information[table]).forEach(function (filterGroup) {
-      if (filterGroup.includes(attribute)) {
-        information[table][filterGroup].forEach(function (elementFilterGroup) {
-          // console.log('Name before: ' + elementFilterGroup.name)
-          if (strippedFilters.includes(elementFilterGroup.name)) {
-            console.log('Element filter group: ' + elementFilterGroup.name)
-            elementFilterGroup.activeFilter = true
-          } else {
-            elementFilterGroup.activeFilter = false
-          }
+export const setFilterGroupInformationFromURL = (information, query) => {
+  Object.keys(information).forEach(function (table) {
+    let queries = query.split(';')
+    queries.forEach(function (singleQuery) {
+      let strippedFilters = []
+      let attribute = singleQuery.split('=').shift()
+      let activeFilters = singleQuery.split('=').pop()
+      /* Filters which contain ',' are treated differently, cause otherwise they would be split */
+      let filtersBetweenQuotes = activeFilters.match(/'[a-z, ]*'/g)
+      if (filtersBetweenQuotes) {
+        filtersBetweenQuotes.forEach(function (filter) {
+          strippedFilters.push(filter.replace(/'/g, ''))
         })
       }
+      activeFilters.split(',').forEach(function (filter) {
+        strippedFilters.push(filter.replace(/['()]/g, ''))
+      })
+      Object.keys(information[table]).forEach(function (filterGroup) {
+        if (filterGroup.includes(attribute)) {
+          information[table][filterGroup].forEach(function (elementFilterGroup) {
+            elementFilterGroup.activeFilter = strippedFilters.includes(elementFilterGroup.name)
+          })
+        }
+      })
     })
   })
+  console.log('Returning information')
   return information
 }
 
