@@ -6,7 +6,7 @@
     </span>
     <span v-else>
       <span v-if="isClickable">
-        <router-link :to="{name: 'Pubmed', params: {label: label, attribute: attribute}}">{{ attribute }}</router-link>
+        <a :href="'https://www.ncbi.nlm.nih.gov/pubmed/' + attribute">{{ attribute }}</a>
       </span>
        <span v-else>
          {{ attribute }}

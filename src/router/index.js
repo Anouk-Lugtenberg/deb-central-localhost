@@ -5,7 +5,6 @@ import Home from './../components/Home'
 import MutationModel from './../components/models/MutationModel'
 import PatientModel from './../components/models/PatientModel'
 import XrefModel from '../components/models/XrefModel'
-import PubmedModel from '../components/models/PubmedModel'
 import CategoricalModel from '../components/models/CategoricalModel'
 import MutationsContainer from './../components/mutations/MutationsContainer'
 import PatientsContainer from './../components/patients/PatientsContainer'
@@ -70,15 +69,6 @@ export default new Router({
       component: PatientModel,
       props: (route) => ({
         id: route.params.id
-      })
-    },
-    {
-      path: '/Pubmed/:label/:attribute',
-      name: 'Pubmed',
-      component: PubmedModel,
-      props: (route) => ({
-        label: route.params.label,
-        attribute: route.params.attribute
       })
     },
     {
