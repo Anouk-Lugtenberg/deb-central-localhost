@@ -1,6 +1,6 @@
 <template>
   <div class="search-field ml-1 mr-1 mt-3">
-    {{ $route.query.q }}
+    Search: {{ search }}
     <input type="text" placeholder="search" v-model.lazy="search">
   </div>
 </template>
@@ -18,6 +18,11 @@ export default {
   watch: {
     search: function () {
       this.$store.commit('mutation/' + SET_SEARCH_MUTATION, this.search)
+    },
+    '$route.query.q' () {
+      if (typeof this.$route.query.q === 'undefined') {
+        this.search = ''
+      }
     }
   },
   created () {
