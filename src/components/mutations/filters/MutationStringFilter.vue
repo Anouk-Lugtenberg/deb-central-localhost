@@ -1,6 +1,5 @@
 <template>
   <div class="search-field ml-1 mr-1 mt-3">
-    Search: {{ search }}
     <input type="text" placeholder="search" v-model.lazy="search">
   </div>
 </template>

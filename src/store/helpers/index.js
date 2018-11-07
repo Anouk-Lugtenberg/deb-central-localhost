@@ -22,6 +22,7 @@ export const createActiveFilterQueries = (attribute, filters) => {
   })
   return createInQuery(attribute, activeFilters)
 }
+
 /**
  * Create an RSQL 'in' query for filters
  * @example in query for event filter
@@ -35,7 +36,6 @@ export const createInQuery = (attribute, filters) => filters.length > 0
  * Helper to set the filter checkboxes to true when filter is given in the URL
  * @param information contains the different filters and their options
  * @param query the query from the URL
- * @param table which table the query is for (mutation/patients)
  * @returns {*}
  */
 export const setFilterGroupInformationFromURL = (information, query) => {
@@ -64,7 +64,6 @@ export const setFilterGroupInformationFromURL = (information, query) => {
       })
     })
   })
-  console.log('Returning information')
   return information
 }
 

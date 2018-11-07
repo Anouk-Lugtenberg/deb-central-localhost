@@ -5,9 +5,6 @@
         Filters
       </span>
     </div>
-    <p>Active filters: {{ activeFilters }}</p>
-    <p>String search: {{ stringSearch }}</p>
-    <p>RSQL Query from filters: {{ rsqlQueryFromFilters }}</p>
     <div v-if="$route.query.q">
       <button @click="createRouteWithoutQuery()">Clear filters</button>
       <small>Active filters:</small>
@@ -49,10 +46,7 @@ export default {
   computed: {
     ...mapGetters({
       rsqlQueryFromFilters: 'mutation/rsqlMutation',
-      activeFilters: 'mutation/getActiveFiltersCheckbox',
-      mutationsFiltersActive: 'mutation/getMutationsFiltersActive',
-      filteredGroupInformation: 'getFilteredGroupInformation',
-      stringSearch: 'mutation/getStringSearch'
+      filteredGroupInformation: 'getFilteredGroupInformation'
     })
   },
   created () {
@@ -62,11 +56,9 @@ export default {
   },
   watch: {
     '$route.query.q' () {
-      console.log('Route.query.q CHANGED')
       this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS)
     },
     rsqlQueryFromFilters () {
-      console.log('Creating route')
       this.createRoute()
     }
   },
