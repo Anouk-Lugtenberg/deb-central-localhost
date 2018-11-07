@@ -6,7 +6,6 @@
 
 <script>
 import MutationCardsContainer from './MutationCardsContainer'
-import { GET_ALL_MUTATIONS } from '../../store/modules/mutation/actions'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -18,11 +17,6 @@ export default {
     ...mapGetters({
       totalMutations: 'mutation/getTotalMutations'
     })
-  },
-  created () {
-    if (Object.keys(this.$store.state.mutation.mutations).length === 0) {
-      this.$store.dispatch('mutation/' + GET_ALL_MUTATIONS)
-    }
   }
 }
 </script>

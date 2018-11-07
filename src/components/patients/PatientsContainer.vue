@@ -8,7 +8,6 @@
 
 <script>
 import PatientsCardsContainer from './PatientCardsContainer'
-import { GET_ALL_PATIENTS } from './../../store/modules/patients/actions'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -20,11 +19,6 @@ export default {
     ...mapGetters({
       totalPatients: 'patients/getTotalPatients'
     })
-  },
-  created () {
-    if (Object.keys(this.$store.state.patients.patients).length === 0) {
-      this.$store.dispatch('patients/' + GET_ALL_PATIENTS)
-    }
   }
 }
 </script>

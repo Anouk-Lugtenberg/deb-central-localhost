@@ -22,6 +22,7 @@ const TABLES = [MUTATION_TABLE, PATIENT_TABLE]
 
 export default {
   [GET_METADATA] (context) {
+    console.log('Getting METADATA')
     for (let i = 0; i < TABLES.length; i++) {
       api.get('/api/v2/' + TABLES[i] + '?start=0&num=10')
         .then(response => response.json())

@@ -22,6 +22,7 @@ export const GET_PATIENT_FOR_MUTATION = '__GET_PATIENT_FOR_MUTATION__'
 
 export default {
   [GET_ALL_MUTATIONS] ({commit}) {
+    console.log('Getting MUTATIONS')
     api.get(MUTATIONS_API_PATH + '?start=0&num=10000')
       .then(response => response.json())
       .then(response => {
@@ -47,7 +48,6 @@ export default {
   [GET_FILTERED_MUTATIONS] ({state, commit, rootState}) {
     if (typeof (rootState.route.query.q) !== 'undefined' && rootState.route.query.q.length > 0) {
       commit(SET_MUTATIONS_FILTER_ACTIVE, true)
-      console.log('Query used for retrieving MUTATIONS: ' + rootState.route.query.q)
       api.get(MUTATIONS_API_PATH + '?q=' + rootState.route.query.q + '&start=0&num=10000')
         .then(response => response.json())
         .then(response => {

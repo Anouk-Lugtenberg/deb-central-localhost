@@ -28,7 +28,7 @@ export default {
 .custom-border {
   padding-top: 0;
   padding-bottom: 0;
-  border-radius: 25px;
+  border-radius: 10px;
   background-color: #ededed;
   color: black;
   font-weight: bold;

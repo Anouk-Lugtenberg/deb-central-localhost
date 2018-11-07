@@ -19,6 +19,7 @@ export const GET_FILTERED_PATIENTS = '__GET_FILTERED_PATIENTS__'
 
 export default {
   [GET_ALL_PATIENTS] ({commit}) {
+    console.log('Getting PATIENTS')
     api.get(PATIENTS_API_PATH + '?start=0&num=10000')
       .then(response => response.json())
       .then(response => {
@@ -34,7 +35,6 @@ export default {
       })
   },
   [GET_FILTERED_PATIENTS] ({state, commit, rootState}) {
-    console.log('FILTERING STARTED')
     if (typeof (rootState.route.query.q) !== 'undefined' && rootState.route.query.q.length > 0) {
       commit(SET_PATIENTS_FILTER_ACTIVE, true)
       rootState.filterGroupInformation = setFilterGroupInformationFromURL(rootState.filterGroupInformation, rootState.route.query.q, PATIENT_TABLE)
