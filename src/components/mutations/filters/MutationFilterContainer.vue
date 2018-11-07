@@ -9,6 +9,7 @@
     <p>String search: {{ stringSearch }}</p>
     <p>RSQL Query from filters: {{ rsqlQueryFromFilters }}</p>
     <div v-if="$route.query.q">
+      <button @click="createRouteWithoutQuery()">Clear filters</button>
       <small>Active filters:</small>
       <div v-for="filterGroup in filteredGroupInformation[mutationTable]">
         <active-filters :filterGroup="filterGroup"></active-filters>
@@ -56,12 +57,16 @@ export default {
   },
   created () {
     if (this.$route.query.q) {
-      console.log('Query in route')
       this.$store.dispatch(GET_FILTERS_FROM_URL)
     }
   },
   watch: {
+    '$route.query.q' () {
+      console.log('Route.query.q CHANGED')
+      this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS)
+    },
     rsqlQueryFromFilters () {
+      console.log('Creating route')
       this.createRoute()
     }
   },
@@ -72,7 +77,6 @@ export default {
       } else {
         this.createRouteWithoutQuery()
       }
-      this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS)
     },
     createRouteWithQuery () {
       this.$router.push({

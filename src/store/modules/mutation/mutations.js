@@ -35,7 +35,6 @@ export default {
     Vue.set(state.patientsPerMutation, id, naturalSort(patients))
   },
   [SET_SEARCH_MUTATION] (state, search) {
-    console.log('MUTATING search: ' + search)
     state.stringSearch = search
     state.search = search
   },

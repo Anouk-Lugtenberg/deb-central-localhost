@@ -15,7 +15,10 @@
                         :showPropertyName="showPropertyName"></field-type-other>
     </div>
     <div v-else>
-      {{ property.label }}: N/A
+      <div v-if="showPropertyName">
+        {{ property.label }}:
+      </div>
+      N/A
     </div>
   </div>
 </template>

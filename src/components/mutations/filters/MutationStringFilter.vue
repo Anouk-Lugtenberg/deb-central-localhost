@@ -17,14 +17,12 @@ export default {
   },
   watch: {
     search: function () {
-      console.log('SET SEARCHING')
       this.$store.commit('mutation/' + SET_SEARCH_MUTATION, this.search)
     }
   },
   created () {
     if (this.$route.query.q) {
       if (this.$route.query.q.includes('*')) {
-        console.log('Setting search from CREATED')
         this.search = this.$route.query.q.split('=').pop()
       }
     }
