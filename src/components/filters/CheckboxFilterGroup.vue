@@ -1,5 +1,6 @@
 <template>
   <div>
+    Filterlabel: {{ filterLabel }}
     <b-card class="mt-2 ml-1 mr-1 mb-1">
       <div @click="toggleCollapse =! toggleCollapse" class="clickable">
         <span v-if="toggleCollapse">
@@ -35,7 +36,7 @@ import SingleCheckboxFilterGroup from './SingleCheckboxFilterGroup'
 
 export default {
   name: 'CheckboxFilterGroup',
-  props: ['filters', 'filterGroupName'],
+  props: ['filterLabel', 'filters', 'filterGroupName'],
   data () {
     return {
       toggleCollapse: false,
@@ -52,9 +53,13 @@ export default {
   methods: {
     /* Capitalizes and adds spaces to the group name for readability of the user */
     setGroupName: function (filterGroupName) {
+      filterGroupName = this.removeUnderscores(filterGroupName)
       filterGroupName = this.addSpaceBeforeUppercase(filterGroupName)
       filterGroupName = this.capitalizeFirstCharacter(filterGroupName)
       return filterGroupName
+    },
+    removeUnderscores: function (filterGroupName) {
+      return filterGroupName.replace(/_/g, ' ')
     },
     capitalizeFirstCharacter: function (filterGroupName) {
       return filterGroupName.charAt(0).toUpperCase() + filterGroupName.slice(1)

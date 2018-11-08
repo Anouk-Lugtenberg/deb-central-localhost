@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { naturalSort } from '../../helpers'
 import { COLUMN_PATIENT_ID, MUTATION_COLUMNS_FOR_PATIENT } from '../../config'
+import flattenDepth from 'lodash/flattenDepth'
 
 export const SET_TOTAL_PATIENTS = '__SET_TOTAL_PATIENTS__'
 export const SET_ALL_PATIENTS = '__SET_ALL_PATIENTS__'
@@ -41,7 +42,7 @@ export default {
         patients[key][COLUMN_PATIENT_ID],
         {
           'information': patients[key],
-          'mutations': mutations
+          'mutations': flattenDepth(mutations, 1)
         })
     })
     state.allIdentifiersPatients = naturalSort(identifiers)

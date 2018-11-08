@@ -22,8 +22,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { LOOK_UP_ATTRIBUTE_MUTATIONS, COLUMN_MUTATION_IDENTIFIER_NUMERICAL,
-  VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD, MUTATION_TABLE } from '../../store/config'
+import { COLUMN_MUTATION_IDENTIFIER_NUMERICAL,
+  VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD, MUTATION_TABLE,
+  COLUMN_MUTATION_CDNANOTATION } from '../../store/config'
 import FieldTypes from './FieldTypes'
 
 export default {
@@ -59,7 +60,7 @@ export default {
       this.mutations = []
       for (let mutation in this.listMutationsPerPatient) {
         if (!this.listMutationsPerPatient.hasOwnProperty(mutation)) continue
-        let singleMutation = this.listMutationsPerPatient[mutation][LOOK_UP_ATTRIBUTE_MUTATIONS]
+        let singleMutation = this.listMutationsPerPatient[mutation][COLUMN_MUTATION_CDNANOTATION]
         this.mutations.push(singleMutation)
       }
       /*
