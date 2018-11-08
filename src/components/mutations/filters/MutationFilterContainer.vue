@@ -50,15 +50,17 @@ export default {
       filteredGroupInformation: 'getFilteredGroupInformation'
     })
   },
-  mounted () {
+  created () {
     if (this.$route.query.q) {
+      console.log('This $route: ' + this.$route.query.q)
       this.$store.dispatch(GET_FILTERS_FROM_URL)
+    } else {
+      this.clearAllFilters()
     }
   },
   watch: {
     '$route.query.q' () {
       if (this.$route.query.q) {
-        console.log('Get filters from URL with: ' + this.$route.query.q)
         this.$store.dispatch(GET_FILTERS_FROM_URL)
       } else {
         this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS)

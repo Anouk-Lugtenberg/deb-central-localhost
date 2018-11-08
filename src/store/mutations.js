@@ -4,6 +4,7 @@ import { MUTATION_TABLE } from './config'
 
 export const SET_METADATA = '__SET_METADATA__'
 export const SET_FILTER_GROUP_INFORMATION = '__SET_FILTER_GROUP_INFORMATION__'
+export const SET_ERROR = '__SET_ERROR__'
 
 export default {
   [SET_METADATA] (state, [metadata, type]) {
@@ -40,5 +41,8 @@ export default {
     /* Adds the filter lists to the table they belong with (either mutation or patient), with as key the name
      * of the filter. */
     Vue.set(state.filterGroupInformation[table], name, filterList)
+  },
+  [SET_ERROR] (state, error) {
+    state.error = {status: error.status, statusText: error.statusText, url: error.url}
   }
 }

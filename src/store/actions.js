@@ -1,7 +1,8 @@
 import api from '@molgenis/molgenis-api-client'
 import {
   SET_METADATA,
-  SET_FILTER_GROUP_INFORMATION
+  SET_FILTER_GROUP_INFORMATION,
+  SET_ERROR
 } from './mutations'
 import {
   MUTATION_TABLE,
@@ -22,12 +23,14 @@ export const RESET_FILTERS = '__RESET_FILTERS__'
 const TABLES = [MUTATION_TABLE, PATIENT_TABLE]
 
 export default {
-  [GET_METADATA] (context) {
+  [GET_METADATA] ({commit}) {
     for (let i = 0; i < TABLES.length; i++) {
       api.get('/api/v2/' + TABLES[i] + '?start=0&num=10')
         .then(response => response.json())
         .then(response => {
-          context.commit(SET_METADATA, [response.meta.attributes, TABLES[i]])
+          commit(SET_METADATA, [response.meta.attributes, TABLES[i]])
+        }, error => {
+          commit(SET_ERROR, error)
         })
     }
   },
@@ -38,6 +41,8 @@ export default {
           .then(response => response.json())
           .then(response => {
             commit(SET_FILTER_GROUP_INFORMATION, [table, field.name, response])
+          }, error => {
+            commit(SET_ERROR, error)
           })
       }
       if (field.fieldType === 'COMPOUND') {
@@ -47,6 +52,8 @@ export default {
               .then(response => response.json())
               .then(response => {
                 commit(SET_FILTER_GROUP_INFORMATION, [table, attribute.name, response])
+              }, error => {
+                commit(SET_ERROR, error)
               })
           }
         })

@@ -8,7 +8,7 @@ $green: #00e389;
 $blue: #2a97be;
 $orange: #f26c22;
 $yellow: #ffc107;
-$red: #e5001e;
+$red: #dc3545;
 
 // Create grayscale
 $gray-dark: #292b2c;
@@ -42,6 +42,7 @@ $badge-padding-y: 0.4em;
 $badge-font-weight: normal;
 
 // Override fonts
+$font-family-error: 'Times New Roman', Helvetica, Arial, sans-serif;
 $font-family-sans-serif: 'Avenir', Helvetica, Arial, sans-serif;
 $font-family-serif: Georgia, 'Times New Roman', Times, serif;
 $font-family-monospace: Menlo, Monaco, Consolas, 'Liberation Mono',

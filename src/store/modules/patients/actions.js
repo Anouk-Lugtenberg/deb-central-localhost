@@ -6,6 +6,10 @@ import {
   SET_FILTERED_PATIENTS,
   SET_PATIENTS_FILTER_ACTIVE
 } from './mutations'
+import {
+  SET_ERROR
+} from './../../mutations'
+
 /* API paths */
 import {
   PATIENT_TABLE,
@@ -24,6 +28,8 @@ export default {
       .then(response => {
         commit(SET_TOTAL_PATIENTS, response.total)
         commit(SET_ALL_PATIENTS, response.items)
+      }, error => {
+        commit(SET_ERROR, error, {root: true})
       })
   },
   [GET_PATIENTS_INFORMATION_PATIENT_ID] ({commit}, id) {
@@ -31,6 +37,8 @@ export default {
       .then(response => response.json())
       .then(response => {
         commit(SET_PATIENT_INFORMATION_PATIENT_ID, [id, response])
+      }, error => {
+        commit(SET_ERROR, error, {root: true})
       })
   },
   [GET_FILTERED_PATIENTS] ({state, commit, rootState}) {
@@ -41,6 +49,8 @@ export default {
         .then(response => response.json())
         .then(response => {
           commit(SET_FILTERED_PATIENTS, response.items)
+        }, error => {
+          commit(SET_ERROR, error, {root: true})
         })
     } else {
       rootState.filterGroupInformation = setFilterGroupInformationFromURL(rootState.filterGroupInformation, '', PATIENT_TABLE)

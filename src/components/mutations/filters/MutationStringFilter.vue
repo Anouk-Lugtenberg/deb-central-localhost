@@ -1,6 +1,6 @@
 <template>
   <div class="search-field ml-1 mr-1 mt-3">
-    <input type="text" placeholder="search" v-model.lazy="search">
+    <input type="text" placeholder="Search mutations" v-model.lazy="search">
   </div>
 </template>
 

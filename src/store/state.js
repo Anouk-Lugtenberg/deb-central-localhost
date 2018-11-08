@@ -2,5 +2,6 @@ export default {
   metadata: {},
   metadataAllFieldsVisible: {},
   filterGroupInformation: {},
-  metadataColumnsMutations: {}
+  metadataColumnsMutations: {},
+  error: null
 }
