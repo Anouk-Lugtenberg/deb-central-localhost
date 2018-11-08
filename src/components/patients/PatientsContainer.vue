@@ -8,21 +8,11 @@
 
 <script>
 import PatientsCardsContainer from './PatientCardsContainer'
-import { mapGetters } from 'vuex'
 
 export default {
   name: 'PatientsContainer',
   components: {
     'patient-cards-container': PatientsCardsContainer
-  },
-  computed: {
-    ...mapGetters({
-      totalPatients: 'patients/getTotalPatients'
-    })
   }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -2,6 +2,8 @@
   <div>
     <b-row class="top-row-container">
       <b-col sm="3">
+        <p>Filtered: {{ filtered }}</p>
+        <p>Is filtering: {{ isFiltering }}</p>
       </b-col>
       <b-col sm="9">
         <b-pagination-nav :use-router="true" size="md" :link-gen="linkGenerator" align="center"
@@ -16,19 +18,41 @@
             <mutation-filter-container :pageNumber="currentPage"></mutation-filter-container>
           </div>
         </div>
+        <div v-else>
+          Loading filters...
+        </div>
       </b-col>
       <b-col sm="9">
-        <div v-if="mutationIdentifiers.length > 0">
-          <div v-for="(identifier, index) in mutationIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="index">
-            <mutation-card :mutationIdentifier="identifier"
-                           :mutation="mutations[identifier]"
-                           :visibleFields="visibleFields"></mutation-card>
+        <div v-if="!filtered">
+          <div v-if="mutationIdentifiers.length > 0">
+            <div v-for="(identifier, index) in mutationIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="index">
+              <mutation-card :mutationIdentifier="identifier"
+                             :mutation="mutations[identifier]"
+                             :visibleFields="visibleFields"></mutation-card>
+            </div>
+          </div>
+          <div v-else>
+            Loading mutations...
           </div>
         </div>
-        <div v-else>
-          <b-card class="no-mutations-found">
-            No mutations found with these filters
-          </b-card>
+        <div v-else-if="filtered">
+          <div v-if="isFiltering">
+            Filtering mutations...
+          </div>
+          <div v-else-if="!isFiltering">
+            <div v-if="mutationIdentifiers.length > 0">
+              <div v-for="(identifier, index) in mutationIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="index">
+                <mutation-card :mutationIdentifier="identifier"
+                               :mutation="mutations[identifier]"
+                               :visibleFields="visibleFields"></mutation-card>
+              </div>
+            </div>
+            <div v-else>
+              <b-card class="no-mutations-found">
+                No mutations found with these filters
+              </b-card>
+            </div>
+          </div>
         </div>
       </b-col>
     </b-row>
@@ -54,7 +78,18 @@ import { MUTATION_TABLE, VISIBLE_FILTERS } from '../../store/config'
 
 export default {
   name: 'MutationCardsPaginator',
-  props: ['mutationIdentifiers', 'visibleFields'],
+  props: {
+    mutationIdentifiers: {
+      type: Array
+    },
+    visibleFields: {
+      type: Array
+    },
+    filtered: {
+      default: false,
+      type: Boolean
+    }
+  },
   components: {
     'mutation-card': MutationCard,
     'mutation-filter-container': MutationFilterContainer,
@@ -72,7 +107,8 @@ export default {
   computed: {
     ...mapGetters({
       mutations: 'mutation/getMutations',
-      filteredGroupInformation: 'getFilteredGroupInformation'
+      filteredGroupInformation: 'getFilteredGroupInformation',
+      isFiltering: 'mutation/getMutationsIsFiltering'
     })
   },
   watch: {

@@ -1,14 +1,16 @@
 <template>
   <div>
     <!--<genome-browser></genome-browser>-->
-    <div v-if="mutationsFiltersActive">
-      <mutation-card-paginator :mutationIdentifiers="filteredMutationIdentifiers" :visibleFields="visibleFields"></mutation-card-paginator>
-    </div>
-    <div v-else-if="allIdentifiersMutation.length !== 0">
-      <mutation-card-paginator :mutationIdentifiers="allIdentifiersMutation" :visibleFields="visibleFields"></mutation-card-paginator>
-    </div>
-    <div v-else>
-      Loading mutations...
+    <div v-if="metadata[mutationTable]">
+      <div v-if="$route.query.q">
+        <mutation-card-paginator :mutationIdentifiers="filteredMutationIdentifiers"
+                                 :visibleFields="visibleFields"
+                                 :filtered="true"></mutation-card-paginator>
+      </div>
+      <div v-else>
+        <mutation-card-paginator :mutationIdentifiers="allIdentifiersMutation"
+                                 :visibleFields="visibleFields"></mutation-card-paginator>
+      </div>
     </div>
   </div>
 </template>
@@ -34,7 +36,6 @@ export default {
     ...mapGetters({
       allIdentifiersMutation: 'mutation/getAllMutationIdentifiers',
       filteredMutationIdentifiers: 'mutation/getFilteredMutationIdentifiers',
-      mutationsFiltersActive: 'mutation/getMutationsFiltersActive',
       metadata: 'getMetadata'
     }),
     /* This is created instead of using the visible fields property from the metadata, because otherwise the spots from the metadata fields are

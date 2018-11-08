@@ -29,6 +29,7 @@ import { mapGetters } from 'vuex'
 import { GET_FILTERED_MUTATIONS } from '../../../store/modules/mutation/actions'
 import { MUTATION_TABLE } from '../../../store/config'
 import { GET_FILTERS_FROM_URL } from '../../../store/actions'
+import { SET_MUTATIONS_IS_FILTERING } from '../../../store/modules/mutation/mutations'
 
 export default {
   name: 'MutationFilterContainer',
@@ -49,17 +50,25 @@ export default {
       filteredGroupInformation: 'getFilteredGroupInformation'
     })
   },
-  created () {
+  mounted () {
     if (this.$route.query.q) {
       this.$store.dispatch(GET_FILTERS_FROM_URL)
     }
   },
   watch: {
     '$route.query.q' () {
-      this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS)
+      if (this.$route.query.q) {
+        this.$store.dispatch(GET_FILTERS_FROM_URL)
+      } else {
+        this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS)
+      }
     },
     rsqlQueryFromFilters () {
+      this.$store.commit('mutation/' + SET_MUTATIONS_IS_FILTERING, true)
       this.createRoute()
+      if (this.$route.query.q) {
+        this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS)
+      }
     }
   },
   methods: {
