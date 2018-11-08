@@ -9,5 +9,6 @@ export default {
   rsqlPatients: createRSQLQuery,
   getStringSearch: state => state.stringSearch,
   getPatientsFilterActive: state => state.patientsFilterActive,
-  getActiveFiltersCheckbox: state => state.activeFiltersCheckbox
+  getActiveFiltersCheckbox: state => state.activeFiltersCheckbox,
+  getPatientsIsFiltering: state => state.patientsIsFiltering
 }

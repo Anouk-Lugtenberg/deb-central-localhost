@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <patient-cards-container>
-      <router-view></router-view>
-    </patient-cards-container>
-  </div>
+  <patient-cards-container>
+    <router-view></router-view>
+  </patient-cards-container>
 </template>
 
 <script>

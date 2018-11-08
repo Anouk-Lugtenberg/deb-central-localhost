@@ -40,7 +40,7 @@ export default {
     }
   },
   components: {
-    ActiveFilters,
+    'active-filters': ActiveFilters,
     'mutation-string-filter': MutationStringFilter,
     'checkbox-filter-group': CheckboxFilterGroup
   },
@@ -52,7 +52,6 @@ export default {
   },
   created () {
     if (this.$route.query.q) {
-      console.log('This $route: ' + this.$route.query.q)
       this.$store.dispatch(GET_FILTERS_FROM_URL)
     } else {
       this.clearAllFilters()

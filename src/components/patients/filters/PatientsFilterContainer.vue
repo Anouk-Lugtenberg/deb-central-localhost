@@ -6,6 +6,7 @@
       </span>
     </div>
     <div v-if="$route.query.q">
+      <button @click="clearAllFilters">Clear filters</button>
       <small>Active filters:</small>
       <div v-for="filterGroup in filteredGroupInformation[patientTable]">
         <active-filters :filterGroup="filterGroup"></active-filters>
@@ -27,6 +28,8 @@ import ActiveFilters from './../../filters/ActiveFilters'
 import { mapGetters } from 'vuex'
 import { GET_FILTERED_PATIENTS } from '../../../store/modules/patients/actions'
 import { PATIENT_TABLE } from '../../../store/config'
+import { GET_FILTERS_FROM_URL, RESET_FILTERS } from '../../../store/actions'
+import { SET_SEARCH_PATIENTS, SET_PATIENTS_IS_FILTERING } from '../../../store/modules/patients/mutations'
 
 export default {
   name: 'PatientsFilterContainer',
@@ -37,42 +40,51 @@ export default {
     }
   },
   components: {
+    'active-filters': ActiveFilters,
     'patients-string-filter': PatientsStringFilter,
-    'checkbox-filter-group': CheckboxFilterGroup,
-    'active-filters': ActiveFilters
+    'checkbox-filter-group': CheckboxFilterGroup
   },
   computed: {
     ...mapGetters({
       rsqlQueryFromFilters: 'patients/rsqlPatients',
-      activeFilters: 'patients/getActiveFiltersCheckbox',
-      patientsFiltersActive: 'patients/getPatientsFilterActive',
-      filteredGroupInformation: 'getFilteredGroupInformation',
-      stringSearch: 'patients/getStringSearch'
+      filteredGroupInformation: 'getFilteredGroupInformation'
     })
   },
   /* Checks if search query is available in URL on creation, if yes -> use this Query to filter patients */
   created () {
-    this.$store.dispatch('patients/' + GET_FILTERED_PATIENTS)
+    if (this.$route.query.q) {
+      this.$store.dispatch(GET_FILTERS_FROM_URL)
+    } else {
+      this.clearAllFilters()
+    }
   },
   watch: {
-    activeFilters () {
-      this.createRoute()
-    },
-    stringSearch () {
-      this.createRoute()
-    },
     '$route.query.q' () {
-      this.$store.dispatch('patients/' + GET_FILTERED_PATIENTS)
+      if (this.$route.query.q) {
+        this.$store.dispatch(GET_FILTERS_FROM_URL)
+      } else {
+        this.$store.dispatch('patients/' + GET_FILTERED_PATIENTS)
+      }
+    },
+    rsqlQueryFromFilters () {
+      this.$store.commit('patients/' + SET_PATIENTS_IS_FILTERING, true)
+      this.createRoute()
+      if (this.$route.query.q) {
+        this.$store.dispatch('patients/' + GET_FILTERED_PATIENTS)
+      }
     }
   },
   methods: {
+    clearAllFilters () {
+      this.$store.dispatch(RESET_FILTERS)
+      this.$store.commit('patients/' + SET_SEARCH_PATIENTS)
+    },
     createRoute () {
       if (this.rsqlQueryFromFilters.length > 0) {
         this.createRouteWithQuery()
       } else {
         this.createRouteWithoutQuery()
       }
-      this.$store.dispatch('patients/' + GET_FILTERED_PATIENTS)
     },
     createRouteWithQuery () {
       this.$router.push({

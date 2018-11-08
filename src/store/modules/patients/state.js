@@ -7,5 +7,6 @@ export default {
   search: '',
   stringSearch: '',
   activeFiltersCheckbox: [],
-  patientsFilterActive: false
+  patientsFilterActive: false,
+  patientsIsFiltering: false
 }

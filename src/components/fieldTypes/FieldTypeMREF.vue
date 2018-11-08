@@ -51,13 +51,15 @@ export default {
         this.isClickable = true
       }
       let attribute = ''
-      let stuff = this.information[this.name][0]
-      Object.keys(stuff).forEach((key) => {
-        if (key.includes(name)) {
-          attribute = stuff[key]
-        }
-      })
-      this.attribute = attribute
+      let nestedInformation = this.information[this.name][0]
+      if (typeof nestedInformation !== 'undefined') {
+        Object.keys(nestedInformation).forEach((key) => {
+          if (key.includes(name)) {
+            attribute = nestedInformation[key]
+          }
+        })
+        this.attribute = attribute
+      }
     }
   }
 }

@@ -1,10 +1,10 @@
 <template>
   <b-row class="justify-content-center pt-5">
     <b-col cols="10">
-      <b-card bg-variant="danger" text-variant="white" class="text-center">
-        <p class="error-font">
-          Woops! Something went wrong while processing your request
-        </p>
+      <b-card bg-variant="light" class="text-center">
+        <h3>
+          Oops! Something went wrong while processing your request
+        </h3>
         <div v-if="error">
           <p>
             {{ error.status }} - {{ error.statusText }}
@@ -15,7 +15,7 @@
             Page Not Found
           </p>
         </div>
-        <b-button @click="goHome()" class="error-message-button" size="lg" variant="outline">Home</b-button>
+        <b-button @click="goHome()" class="error-message-button" size="lg" variant="outline-primary">Home</b-button>
       </b-card>
     </b-col>
   </b-row>
@@ -39,9 +39,6 @@ export default {
 </script>
 
 <style scoped>
-.error-font {
-  font-weight: bold;
-}
 .error-message-button {
   background-color: white;
   color: black;

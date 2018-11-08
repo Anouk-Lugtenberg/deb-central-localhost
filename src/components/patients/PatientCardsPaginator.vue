@@ -4,9 +4,9 @@
       <b-col sm="3">
       </b-col>
       <b-col sm="9">
-    <b-pagination-nav :use-router="true" size="md" :link-gen="linkGenerator" align="center"
-                      :number-of-pages="totalPages" v-model="currentPage">
-    </b-pagination-nav>
+        <b-pagination-nav :use-router="true" size="md" :link-gen="linkGenerator" align="center"
+                          :number-of-pages="totalPages" v-model="currentPage">
+        </b-pagination-nav>
       </b-col>
     </b-row>
     <b-row>
@@ -16,19 +16,41 @@
             <patients-filter-container :pageNumber="currentPage"></patients-filter-container>
           </div>
         </div>
+        <div v-else>
+          Loading filters...
+        </div>
       </b-col>
       <b-col sm="9">
-        <div v-if="filtersActive">
-        </div>
-        <div v-if="patientIdentifiers.length > 0">
-          <div v-for="identifier in patientIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="identifier">
-            <patient-card :patientIdentifier="identifier" :patient="patients[identifier]" :visibleFields="visibleFields"></patient-card>
+        <div v-if="!filtered">
+          <div v-if="patientIdentifiers.length > 0">
+            <div v-for="(identifier, index) in patientIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="index">
+              <patient-card :patientIdentifier="identifier"
+                             :patient="patients[identifier]"
+                             :visibleFields="visibleFields"></patient-card>
+            </div>
+          </div>
+          <div v-else>
+            Loading patients...
           </div>
         </div>
-        <div v-else>
-          <b-card class="no-patients-found">
-            No patients found with these filters
-          </b-card>
+        <div v-else-if="filtered">
+          <div v-if="isFiltering">
+            Filtering patients...
+          </div>
+          <div v-else-if="!isFiltering">
+            <div v-if="patientIdentifiers.length > 0">
+              <div v-for="(identifier, index) in patientIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="index">
+                <patient-card :patientIdentifier="identifier"
+                               :patient="patients[identifier]"
+                               :visibleFields="visibleFields"></patient-card>
+              </div>
+            </div>
+            <div v-else>
+              <b-card class="no-patients-found">
+                No patients found with these filters
+              </b-card>
+            </div>
+          </div>
         </div>
       </b-col>
     </b-row>
@@ -53,7 +75,18 @@ import { PATIENT_TABLE, VISIBLE_FILTERS } from '../../store/config'
 
 export default {
   name: 'PatientCardsPaginator',
-  props: ['patientIdentifiers', 'visibleFields', 'filtersActive'],
+  props: {
+    patientIdentifiers: {
+      type: Array
+    },
+    visibleFields: {
+      type: Array
+    },
+    filtered: {
+      default: false,
+      type: Boolean
+    }
+  },
   components: {
     'patient-card': PatientCard,
     'patients-filter-container': PatientsFilterContainer
@@ -70,7 +103,8 @@ export default {
   computed: {
     ...mapGetters({
       patients: 'patients/getPatients',
-      filteredGroupInformation: 'getFilteredGroupInformation'
+      filteredGroupInformation: 'getFilteredGroupInformation',
+      isFiltering: 'patients/getPatientsIsFiltering'
     })
   },
   watch: {
@@ -91,7 +125,7 @@ export default {
     }
     /* Filtered group information is only set on first load, so it doesn't get overwritten */
     if (typeof this.filteredGroupInformation[this.patientTable] === 'undefined') {
-      this.$store.dispatch(GET_FILTERED_GROUP_INFORMATION, this.patientTable)
+      this.$store.dispatch(GET_FILTERED_GROUP_INFORMATION, PATIENT_TABLE)
     }
   },
   methods: {

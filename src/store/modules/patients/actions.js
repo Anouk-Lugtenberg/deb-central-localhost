@@ -44,7 +44,6 @@ export default {
   [GET_FILTERED_PATIENTS] ({state, commit, rootState}) {
     if (typeof (rootState.route.query.q) !== 'undefined' && rootState.route.query.q.length > 0) {
       commit(SET_PATIENTS_FILTER_ACTIVE, true)
-      rootState.filterGroupInformation = setFilterGroupInformationFromURL(rootState.filterGroupInformation, rootState.route.query.q, PATIENT_TABLE)
       api.get(PATIENTS_API_PATH + '?q=' + rootState.route.query.q + '&start=0&num=10000')
         .then(response => response.json())
         .then(response => {
