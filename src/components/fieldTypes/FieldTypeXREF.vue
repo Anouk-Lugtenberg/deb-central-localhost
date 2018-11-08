@@ -1,12 +1,15 @@
 <template>
   <div>
     <span v-if="showPropertyName">{{ label }}: </span>
-    <span v-if="attribute === 'N/A'">
+    <span>
       {{ attribute }}
     </span>
-    <span v-else>
-      <router-link :to="{name: 'XREF', params: {name: name, attribute: attribute, entity: entity}}">{{ attribute }}</router-link>
-    </span>
+    <!--<span v-if="attribute === 'N/A'">-->
+      <!--{{ attribute }}-->
+    <!--</span>-->
+    <!--<span v-else>-->
+      <!--<router-link :to="{name: 'XREF', params: {name: name, attribute: attribute, entity: entity}}">{{ attribute }}</router-link>-->
+    <!--</span>-->
   </div>
 </template>
 

@@ -1,6 +1,5 @@
 <template>
   <div>
-    Filterlabel: {{ filterLabel }}
     <b-card class="mt-2 ml-1 mr-1 mb-1">
       <div @click="toggleCollapse =! toggleCollapse" class="clickable">
         <span v-if="toggleCollapse">
