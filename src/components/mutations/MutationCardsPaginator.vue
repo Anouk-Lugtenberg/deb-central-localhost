@@ -2,8 +2,6 @@
   <div>
     <b-row class="top-row-container">
       <b-col sm="3">
-        <p>Filtered: {{ filtered }}</p>
-        <p>Is filtering: {{ isFiltering }}</p>
       </b-col>
       <b-col sm="9">
         <b-pagination-nav :use-router="true" size="md" :link-gen="linkGenerator" align="center"

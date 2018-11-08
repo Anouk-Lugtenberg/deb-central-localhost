@@ -22,7 +22,6 @@ export const GET_PATIENT_FOR_MUTATION = '__GET_PATIENT_FOR_MUTATION__'
 
 export default {
   [GET_ALL_MUTATIONS] ({commit}) {
-    console.log('Getting MUTATIONS')
     api.get(MUTATIONS_API_PATH + '?start=0&num=10000')
       .then(response => response.json())
       .then(response => {

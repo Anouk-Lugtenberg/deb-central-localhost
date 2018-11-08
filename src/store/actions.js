@@ -16,13 +16,13 @@ export const GET_METADATA = '__GET_METADATA__'
 export const SET_FILTERS_FROM_ACTIVE_CHECKBOXES = '__SET_FILTERS_CHECKBOX__'
 export const GET_FILTERED_GROUP_INFORMATION = '__GET_FILTERED_GROUP_INFORMATION__'
 export const GET_FILTERS_FROM_URL = '__GET_FILTERS_FROM_URL__'
+export const RESET_FILTERS = '__RESET_FILTERS__'
 
 /* Tables */
 const TABLES = [MUTATION_TABLE, PATIENT_TABLE]
 
 export default {
   [GET_METADATA] (context) {
-    console.log('Getting METADATA')
     for (let i = 0; i < TABLES.length; i++) {
       api.get('/api/v2/' + TABLES[i] + '?start=0&num=10')
         .then(response => response.json())
@@ -69,6 +69,10 @@ export default {
   },
   [GET_FILTERS_FROM_URL] ({commit, state, dispatch}) {
     state.filterGroupInformation = setFilterGroupInformationFromURL(state.filterGroupInformation, state.route.query.q)
+    dispatch(SET_FILTERS_FROM_ACTIVE_CHECKBOXES)
+  },
+  [RESET_FILTERS] ({commit, state, dispatch}) {
+    state.filterGroupInformaiton = setFilterGroupInformationFromURL(state.filterGroupInformation, '')
     dispatch(SET_FILTERS_FROM_ACTIVE_CHECKBOXES)
   }
 }

@@ -19,7 +19,6 @@ export const GET_FILTERED_PATIENTS = '__GET_FILTERED_PATIENTS__'
 
 export default {
   [GET_ALL_PATIENTS] ({commit}) {
-    console.log('Getting PATIENTS')
     api.get(PATIENTS_API_PATH + '?start=0&num=10000')
       .then(response => response.json())
       .then(response => {
