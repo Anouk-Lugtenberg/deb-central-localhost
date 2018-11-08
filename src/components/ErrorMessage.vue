@@ -5,10 +5,17 @@
         <p class="error-font">
           Woops! Something went wrong while processing your request
         </p>
-        <p>
-          {{ error.status }} - {{ error.statusText }}
-        </p>
-        <b-button @click="goHome()">Home</b-button>
+        <div v-if="error">
+          <p>
+            {{ error.status }} - {{ error.statusText }}
+          </p>
+        </div>
+        <div v-else>
+          <p>
+            Page Not Found
+          </p>
+        </div>
+        <b-button @click="goHome()" class="error-message-button" size="lg" variant="outline">Home</b-button>
       </b-card>
     </b-col>
   </b-row>
@@ -19,7 +26,7 @@ import { SET_ERROR } from '../store/mutations'
 
 export default {
   name: 'ErrorMessage',
-  props: ['error'],
+  props: ['error', 'pageNotFound'],
   methods: {
     goHome () {
       this.$router.push({
@@ -34,5 +41,9 @@ export default {
 <style scoped>
 .error-font {
   font-weight: bold;
+}
+.error-message-button {
+  background-color: white;
+  color: black;
 }
 </style>

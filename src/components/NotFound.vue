@@ -1,12 +1,16 @@
 <template>
   <div>
-    Page not found
+    <error-message></error-message>
   </div>
 </template>
 
 <script>
+import ErrorMessage from './ErrorMessage'
 export default {
-  name: 'NotFound'
+  name: 'NotFound',
+  components: {
+    'error-message': ErrorMessage
+  }
 }
 </script>
 
