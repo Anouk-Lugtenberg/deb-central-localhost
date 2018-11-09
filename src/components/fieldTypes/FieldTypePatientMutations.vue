@@ -8,8 +8,9 @@
               {{ mutation }}
             </router-link>
           </b-col>
-          <b-col v-for="(column, index) in metadataColumnsMutations[mutationTable]" class="mutation-information"
+          <b-col v-for="(column, index) in metadataColumnsMutations[mutationTable]" class="mutation-information" :class="{ 'col-5': index > 1 }"
                  :key="index">
+            <!--{{ column }}-->
               <field-types :property="column" :information="allMutations[mutation]" :entity="mutationTable"
                            :showPropertyName="false"></field-types>
           </b-col>

@@ -12,7 +12,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSearchPlus, faCaretRight, faCaretDown, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
 sync(store, router)
 library.add(faSearchPlus, faCaretRight, faCaretDown, faTimes)
 Vue.component('font-awesome-icon', FontAwesomeIcon)

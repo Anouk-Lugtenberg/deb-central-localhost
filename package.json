@@ -89,6 +89,7 @@
     "sinon": "^2.2.0",
     "sinon-chai": "^2.8.0",
     "standard": "^10.0.0",
+    "style-loader": "^0.23.1",
     "testdouble": "^1.11.1",
     "url-loader": "^0.5.9",
     "vue-loader": "^12.2.1",
