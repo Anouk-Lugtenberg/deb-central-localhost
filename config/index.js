@@ -1,4 +1,5 @@
 var path = require('path')
+const packageJson = require('../package')
 
 module.exports = {
   build: {
@@ -6,7 +7,11 @@ module.exports = {
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: '',
-    assetsPublicPath: '/',
+    /*
+    assetsPublicPath: '/plugin/app/' + packageJson.name -> when build for app in Molgenis
+    assetsPublicPath: '/' -> when build for server
+     */
+    assetsPublicPath: '/plugin/app/' + packageJson.name,
     productionSourceMap: true,
     productionGzip: false,
     productionGzipExtensions: ['js', 'css'],

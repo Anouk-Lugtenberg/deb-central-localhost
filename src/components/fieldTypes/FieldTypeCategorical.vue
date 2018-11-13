@@ -1,7 +1,8 @@
 <template>
   <div>
-    <span v-if="showPropertyName">{{ label }}: </span>
-    <span>
+    <span v-if="showPropertyName && !label.includes(':')">{{ label }}:<span>
+    <span v-if="showPropertyName && label.includes(':')">{{ label }}</span>
+    </span>
       {{ attribute }}
     </span>
      <!--<router-link :to="{name: 'CATEGORICAL', params: {name: name, attribute: attribute, entity: entity}}">{{ attribute }}</router-link>-->

@@ -51,12 +51,16 @@ module.exports = {
           loaders: {
             'scss': 'vue-style-loader!css-loader!sass-loader',
             'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-          }
+          },
+          vueLoaderConfig
         }
       },
       {
         test: /\.scss$/,
         use: [
+          {
+            loader: 'vue-style-loader'
+          },
           {
             loader: 'css-loader'
           },
@@ -75,7 +79,10 @@ module.exports = {
         loader: 'url-loader',
         query: {
           limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+          /*
+          Add '/' in front of image for production for MOLGENIS app
+           */
+          name: utils.assetsPath('/img/[name].[hash:7].[ext]')
         }
       },
       {

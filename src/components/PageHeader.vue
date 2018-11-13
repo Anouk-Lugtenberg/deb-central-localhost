@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar variant="info" type="dark" toggleable="sm">
+    <b-navbar variant="info" toggleable="sm">
       <b-navbar-nav>
         <b-navbar-brand :to="{name: 'Home'}">
           <img src="../assets/img/deb-central-logo.png" class="img-deb-register">

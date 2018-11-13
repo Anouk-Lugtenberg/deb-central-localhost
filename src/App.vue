@@ -25,6 +25,6 @@ export default {
 </script>
 
 <style lang="scss">
-  @import 'assets/scss/custom-styling';
+  @import './assets/scss/custom-styling.scss';
   @import '../node_modules/bootstrap/scss/bootstrap.scss';
 </style>

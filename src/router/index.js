@@ -55,6 +55,13 @@ export default new Router({
       path: '/Patients',
       redirect: '/Patients/page/1'
     },
+    /*
+    redirect for app in molgenis
+     */
+    {
+      path: '/menu/main/app-deb-central',
+      redirect: '/home'
+    },
     {
       path: '/Mutation/:id',
       name: 'Mutation',

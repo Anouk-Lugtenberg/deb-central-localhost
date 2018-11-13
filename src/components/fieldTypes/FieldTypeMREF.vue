@@ -1,6 +1,7 @@
 <template>
   <div>
-    <span v-if="showPropertyName">{{ label }}: </span>
+    <span v-if="showPropertyName && !label.includes(':')">{{ label }}:</span>
+    <span v-if="showPropertyName && label.includes(':')">{{ label }}</span>
     <span v-if="attribute.includes('N/A')">
       N/A
     </span>

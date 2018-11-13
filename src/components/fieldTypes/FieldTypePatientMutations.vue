@@ -3,14 +3,14 @@
     <div v-if="mutations.length > 0">
       <table class="mutation-table pure-table pure-table-horizontal">
         <b-row v-for="(mutation, index) in mutations" :key="index">
-          <b-col cols="3" class="bold">
+          <b-col cols="2" class="bold">
             <router-link :to="{name: 'Mutation', params: {id: allMutations[mutation][columnMutationIdentifierNumerical]}}">
               {{ mutation }}
             </router-link>
           </b-col>
-          <b-col v-for="(column, index) in metadataColumnsMutations[mutationTable]" class="mutation-information" :class="{ 'col-5': index > 1 }"
+          <b-col v-for="(column, index) in metadataColumnsMutations[mutationTable]" class="mutation-information"
+                 :class="{ 'col-3': index === 0, 'col-2': index === 1, 'col-5': index === 2}"
                  :key="index">
-            <!--{{ column }}-->
               <field-types :property="column" :information="allMutations[mutation]" :entity="mutationTable"
                            :showPropertyName="false"></field-types>
           </b-col>
@@ -24,7 +24,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { COLUMN_MUTATION_IDENTIFIER_NUMERICAL,
-  VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD, MUTATION_TABLE,
+  MUTATION_TABLE,
   COLUMN_MUTATION_CDNANOTATION } from '../../store/config'
 import FieldTypes from './FieldTypes'
 
@@ -38,7 +38,6 @@ export default {
     return {
       mutations: [],
       columnMutationIdentifierNumerical: COLUMN_MUTATION_IDENTIFIER_NUMERICAL,
-      visibleColumnsMutationPatientsCard: VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD,
       mutationTable: MUTATION_TABLE
     }
   },
@@ -58,10 +57,16 @@ export default {
   },
   methods: {
     getMutationsForPatientID () {
+      /**
+       * TODO: VRIJDAG MEE GESTOPT
+       * Dat dit niet werkt heeft te maken met dat er geen CDNA notatie wordt opgeslagen bij de FIPA database.
+       * Deze CDNA notatie wordt bij col7a en CHD7 opgeslagen in de Patient tabel, onder de kolom waar hun mutatie id(s) staan...
+       * Moet dit opgelost worden? Of moet de dataset worden aangepast? Bart vragen? **/
       this.mutations = []
       for (let mutation in this.listMutationsPerPatient) {
         if (!this.listMutationsPerPatient.hasOwnProperty(mutation)) continue
         let singleMutation = this.listMutationsPerPatient[mutation][COLUMN_MUTATION_CDNANOTATION]
+        console.log('Single mutation: ' + singleMutation)
         this.mutations.push(singleMutation)
       }
       /*
@@ -105,8 +110,5 @@ export default {
     align-content: center;
     border-bottom: 1px solid #afc3cc;
     margin: 5px auto 10px auto;
-  }
-  .other-column {
-    width: 400px;
   }
 </style>

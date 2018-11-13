@@ -20,8 +20,8 @@ var webpackConfig = merge(baseWebpackConfig, {
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
     path: config.build.assetsRoot,
-    filename: utils.assetsPath('js/deb-central/[name].js'),
-    chunkFilename: utils.assetsPath('js/deb-central/[id].js')
+    filename: utils.assetsPath('js/[name].js'),
+    chunkFilename: utils.assetsPath('js/[id].js')
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
@@ -35,7 +35,8 @@ var webpackConfig = merge(baseWebpackConfig, {
     }),
     // extract css into its own file
     new ExtractTextPlugin({
-      filename: utils.assetsPath('css/deb-central/[name].css')
+      filename: utils.assetsPath('css/[name].css'),
+      allChunks: true,
     }),
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
@@ -44,7 +45,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       filename: process.env.NODE_ENV === 'testing'
         ? 'index.html'
         : config.build.index,
-      template: 'index.html',
+      template: 'app-template.html',
       inject: true,
       minify: {
         removeComments: true,

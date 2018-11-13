@@ -5,8 +5,8 @@
         Filters
       </span>
     </div>
-    <div v-if="$route.query.q">
-      <button @click="clearAllFilters">Clear filters</button>
+    <div v-if="$route.query.q" class="ml-1 mr-1 mt-2">
+      <button class="btn btn-secondary btn-sm" @click="clearAllFilters">Clear filters</button><br/>
       <small>Active filters:</small>
       <div v-for="filterGroup in filteredGroupInformation[mutationTable]">
         <active-filters :filterGroup="filterGroup"></active-filters>
