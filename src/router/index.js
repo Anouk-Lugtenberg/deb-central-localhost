@@ -4,8 +4,6 @@ import Container from './../components/Container'
 import Home from './../components/Home'
 import MutationModel from './../components/models/MutationModel'
 import PatientModel from './../components/models/PatientModel'
-import XrefModel from '../components/models/XrefModel'
-import CategoricalModel from '../components/models/CategoricalModel'
 import MutationsContainer from './../components/mutations/MutationsContainer'
 import PatientsContainer from './../components/patients/PatientsContainer'
 import NotFound from './../components/NotFound'
@@ -76,26 +74,6 @@ export default new Router({
       component: PatientModel,
       props: (route) => ({
         id: route.params.id
-      })
-    },
-    {
-      path: '/:entity/:name/:attribute',
-      name: 'XREF',
-      component: XrefModel,
-      props: (route) => ({
-        entity: route.params.entity,
-        name: route.params.name,
-        attribute: route.params.attribute
-      })
-    },
-    {
-      path: '/:entity/:name/:attribute',
-      name: 'CATEGORICAL',
-      component: CategoricalModel,
-      props: (route) => ({
-        entity: route.params.entity,
-        name: route.params.name,
-        attribute: route.params.attribute
       })
     },
     {

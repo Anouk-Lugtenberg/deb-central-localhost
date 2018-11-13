@@ -58,15 +58,14 @@ export default {
   methods: {
     getMutationsForPatientID () {
       /**
-       * TODO: VRIJDAG MEE GESTOPT
-       * Dat dit niet werkt heeft te maken met dat er geen CDNA notatie wordt opgeslagen bij de FIPA database.
+       * TODO:
+       * Voor FIPA Database -> Dat dit niet werkt heeft te maken met dat er geen CDNA notatie wordt opgeslagen bij de FIPA database.
        * Deze CDNA notatie wordt bij col7a en CHD7 opgeslagen in de Patient tabel, onder de kolom waar hun mutatie id(s) staan...
        * Moet dit opgelost worden? Of moet de dataset worden aangepast? Bart vragen? **/
       this.mutations = []
       for (let mutation in this.listMutationsPerPatient) {
         if (!this.listMutationsPerPatient.hasOwnProperty(mutation)) continue
         let singleMutation = this.listMutationsPerPatient[mutation][COLUMN_MUTATION_CDNANOTATION]
-        console.log('Single mutation: ' + singleMutation)
         this.mutations.push(singleMutation)
       }
       /*

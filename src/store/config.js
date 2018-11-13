@@ -90,8 +90,8 @@ export const VISIBLE_FILTERS = {
  * VARIABLES FIPA
  */
 
-// /* Variables between different databases */
-//
+/* Variables between different databases */
+
 // /* API paths */
 // export const MUTATIONS_API_PATH = '/api/v2/fipa_Mutations'
 // export const PATIENTS_API_PATH = '/api/v2/fipa_Patients'
@@ -132,4 +132,3 @@ export const VISIBLE_FILTERS = {
 //   [MUTATION_TABLE]: [],
 //   [PATIENT_TABLE]: []
 // }
-
