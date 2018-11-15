@@ -71,7 +71,6 @@ import { mapGetters, mapState } from 'vuex'
 import PatientCard from './PatientCard'
 import PatientsFilterContainer from './filters/PatientsFilterContainer'
 import { GET_FILTERED_GROUP_INFORMATION } from '../../store/actions'
-import { VISIBLE_FILTERS } from '../../store/config'
 
 export default {
   name: 'PatientCardsPaginator',
@@ -95,8 +94,7 @@ export default {
     return {
       totalPages: Math.ceil(this.patientIdentifiers.length / 20),
       currentPage: 1,
-      pageSize: 20,
-      visibleFiltersPatients: VISIBLE_FILTERS[this.patientTable]
+      pageSize: 20
     }
   },
   computed: {

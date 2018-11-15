@@ -72,7 +72,6 @@ import MutationCard from './MutationCard'
 import MutationFilterContainer from './filters/MutationFilterContainer'
 import GenomeBrowser from './../genomeBrowser/GenomeBrowser'
 import { GET_FILTERED_GROUP_INFORMATION } from '../../store/actions'
-import { VISIBLE_FILTERS } from '../../store/config'
 
 export default {
   name: 'MutationCardsPaginator',
@@ -97,8 +96,7 @@ export default {
     return {
       totalPages: Math.ceil(this.mutationIdentifiers.length / 20),
       currentPage: 1,
-      pageSize: 20,
-      visibleFiltersMutations: VISIBLE_FILTERS[this.mutationTable]
+      pageSize: 20
     }
   },
   computed: {
