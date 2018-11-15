@@ -1,13 +1,11 @@
 import api from '@molgenis/molgenis-api-client'
 import {
   SET_METADATA,
+  SET_LIST_METADATA_COLUMNS_MUTATIONS,
   SET_FILTER_GROUP_INFORMATION,
   SET_ERROR
 } from './mutations'
-import {
-  MUTATION_TABLE,
-  PATIENT_TABLE
-} from './config'
+
 import {createActiveFilterQueries, setFilterGroupInformationFromURL} from './helpers'
 import { SET_ACTIVE_FILTERS_PATIENTS } from './modules/patients/mutations'
 import { SET_ACTIVE_FILTERS_MUTATIONS } from './modules/mutation/mutations'
@@ -19,16 +17,20 @@ export const GET_FILTERED_GROUP_INFORMATION = '__GET_FILTERED_GROUP_INFORMATION_
 export const GET_FILTERS_FROM_URL = '__GET_FILTERS_FROM_URL__'
 export const RESET_FILTERS = '__RESET_FILTERS__'
 
-/* Tables */
-const TABLES = [MUTATION_TABLE, PATIENT_TABLE]
-
 export default {
-  [GET_METADATA] ({commit}) {
+  [GET_METADATA] ({commit, state, getters, rootState}) {
+    let VISIBLE_FIELDS = getters.getVisibleFields
+    let VISIBLE_FILTERS = getters.getVisibleFilters
+    let TABLES = [state.MUTATION_TABLE, state.PATIENT_TABLE]
     for (let i = 0; i < TABLES.length; i++) {
       api.get('/api/v2/' + TABLES[i] + '?start=0&num=10')
         .then(response => response.json())
         .then(response => {
-          commit(SET_METADATA, [response.meta.attributes, TABLES[i]])
+          commit(SET_METADATA, [response.meta.attributes, TABLES[i], VISIBLE_FIELDS[TABLES[i]],
+            VISIBLE_FILTERS[TABLES[i]], state.MUTATION_COLUMNS_FOR_PATIENT])
+          if (state.MUTATION_TABLE.includes(TABLES[i])) {
+            commit(SET_LIST_METADATA_COLUMNS_MUTATIONS, [response.meta.attributes, TABLES[i], rootState.VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD])
+          }
         }, error => {
           commit(SET_ERROR, error)
         })
@@ -67,9 +69,9 @@ export default {
       Object.keys(filterListPerAttribute).map(function (filterName) {
         activeFilters.push(createActiveFilterQueries(filterName, filterListPerAttribute[filterName]))
       })
-      if (attribute.includes(PATIENT_TABLE)) {
+      if (attribute.includes(state.PATIENT_TABLE)) {
         commit('patients/' + SET_ACTIVE_FILTERS_PATIENTS, activeFilters)
-      } else if (attribute.includes(MUTATION_TABLE)) {
+      } else if (attribute.includes(state.MUTATION_TABLE)) {
         commit('mutation/' + SET_ACTIVE_FILTERS_MUTATIONS, activeFilters)
       }
     })

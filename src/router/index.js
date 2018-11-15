@@ -8,11 +8,13 @@ import MutationsContainer from './../components/mutations/MutationsContainer'
 import PatientsContainer from './../components/patients/PatientsContainer'
 import NotFound from './../components/NotFound'
 import GenomeBrowser from '../components/genomeBrowser/GenomeBrowser'
+import { INITIAL_STATE } from '../store/state'
 
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
+  base: INITIAL_STATE.baseUrl,
   routes: [
     {
       path: '/',
@@ -56,10 +58,6 @@ export default new Router({
     /*
     redirect for app in molgenis
      */
-    {
-      path: '/menu/main/app-deb-central',
-      redirect: '/home'
-    },
     {
       path: '/Mutation/:id',
       name: 'Mutation',

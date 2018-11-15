@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--Numerical: {{ this.mutations[this.newMutation][this.columnMutationIdentifierNumerical] }}-->
     <b-container class="margin-model-top">
       <div v-if="identifiers.length > 0">
         <b-row>
@@ -28,9 +29,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import MutationCard from './../mutations/MutationCard'
-import { MUTATION_TABLE, COLUMN_MUTATION_IDENTIFIER_NUMERICAL } from '../../store/config'
 
 export default {
   name: 'MutationModel',
@@ -43,8 +43,7 @@ export default {
       numericalIdentifiers: new Set(),
       identifiers: [],
       newMutation: '',
-      errorMutationNotFound: false,
-      mutationTable: MUTATION_TABLE
+      errorMutationNotFound: false
     }
   },
   created () {
@@ -55,13 +54,17 @@ export default {
     ...mapGetters({
       metadataAllFieldsVisible: 'getMetadataAllFieldsVisible',
       mutations: 'mutation/getMutations'
+    }),
+    ...mapState({
+      columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL',
+      mutationTable: 'MUTATION_TABLE'
     })
   },
   watch: {
     newMutation: function () {
       if (this.mutations[this.newMutation]) {
         this.errorMutationNotFound = false
-        this.numericalIdentifiers.add(this.mutations[this.newMutation][COLUMN_MUTATION_IDENTIFIER_NUMERICAL])
+        this.numericalIdentifiers.add(this.mutations[this.newMutation][this.columnMutationIdentifierNumerical])
         this.createNewRoute()
         this.getMutationIdentifiers()
       } else {
@@ -84,6 +87,7 @@ export default {
     },
     updateIdentifiers () {
       this.numericalIdentifiers = new Set()
+      console.log('ID: ' + this.id)
       if (this.id.substring('&')) {
         let singleNumericalIdentifier = this.id.split('&')
         for (let item in singleNumericalIdentifier) {
@@ -101,7 +105,7 @@ export default {
       this.identifiers = []
       for (let identifier in this.mutations) {
         if (!this.mutations.hasOwnProperty(identifier)) continue
-        let mutationIdentifier = this.mutations[identifier][COLUMN_MUTATION_IDENTIFIER_NUMERICAL]
+        let mutationIdentifier = this.mutations[identifier][this.columnMutationIdentifierNumerical]
         if (this.numericalIdentifiers.has(mutationIdentifier)) {
           this.identifiers.push(identifier)
         }

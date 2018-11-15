@@ -1,11 +1,11 @@
 <template>
     <span>
-      <router-link :to="{name: 'Mutation', params: {id: mutationIdentifierNumerical}}">{{ mutationIdentifier }}</router-link>
+      <router-link :to="{name: 'Mutation', params: {id: mutation[mutationIdentifierNumerical]}}">{{ mutationIdentifier }}</router-link>
     </span>
 </template>
 
 <script>
-import { COLUMN_MUTATION_IDENTIFIER_NUMERICAL } from '../../store/config'
+import { mapState } from 'vuex'
 
 export default {
   name: 'FieldTypeMutationIdentifier',
@@ -13,10 +13,10 @@ export default {
   /*
   Numerical identifier is used, since the router-link can't handle identifiers which contain a dot
    */
-  data () {
-    return {
-      mutationIdentifierNumerical: this.mutation[COLUMN_MUTATION_IDENTIFIER_NUMERICAL]
-    }
+  computed: {
+    ...mapState({
+      mutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL'
+    })
   }
 }
 </script>

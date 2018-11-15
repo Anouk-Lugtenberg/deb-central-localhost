@@ -30,12 +30,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import MutationCardInformationContainer from './MutationCardInformationContainer'
 import FieldTypeMutationIdentifier from '../fieldTypes/FieldTypeMutationIdentifier'
 import FieldTypes from '../fieldTypes/FieldTypes'
 import { GET_PATIENT_FOR_MUTATION } from '../../store/modules/mutation/actions'
-import { LOOK_UP_ATTRIBUTE_MUTATIONS, MUTATION_TABLE } from '../../store/config'
 
 export default {
   name: 'MutationCard',
@@ -63,13 +62,16 @@ export default {
     return {
       expand: this.expanded,
       current: 0,
-      tabList: [],
-      mutationTable: MUTATION_TABLE
+      tabList: []
     }
   },
   computed: {
     ...mapGetters({
       patientsPerMutation: 'mutation/getPatientsPerMutation'
+    }),
+    ...mapState({
+      mutationTable: 'MUTATION_TABLE',
+      lookUpAttributeMutations: 'COLUMN_LINK_MUTATION_TO_PATIENT'
     })
   },
   created () {
@@ -82,7 +84,7 @@ export default {
     },
     getPatients () {
       if (!(this.mutationIdentifier in this.patientsPerMutation)) {
-        this.$store.dispatch('mutation/' + GET_PATIENT_FOR_MUTATION, [this.mutationIdentifier, this.mutation[LOOK_UP_ATTRIBUTE_MUTATIONS]])
+        this.$store.dispatch('mutation/' + GET_PATIENT_FOR_MUTATION, [this.mutationIdentifier, this.mutation[this.lookUpAttributeMutations]])
       }
     }
   }

@@ -1,21 +1,21 @@
 import Vue from 'vue'
 import { getMetadata, getMetadataColumnsMutations } from './helpers'
-import { MUTATION_TABLE } from './config'
 
 export const SET_METADATA = '__SET_METADATA__'
+export const SET_LIST_METADATA_COLUMNS_MUTATIONS = '__SET_LIST_METADATA_COLUMNS_MUTATIONS__'
 export const SET_FILTER_GROUP_INFORMATION = '__SET_FILTER_GROUP_INFORMATION__'
 export const SET_ERROR = '__SET_ERROR__'
 
 export default {
-  [SET_METADATA] (state, [metadata, type]) {
-    let listMetadata = getMetadata(metadata, type, false)
-    let listMetadataAllFieldsVisible = getMetadata(metadata, type, true)
-    if (MUTATION_TABLE.includes(type)) {
-      let listMetadataColumnsMutations = getMetadataColumnsMutations(metadata, type)
-      Vue.set(state.metadataColumnsMutations, type, listMetadataColumnsMutations)
-    }
+  [SET_METADATA] (state, [metadata, type, options, filters, mutationColumns]) {
+    let listMetadata = getMetadata(metadata, type, false, options, filters, mutationColumns)
     Vue.set(state.metadata, type, listMetadata)
+    let listMetadataAllFieldsVisible = getMetadata(metadata, type, true, options, filters, mutationColumns)
     Vue.set(state.metadataAllFieldsVisible, type, listMetadataAllFieldsVisible)
+  },
+  [SET_LIST_METADATA_COLUMNS_MUTATIONS] (state, [metadata, type, visibleColumns]) {
+    let listMetadataColumnsMutations = getMetadataColumnsMutations(metadata, visibleColumns)
+    Vue.set(state.metadataColumnsMutations, type, listMetadataColumnsMutations)
   },
   [SET_FILTER_GROUP_INFORMATION] (state, [table, name, information]) {
     let filterList = []

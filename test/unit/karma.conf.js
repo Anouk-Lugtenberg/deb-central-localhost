@@ -2,30 +2,18 @@ var webpackConfig = require('../../build/webpack.test.conf')
 
 module.exports = function (config) {
   config.set({
-    browsers: ['PhantomJS'],
-    frameworks: ['mocha', 'sinon-chai'],
-    reporters: ['spec', 'coverage'],
-    files: [
-      '../../node_modules/es6-promise/dist/es6-promise.auto.js',
-      '../../node_modules/babel-polyfill/dist/polyfill.js',
-      './index.js'],
+    frameworks: ['mocha'],
+    files: ['specs/**/*.spec.js'],
     preprocessors: {
-      './index.js': ['webpack', 'sourcemap']
+      '**/*.spec.js': ['webpack', 'sourcemap']
     },
     webpack: webpackConfig,
-    webpackMiddleware: {
-      noInfo: true
-    },
     coverageReporter: {
-      dir: '../../../../../target/generated-sources/coverage',
+      dir: './coverage',
       reporters: [
         {type: 'cobertura', subdir: 'cobertura'}
       ]
     },
-    junitReporter: {
-      outputDir: '../../../../../target/surefire-reports',
-      outputFile: 'TEST-results.xml',
-      useBrowserName: false
-    }
+    browsers: ['Chrome']
   })
 }

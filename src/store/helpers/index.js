@@ -1,5 +1,4 @@
 import { transformToRSQL } from '@molgenis/rsql'
-import { VISIBLE_FIELDS, VISIBLE_FILTERS, VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD, MUTATION_COLUMNS_FOR_PATIENT } from '../config'
 import flattenDeep from 'lodash/flattenDeep'
 
 export const createRSQLQuery = (state) => transformToRSQL({
@@ -101,11 +100,12 @@ export const createInQueryPatientsPerMutation = (mutationColumn, mutationIdentif
  * @param metadata a json containing the metadata
  * @param type the type (table name)
  * @param allFieldsVisible whether all fields are set to true, or only some
+ * @param options the Object which describes which fields are visible (via config)
+ * @param filters the Object which describes which filters are used (via config)
+ * @param mutationColumnsForPatient
  * @returns {Array} containing the metadata with the four fields described above
  */
-export const getMetadata = (metadata, type, allFieldsVisible) => {
-  let options = VISIBLE_FIELDS[type]
-  let filters = VISIBLE_FILTERS[type]
+export const getMetadata = (metadata, type, allFieldsVisible, options, filters, mutationColumnsForPatient) => {
   let listMetadata = []
   metadata.forEach(function (element) {
     let fieldVisible = true
@@ -156,7 +156,7 @@ export const getMetadata = (metadata, type, allFieldsVisible) => {
       })
       /* Mutations are saved differently for patients (and are always shown),
       so they shouldn't be saved in the metadata */
-    } else if (!(MUTATION_COLUMNS_FOR_PATIENT.includes(element.name))) {
+    } else if (!(mutationColumnsForPatient.includes(element.name))) {
       listMetadata.push({
         'name': element.name,
         'label': element.label,
@@ -168,10 +168,16 @@ export const getMetadata = (metadata, type, allFieldsVisible) => {
   return listMetadata
 }
 
-export const getMetadataColumnsMutations = (metadata) => {
+/**
+ * Helper to determine which columns of the Mutation table are visible on the patient card (e.g. exon, consequence)
+ * @param metadata the metadata
+ * @param visibleColumns the columns which should be visible on the patient card from the mutation table
+ * @returns {Array} an array which contains the visible columns
+ */
+export const getMetadataColumnsMutations = (metadata, visibleColumns) => {
   let listMetadata = []
   metadata.forEach(function (element) {
-    if (VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD.includes(element.name.toUpperCase())) {
+    if (visibleColumns.includes(element.name.toUpperCase())) {
       listMetadata.push({
         'name': element.name,
         'label': element.label,
@@ -181,4 +187,3 @@ export const getMetadataColumnsMutations = (metadata) => {
   })
   return listMetadata
 }
-

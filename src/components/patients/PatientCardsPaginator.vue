@@ -12,7 +12,7 @@
     <b-row>
       <b-col sm="3">
         <div v-if="filteredGroupInformation.hasOwnProperty(patientTable)">
-          <div v-if="Object.keys(filteredGroupInformation[patientTable]).length === visibleFiltersPatients.length">
+          <div v-if="Object.keys(filteredGroupInformation[patientTable]).length === visibleFilters[patientTable].length">
             <patients-filter-container :pageNumber="currentPage"></patients-filter-container>
           </div>
         </div>
@@ -67,11 +67,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import PatientCard from './PatientCard'
 import PatientsFilterContainer from './filters/PatientsFilterContainer'
 import { GET_FILTERED_GROUP_INFORMATION } from '../../store/actions'
-import { PATIENT_TABLE, VISIBLE_FILTERS } from '../../store/config'
+import { VISIBLE_FILTERS } from '../../store/config'
 
 export default {
   name: 'PatientCardsPaginator',
@@ -96,15 +96,18 @@ export default {
       totalPages: Math.ceil(this.patientIdentifiers.length / 20),
       currentPage: 1,
       pageSize: 20,
-      patientTable: PATIENT_TABLE,
-      visibleFiltersPatients: VISIBLE_FILTERS[PATIENT_TABLE]
+      visibleFiltersPatients: VISIBLE_FILTERS[this.patientTable]
     }
   },
   computed: {
     ...mapGetters({
       patients: 'patients/getPatients',
       filteredGroupInformation: 'getFilteredGroupInformation',
-      isFiltering: 'patients/getPatientsIsFiltering'
+      isFiltering: 'patients/getPatientsIsFiltering',
+      visibleFilters: 'getVisibleFilters'
+    }),
+    ...mapState({
+      patientTable: 'PATIENT_TABLE'
     })
   },
   watch: {
@@ -125,7 +128,7 @@ export default {
     }
     /* Filtered group information is only set on first load, so it doesn't get overwritten */
     if (typeof this.filteredGroupInformation[this.patientTable] === 'undefined') {
-      this.$store.dispatch(GET_FILTERED_GROUP_INFORMATION, PATIENT_TABLE)
+      this.$store.dispatch(GET_FILTERED_GROUP_INFORMATION, this.patientTable)
     }
   },
   methods: {

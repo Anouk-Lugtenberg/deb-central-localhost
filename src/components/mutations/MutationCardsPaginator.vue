@@ -12,7 +12,7 @@
     <b-row>
       <b-col sm="3">
         <div v-if="filteredGroupInformation.hasOwnProperty(mutationTable)">
-          <div v-if="Object.keys(filteredGroupInformation[mutationTable]).length === visibleFiltersMutations.length">
+          <div v-if="Object.keys(filteredGroupInformation[mutationTable]).length === visibleFilters[mutationTable].length">
             <mutation-filter-container :pageNumber="currentPage"></mutation-filter-container>
           </div>
         </div>
@@ -67,12 +67,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import MutationCard from './MutationCard'
 import MutationFilterContainer from './filters/MutationFilterContainer'
 import GenomeBrowser from './../genomeBrowser/GenomeBrowser'
 import { GET_FILTERED_GROUP_INFORMATION } from '../../store/actions'
-import { MUTATION_TABLE, VISIBLE_FILTERS } from '../../store/config'
+import { VISIBLE_FILTERS } from '../../store/config'
 
 export default {
   name: 'MutationCardsPaginator',
@@ -98,15 +98,18 @@ export default {
       totalPages: Math.ceil(this.mutationIdentifiers.length / 20),
       currentPage: 1,
       pageSize: 20,
-      mutationTable: MUTATION_TABLE,
-      visibleFiltersMutations: VISIBLE_FILTERS[MUTATION_TABLE]
+      visibleFiltersMutations: VISIBLE_FILTERS[this.mutationTable]
     }
   },
   computed: {
     ...mapGetters({
       mutations: 'mutation/getMutations',
       filteredGroupInformation: 'getFilteredGroupInformation',
-      isFiltering: 'mutation/getMutationsIsFiltering'
+      isFiltering: 'mutation/getMutationsIsFiltering',
+      visibleFilters: 'getVisibleFilters'
+    }),
+    ...mapState({
+      mutationTable: 'MUTATION_TABLE'
     })
   },
   watch: {
@@ -127,7 +130,7 @@ export default {
     }
     /* Filtered group information is only set on first load, so it doesn't get overwritten */
     if (typeof this.filteredGroupInformation[this.mutationTable] === 'undefined') {
-      this.$store.dispatch(GET_FILTERED_GROUP_INFORMATION, MUTATION_TABLE)
+      this.$store.dispatch(GET_FILTERED_GROUP_INFORMATION, this.mutationTable)
     }
   },
   methods: {

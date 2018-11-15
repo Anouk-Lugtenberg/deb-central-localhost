@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import { naturalSort } from '../../helpers'
-import { COLUMN_PATIENT_ID, MUTATION_COLUMNS_FOR_PATIENT } from '../../config'
 import flattenDepth from 'lodash/flattenDepth'
 
 export const SET_TOTAL_PATIENTS = '__SET_TOTAL_PATIENTS__'
@@ -23,23 +22,23 @@ const filterKeys = (obj, filter) => {
 }
 
 export default {
-  [SET_ALL_PATIENTS] (state, patients) {
+  [SET_ALL_PATIENTS] (state, [patients, columnPatientIdentifier, mutationColumnsForPatient]) {
     let identifiers = []
     Object.keys(patients).map(function (key) {
       let mutations = []
       /* This saves the mutations per patients as object 'mutations' and the rest of the information as 'information'.
       Done because the information about the mutations is treated differently by the program.
        */
-      let regexFromArray = new RegExp(MUTATION_COLUMNS_FOR_PATIENT.join('|'))
+      let regexFromArray = new RegExp(mutationColumnsForPatient.join('|'))
       let filteredKeys = filterKeys(patients[key], regexFromArray)
       filteredKeys.forEach(function (element) {
         if (patients[key][element]) {
           mutations.push(patients[key][element])
         }
       })
-      identifiers.push(patients[key][COLUMN_PATIENT_ID])
+      identifiers.push(patients[key][columnPatientIdentifier])
       Vue.set(state.patients,
-        patients[key][COLUMN_PATIENT_ID],
+        patients[key][columnPatientIdentifier],
         {
           'information': patients[key],
           'mutations': flattenDepth(mutations, 1)
@@ -57,10 +56,10 @@ export default {
     state.stringSearch = search
     state.search = search
   },
-  [SET_FILTERED_PATIENTS] (state, patients) {
+  [SET_FILTERED_PATIENTS] (state, [patients, columnPatientIdentifier]) {
     let filteredIdentifiers = []
     Object.keys(patients).map(function (key) {
-      filteredIdentifiers.push(patients[key][COLUMN_PATIENT_ID])
+      filteredIdentifiers.push(patients[key][columnPatientIdentifier])
     })
     state.filteredPatientsIdentifiers = filteredIdentifiers
     state.patientsIsFiltering = false

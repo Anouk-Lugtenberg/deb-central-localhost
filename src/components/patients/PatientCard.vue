@@ -22,8 +22,7 @@
 import FieldTypes from '../fieldTypes/FieldTypes'
 import FieldTypePatientID from '../fieldTypes/FieldTypePatientID'
 import FieldTypePatientMutations from '../fieldTypes/FieldTypePatientMutations'
-import { mapGetters } from 'vuex'
-import { PATIENT_TABLE, MUTATION_TABLE } from '../../store/config'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'PatientCard',
@@ -33,15 +32,13 @@ export default {
     'field-type-patient-id': FieldTypePatientID,
     'field-type-patient-mutations': FieldTypePatientMutations
   },
-  data () {
-    return {
-      patientTable: PATIENT_TABLE,
-      mutationTable: MUTATION_TABLE
-    }
-  },
   computed: {
     ...mapGetters({
       metadata: 'getMetadata'
+    }),
+    ...mapState({
+      mutationTable: 'MUTATION_TABLE',
+      patientTable: 'PATIENT_TABLE'
     })
   }
 }

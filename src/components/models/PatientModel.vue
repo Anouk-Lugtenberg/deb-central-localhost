@@ -27,8 +27,7 @@
 <script>
 import FieldTypes from '../fieldTypes/FieldTypes'
 import PatientCard from '../patients/PatientCard'
-import { PATIENT_TABLE } from '../../store/config'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'PatientModel',
@@ -41,8 +40,7 @@ export default {
     return {
       identifiers: [],
       newPatient: '',
-      errorPatientNotFound: false,
-      patientTable: PATIENT_TABLE
+      errorPatientNotFound: false
     }
   },
   created () {
@@ -52,6 +50,9 @@ export default {
     ...mapGetters({
       metadataAllFieldsVisible: 'getMetadataAllFieldsVisible',
       patients: 'patients/getPatients'
+    }),
+    ...mapState({
+      patientTable: 'PATIENT_TABLE'
     })
   },
   watch: {

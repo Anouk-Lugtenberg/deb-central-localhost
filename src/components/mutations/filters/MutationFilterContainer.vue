@@ -25,20 +25,14 @@
 import MutationStringFilter from './MutationStringFilter'
 import CheckboxFilterGroup from '../../filters/CheckboxFilterGroup'
 import ActiveFilters from '../../filters/ActiveFilters'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import { GET_FILTERED_MUTATIONS } from '../../../store/modules/mutation/actions'
-import { MUTATION_TABLE } from '../../../store/config'
 import { GET_FILTERS_FROM_URL, RESET_FILTERS } from '../../../store/actions'
 import { SET_MUTATIONS_IS_FILTERING, SET_SEARCH_MUTATION } from '../../../store/modules/mutation/mutations'
 
 export default {
   name: 'MutationFilterContainer',
   props: ['pageNumber'],
-  data () {
-    return {
-      mutationTable: MUTATION_TABLE
-    }
-  },
   components: {
     'active-filters': ActiveFilters,
     'mutation-string-filter': MutationStringFilter,
@@ -48,6 +42,9 @@ export default {
     ...mapGetters({
       rsqlQueryFromFilters: 'mutation/rsqlMutation',
       filteredGroupInformation: 'getFilteredGroupInformation'
+    }),
+    ...mapState({
+      mutationTable: 'MUTATION_TABLE'
     })
   },
   created () {

@@ -16,24 +16,21 @@
 
 <script>
 import PatientCardsPaginator from './PatientCardsPaginator'
-import { PATIENT_TABLE } from '../../store/config'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'PatientCardsContainer',
   components: {
     'patient-cards-paginator': PatientCardsPaginator
   },
-  data () {
-    return {
-      patientTable: PATIENT_TABLE
-    }
-  },
   computed: {
     ...mapGetters({
       allIdentifiersPatients: 'patients/getAllIdentifiersPatients',
       filteredIdentifiersPatients: 'patients/getFilteredPatientsIdentifiers',
       metadata: 'getMetadata'
+    }),
+    ...mapState({
+      patientTable: 'PATIENT_TABLE'
     }),
     /* This is created instead of using the visible fields from the metadata, because otherwise the spots from the metadata fields are
     reserved, and this leaves blank spots on the cards.

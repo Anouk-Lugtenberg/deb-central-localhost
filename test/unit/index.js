@@ -1,6 +1,11 @@
 // Polyfill fn.bind() for PhantomJS
 /* eslint-disable no-extend-native */
-Function.prototype.bind = require('function-bind')
+import Vue from 'vue'
+import BootstrapVue from 'bootstrap-vue'
+
+Vue.use(BootstrapVue)
+
+Vue.config.productionTip = false
 
 const testsContext = require.context('./specs', true, /\.spec$/)
 testsContext.keys().forEach(testsContext)

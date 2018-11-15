@@ -22,10 +22,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { COLUMN_MUTATION_IDENTIFIER_NUMERICAL,
-  MUTATION_TABLE,
-  COLUMN_MUTATION_CDNANOTATION } from '../../store/config'
+import { mapGetters, mapState } from 'vuex'
 import FieldTypes from './FieldTypes'
 
 export default {
@@ -36,15 +33,18 @@ export default {
   },
   data () {
     return {
-      mutations: [],
-      columnMutationIdentifierNumerical: COLUMN_MUTATION_IDENTIFIER_NUMERICAL,
-      mutationTable: MUTATION_TABLE
+      mutations: []
     }
   },
   computed: {
     ...mapGetters({
       allMutations: 'mutation/getMutations',
       metadataColumnsMutations: 'getMetadataColumnsMutations'
+    }),
+    ...mapState({
+      mutationTable: 'MUTATION_TABLE',
+      columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL',
+      columnMutationCDNANotation: 'COLUMN_MUTATION_CDNANOTATION'
     })
   },
   watch: {
@@ -65,7 +65,7 @@ export default {
       this.mutations = []
       for (let mutation in this.listMutationsPerPatient) {
         if (!this.listMutationsPerPatient.hasOwnProperty(mutation)) continue
-        let singleMutation = this.listMutationsPerPatient[mutation][COLUMN_MUTATION_CDNANOTATION]
+        let singleMutation = this.listMutationsPerPatient[mutation][this.columnMutationCDNANotation]
         this.mutations.push(singleMutation)
       }
       /*

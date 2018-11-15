@@ -16,9 +16,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import MutationCardPaginator from './MutationCardsPaginator'
-import { MUTATION_TABLE } from '../../store/config'
 import GenomeBrowser from '../genomeBrowser/GenomeBrowser'
 
 export default {
@@ -27,16 +26,14 @@ export default {
     GenomeBrowser,
     'mutation-card-paginator': MutationCardPaginator
   },
-  data () {
-    return {
-      mutationTable: MUTATION_TABLE
-    }
-  },
   computed: {
     ...mapGetters({
       allIdentifiersMutation: 'mutation/getAllMutationIdentifiers',
       filteredMutationIdentifiers: 'mutation/getFilteredMutationIdentifiers',
       metadata: 'getMetadata'
+    }),
+    ...mapState({
+      mutationTable: 'MUTATION_TABLE'
     }),
     /* This is created instead of using the visible fields property from the metadata, because otherwise the spots from the metadata fields are
     reserved, and this leaves blank spots on the cards.
@@ -55,7 +52,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -31,8 +31,7 @@
 <script>
 import FieldTypes from '../fieldTypes/FieldTypes'
 import FieldTypePatientMutations from '../fieldTypes/FieldTypePatientMutations'
-import { mapGetters } from 'vuex'
-import { PATIENT_TABLE, MUTATION_TABLE } from '../../store/config'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'MutationCardInformationContainer',
@@ -45,8 +44,6 @@ export default {
     return {
       tabList: [],
       current: 0,
-      patientTable: PATIENT_TABLE,
-      mutationTable: MUTATION_TABLE,
       mutationsPerPatient: []
     }
   },
@@ -60,6 +57,10 @@ export default {
       metadata: 'getMetadata',
       patientInformation: 'patients/getPatientInformation',
       listAllPatients: 'patients/getPatients'
+    }),
+    ...mapState({
+      mutationTable: 'MUTATION_TABLE',
+      patientTable: 'PATIENT_TABLE'
     }),
     visibleFields: function () {
       let patientTable = this.patientTable

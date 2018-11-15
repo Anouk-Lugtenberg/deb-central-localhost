@@ -1,9 +1,5 @@
 import Vue from 'vue'
 import { naturalSort } from '../../helpers'
-import {
-  COLUMN_MUTATION_CDNANOTATION,
-  COLUMN_PATIENT_ID
-} from '../../config'
 
 export const SET_ALL_MUTATIONS = '__SET_ALL_MUTATIONS__'
 export const SET_TOTAL_MUTATIONS = '__SET_TOTAL_MUTATIONS__'
@@ -15,12 +11,12 @@ export const SET_FILTERED_MUTATIONS = '__SET_FILTERED_MUTATIONS__'
 export const SET_MUTATIONS_IS_FILTERING = '__SET_MUTATIONS_IS_FILTERING__'
 
 export default {
-  [SET_ALL_MUTATIONS] (state, mutations) {
+  [SET_ALL_MUTATIONS] (state, [mutations, CDNANotation]) {
     let identifiers = []
     Object.keys(mutations).map(function (key) {
-      identifiers.push(mutations[key][COLUMN_MUTATION_CDNANOTATION])
+      identifiers.push(mutations[key][CDNANotation])
       Vue.set(state.mutations,
-        mutations[key][COLUMN_MUTATION_CDNANOTATION],
+        mutations[key][CDNANotation],
         mutations[key])
     })
     state.allMutationIdentifiers = naturalSort(identifiers)
@@ -28,20 +24,20 @@ export default {
   [SET_TOTAL_MUTATIONS] (state, number) {
     state.totalMutations = number
   },
-  [SET_PATIENT_FOR_MUTATION] (state, [id, information]) {
+  [SET_PATIENT_FOR_MUTATION] (state, [id, information, columnPatientIdentifier]) {
     let patients = []
     Object.keys(information).map(function (patient) {
-      patients.push(information[patient][COLUMN_PATIENT_ID])
+      patients.push(information[patient][columnPatientIdentifier])
     })
     Vue.set(state.patientsPerMutation, id, naturalSort(patients))
   },
   [SET_SEARCH_MUTATION] (state, search) {
     state.search = search
   },
-  [SET_FILTERED_MUTATIONS] (state, mutations) {
+  [SET_FILTERED_MUTATIONS] (state, [mutations, CDNANotation]) {
     let filteredIdentifiers = []
     Object.keys(mutations).map(function (key) {
-      filteredIdentifiers.push(mutations[key][COLUMN_MUTATION_CDNANOTATION])
+      filteredIdentifiers.push(mutations[key][CDNANotation])
     })
     state.filteredMutationIdentifiers = filteredIdentifiers
     state.mutationsIsFiltering = false

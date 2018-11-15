@@ -25,20 +25,14 @@
 import PatientsStringFilter from './PatientsStringFilter'
 import CheckboxFilterGroup from './../../filters/CheckboxFilterGroup'
 import ActiveFilters from './../../filters/ActiveFilters'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import { GET_FILTERED_PATIENTS } from '../../../store/modules/patients/actions'
-import { PATIENT_TABLE } from '../../../store/config'
 import { GET_FILTERS_FROM_URL, RESET_FILTERS } from '../../../store/actions'
 import { SET_SEARCH_PATIENTS, SET_PATIENTS_IS_FILTERING } from '../../../store/modules/patients/mutations'
 
 export default {
   name: 'PatientsFilterContainer',
   props: ['pageNumber'],
-  data () {
-    return {
-      patientTable: PATIENT_TABLE
-    }
-  },
   components: {
     'active-filters': ActiveFilters,
     'patients-string-filter': PatientsStringFilter,
@@ -48,6 +42,9 @@ export default {
     ...mapGetters({
       rsqlQueryFromFilters: 'patients/rsqlPatients',
       filteredGroupInformation: 'getFilteredGroupInformation'
+    }),
+    ...mapState({
+      patientTable: 'PATIENT_TABLE'
     })
   },
   /* Checks if search query is available in URL on creation, if yes -> use this Query to filter patients */
