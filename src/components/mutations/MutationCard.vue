@@ -71,7 +71,7 @@ export default {
     }),
     ...mapState({
       mutationTable: 'MUTATION_TABLE',
-      lookUpAttributeMutations: 'COLUMN_LINK_MUTATION_TO_PATIENT'
+      cDNANotation: 'COLUMN_MUTATION_CDNANOTATION'
     })
   },
   created () {
@@ -84,7 +84,7 @@ export default {
     },
     getPatients () {
       if (!(this.mutationIdentifier in this.patientsPerMutation)) {
-        this.$store.dispatch('mutation/' + GET_PATIENT_FOR_MUTATION, [this.mutationIdentifier, this.mutation[this.lookUpAttributeMutations]])
+        this.$store.dispatch('mutation/' + GET_PATIENT_FOR_MUTATION, [this.mutationIdentifier, this.mutation[this.cDNANotation]])
       }
     }
   }

@@ -58,7 +58,6 @@ export default {
   methods: {
     getMutationsForPatientID () {
       /**
-       * TODO:
        * Voor FIPA Database -> Dat dit niet werkt heeft te maken met dat er geen CDNA notatie wordt opgeslagen bij de FIPA database.
        * Deze CDNA notatie wordt bij col7a en CHD7 opgeslagen in de Patient tabel, onder de kolom waar hun mutatie id(s) staan...
        * Moet dit opgelost worden? Of moet de dataset worden aangepast? Bart vragen? **/

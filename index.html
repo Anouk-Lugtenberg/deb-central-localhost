@@ -12,33 +12,31 @@
     //   language: 'en',
     //   mutationsApiPath: '/api/v2/CHD7_Mutations',
     //   patientsApiPath: '/api/v2/CHD7_Patients',
-    //   visibleColumnsForMutationsOnThePatientCard: ['EXON', 'PATHOGENICITY', 'MUTATION_TYPE'],
-    //   columnsWhereMutationsAreStoredInPatientTable: ['Mutation_ID'],
-    //   columnThatLinksMutationToPatient: ['Mutation_ID'],
-    //   columnPatientIdentifier: ['Molgenis_ID'],
-    //   columnCDNANotationForMutation: ['CHD7_c'],
     //   columnMutationIdentifierNumerical: ['Mutation_ID'],
+    //   columnCDNANotationForMutation: ['CHD7_c'],
+    //   columnPatientIdentifier: ['Molgenis_ID'],
+    //   columnsWhereMutationsAreStoredInPatientTable: ['Mutation_ID'],
+    //   visibleColumnsForMutationsOnThePatientCard: ['EXON', 'PATHOGENICITY', 'MUTATION_TYPE'],
     //   visibleFieldsMutationTable: ['CHD7_C', 'CHD7_P', 'EXON', 'PATHOGENICITY'],
     //   visibleFieldsPatientTable: ['PHENOTYPE', 'DECEASED'],
     //   filtersMutationTable: ['EXON', 'PATHOGENICITY'],
     //   filtersPatientTable: ['POSITIVE_FAMILY_HISTORY']
     // }
     // INITIAL STATE for DEB
-    // window.__INITIAL_STATE__ = {
-    //   language: 'en',
-    //   mutationsApiPath: '/api/v2/col7a1_Mutations',
-    //   patientsApiPath: '/api/v2/col7a1_Patients',
-    //   visibleFieldsMutationTable: ['AANOTATION', 'EXON', 'CONSEQUENCE', 'POS'],
-    //   visibleFieldsPatientTable: ['PHENO', 'PUBMEDID'],
-    //   filtersMutationTable: ['CONSEQUENCE', 'EVENT'],
-    //   filtersPatientTable: ['LOCATION', 'ANCHORINGFIBRILSNUMBER'],
-    //   visibleColumnsForMutationsOnThePatientCard: ['AANOTATION', 'EXON', 'CONSEQUENCE'],
-    //   columnsWhereMutationsAreStoredInPatientTable: ['cDNAchange1', 'cDNAchange2'],
-    //   columnThatLinksMutationToPatient: ['cdnanotation'],
-    //   columnPatientIdentifier: ['PatientID'],
-    //   columnCDNANotationForMutation: ['cdnanotation'],
-    //   columnMutationIdentifierNumerical: ['ID']
-    // }
+    window.__INITIAL_STATE__ = {
+      language: 'en',
+      mutationsApiPath: '/api/v2/col7a1_Mutations',
+      patientsApiPath: '/api/v2/col7a1_Patients',
+      columnMutationIdentifierNumerical: ['ID'],
+      columnCDNANotationForMutation: ['cdnanotation'],
+      columnPatientIdentifier: ['PatientID'],
+      columnsWhereMutationsAreStoredInPatientTable: ['cDNAchange1', 'cDNAchange2'],
+      visibleColumnsForMutationsOnThePatientCard: ['aaNotation', 'Exon', 'Consequence'],
+      visibleFieldsMutationTable: ['aaNotation', 'Exon', 'Consequence', 'Pos'],
+      visibleFieldsPatientTable: ['Pheno', 'Pubmedid'],
+      filtersMutationTable: ['Consequence', 'Event'],
+      filtersPatientTable: ['Location', 'AnchoringFibrilsNumber'],
+    }
     // INITIAL STATE for FIPA
     // window.__INITIAL_STATE__ = {
     //   language: 'en',
@@ -47,7 +45,6 @@
     //   columnMutationIdentifierNumerical: ['MutationID'],
     //   columnCDNANotationForMutation: ['Variant_name_DNA_level'],
     //   columnPatientIdentifier: ['PatientID'],
-    //   columnThatLinksMutationToPatient: ['MutationID'],
     //   columnsWhereMutationsAreStoredInPatientTable: ['MutationID'],
     //   visibleColumnsForMutationsOnThePatientCard: ['VARIANT_NAME_DNA_LEVEL', 'VARIANT_EFFECT', 'VARIANT_CATEGORY'],
     //   visibleFieldsMutationTable: ['VARIANT_NAME_DNA_LEVEL', 'VARIANT_EFFECT', 'VARIANT_CATEGORY', 'MUTATION_POSTITION'],

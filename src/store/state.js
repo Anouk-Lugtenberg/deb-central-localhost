@@ -28,27 +28,34 @@ export default {
   /* Column name where patient ID is stored for patients */
   COLUMN_PATIENT_IDENTIFIER: INITIAL_STATE.columnPatientIdentifier,
 
-  /* The column which links mutations to patients */
-  COLUMN_LINK_MUTATION_TO_PATIENT: INITIAL_STATE.columnThatLinksMutationToPatient,
-
   /* Column(s) where Mutations are stored per Patient */
   MUTATION_COLUMNS_FOR_PATIENT: INITIAL_STATE.columnsWhereMutationsAreStoredInPatientTable,
 
   /* The columns from the mutation table which are visible at the patients cards */
-  VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD: INITIAL_STATE.visibleColumnsForMutationsOnThePatientCard,
+  VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD: INITIAL_STATE.visibleColumnsForMutationsOnThePatientCard.map(function (element) {
+    return element.toUpperCase()
+  }),
 
   /*
   This constant variable can be adjusted to determine which fields from the tables are visible
   on loading the page - should be in UPPERCASE, and same as 'name' field from metadata from tables.
  */
-  visibleFieldsMutationTable: INITIAL_STATE.visibleFieldsMutationTable,
-  visibleFieldsPatientTable: INITIAL_STATE.visibleFieldsPatientTable,
+  visibleFieldsMutationTable: INITIAL_STATE.visibleFieldsMutationTable.map(function (element) {
+    return element.toUpperCase()
+  }),
+  visibleFieldsPatientTable: INITIAL_STATE.visibleFieldsPatientTable.map(function (element) {
+    return element.toUpperCase()
+  }),
 
   /*
   TODO: add visible filter option for field type enums
   This constant variable can be adjusted to determine which fields are used as filters - should be in
   UPPERCASE, and same as 'name' field from metadata from tables.
  */
-  filtersMutations: INITIAL_STATE.filtersMutationTable,
-  filtersPatients: INITIAL_STATE.filtersPatientTable
+  filtersMutations: INITIAL_STATE.filtersMutationTable.map(function (element) {
+    return element.toUpperCase()
+  }),
+  filtersPatients: INITIAL_STATE.filtersPatientTable.map(function (element) {
+    return element.toUpperCase()
+  })
 }
