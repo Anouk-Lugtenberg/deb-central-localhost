@@ -7,11 +7,13 @@ module.exports = function (config) {
     preprocessors: {
       '**/*.spec.js': ['webpack', 'sourcemap']
     },
+    reporters: ['spec', 'coverage'],
     webpack: webpackConfig,
     coverageReporter: {
       dir: './coverage',
       reporters: [
-        {type: 'cobertura', subdir: 'cobertura'}
+        {type: 'lcov', subdir: '.'},
+        {type: 'text-summary'}
       ]
     },
     browsers: ['Chrome']

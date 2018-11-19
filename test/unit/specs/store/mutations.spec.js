@@ -3,6 +3,7 @@ import { expect } from 'chai'
 
 describe('store', () => {
   describe('mutations', () => {
+    console.log('MUTATIONS')
     const type = 'Mutations'
     describe('SET_ERROR', () => {
       it('should set the error message in the state with the payload', () => {
