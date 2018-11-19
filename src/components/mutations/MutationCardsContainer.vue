@@ -33,7 +33,8 @@ export default {
       metadata: 'getMetadata'
     }),
     ...mapState({
-      mutationTable: 'MUTATION_TABLE'
+      mutationTable: 'MUTATION_TABLE',
+      cDNANotation: 'COLUMN_MUTATION_CDNANOTATION'
     }),
     /* This is created instead of using the visible fields property from the metadata, because otherwise the spots from the metadata fields are
     reserved, and this leaves blank spots on the cards.
@@ -43,7 +44,7 @@ export default {
       let visibleFields = []
       for (let key in this.metadata[mutationTable]) {
         if (!this.metadata[mutationTable].hasOwnProperty(key)) continue
-        if (this.metadata[mutationTable][key]['visible'] && this.metadata[mutationTable][key]['name'] !== 'ID') {
+        if (this.metadata[mutationTable][key]['visible'] && this.metadata[mutationTable][key]['name'] !== this.cDNANotation) {
           visibleFields.push(this.metadata[mutationTable][key])
         }
       }

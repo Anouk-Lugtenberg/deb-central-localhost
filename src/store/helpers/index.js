@@ -96,7 +96,7 @@ export const createInQueryPatientsPerMutation = (mutationColumn, mutationIdentif
  - name: the name of the field
  - visible: whether the field is visible to the user true/false
  Some metadata fields contain:
- - href: this is set when field is an entity with references, so this field can be used as filter
+ - href: this is set when field is in the filters list, so the field can be used as a filter
  * @param metadata a json containing the metadata
  * @param type the type (table name)
  * @param allFieldsVisible whether all fields are set to true, or only some
@@ -156,7 +156,7 @@ export const getMetadata = (metadata, type, allFieldsVisible, options, filters, 
       })
       /* Mutations are saved differently for patients (and are always shown),
       so they shouldn't be saved in the metadata */
-    } else if (!(mutationColumnsForPatient.includes(element.name))) {
+    } else if (!(mutationColumnsForPatient.includes(element.name.toUpperCase()))) {
       listMetadata.push({
         'name': element.name,
         'label': element.label,

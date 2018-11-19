@@ -59,7 +59,7 @@ export default {
       if (this.$route.query.q) {
         this.$store.dispatch(GET_FILTERS_FROM_URL)
       } else {
-        this.$store.dispatch('mutation/' + GET_FILTERED_MUTATIONS)
+        this.clearAllFilters()
       }
     },
     rsqlQueryFromFilters () {

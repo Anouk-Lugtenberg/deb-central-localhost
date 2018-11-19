@@ -3,7 +3,9 @@ import {
   SET_METADATA,
   SET_LIST_METADATA_COLUMNS_MUTATIONS,
   SET_FILTER_GROUP_INFORMATION,
-  SET_ERROR
+  SET_ERROR,
+  SET_METADATA_ALL_FIELDS_VISIBLE,
+  SET_TABLE_FOR_FILTER_GROUP_INFORMATION
 } from './mutations'
 
 import {createActiveFilterQueries, setFilterGroupInformationFromURL} from './helpers'
@@ -28,6 +30,8 @@ export default {
         .then(response => {
           commit(SET_METADATA, [response.meta.attributes, TABLES[i], VISIBLE_FIELDS[TABLES[i]],
             VISIBLE_FILTERS[TABLES[i]], state.MUTATION_COLUMNS_FOR_PATIENT])
+          commit(SET_METADATA_ALL_FIELDS_VISIBLE, [response.meta.attributes, TABLES[i], VISIBLE_FIELDS[TABLES[i]],
+            VISIBLE_FILTERS[TABLES[i]], state.MUTATION_TABLE])
           if (state.MUTATION_TABLE.includes(TABLES[i])) {
             commit(SET_LIST_METADATA_COLUMNS_MUTATIONS, [response.meta.attributes, TABLES[i], rootState.VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD])
           }
@@ -37,6 +41,9 @@ export default {
     }
   },
   [GET_FILTERED_GROUP_INFORMATION] ({commit, state}, table) {
+    if (!(state.filterGroupInformation.hasOwnProperty(table))) {
+      commit(SET_TABLE_FOR_FILTER_GROUP_INFORMATION, table)
+    }
     Object.keys(state.metadata[table].map(function (field) {
       if (field.hasOwnProperty('href')) {
         api.get(field.href)
@@ -81,7 +88,7 @@ export default {
     dispatch(SET_FILTERS_FROM_ACTIVE_CHECKBOXES)
   },
   [RESET_FILTERS] ({commit, state, dispatch}) {
-    state.filterGroupInformaiton = setFilterGroupInformationFromURL(state.filterGroupInformation, '')
+    state.filterGroupInformation = setFilterGroupInformationFromURL(state.filterGroupInformation, '')
     dispatch(SET_FILTERS_FROM_ACTIVE_CHECKBOXES)
   }
 }

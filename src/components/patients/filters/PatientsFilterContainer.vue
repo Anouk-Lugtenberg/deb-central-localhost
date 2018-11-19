@@ -60,7 +60,7 @@ export default {
       if (this.$route.query.q) {
         this.$store.dispatch(GET_FILTERS_FROM_URL)
       } else {
-        this.$store.dispatch('patients/' + GET_FILTERED_PATIENTS)
+        this.clearAllFilters()
       }
     },
     rsqlQueryFromFilters () {
