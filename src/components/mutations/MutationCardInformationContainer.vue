@@ -22,10 +22,6 @@
       </b-tab>
     </b-tabs>
   </div>
-  <div v-else class="information-mutations no-patients-found">
-    No patients found with this mutation
-  </div>
-
 </template>
 
 <script>
@@ -82,9 +78,5 @@ export default {
   background-color: #f6f8fa;
   padding-left: 10px;
   padding-right: 10px;
-}
-.no-patients-found {
-  background-color: white;
-  color: #dc3545;
 }
 </style>

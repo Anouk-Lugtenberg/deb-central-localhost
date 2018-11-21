@@ -3,15 +3,31 @@
     <b-card header-tag="header" header-bg-variant="light" no-body class="shadow card mb-2">
       <div class="card-text">
         <b-container>
-          <span>
-            <font-awesome-icon icon="search-plus" class="fa-icon" v-on:click="changeExpansion()"></font-awesome-icon>
             <span class="title-mutation">
               <field-type-mutation-id :mutation="mutation" :mutationIdentifier="mutationIdentifier">{{ mutationIdentifier }}</field-type-mutation-id>
-            </span>
             </span>
           <b-row>
             <b-col cols="6" v-for="property in visibleFields" :key="property.name">
               <field-types :property="property" :information="mutation" :entity="mutationTable"></field-types>
+            </b-col>
+          </b-row>
+          <b-row v-if="patientsPerMutation[mutationIdentifier]">
+            <b-col v-if="patientsPerMutation[mutationIdentifier].length === 0" cols="6" class="no-patients-found">
+              No patients found with this mutation
+            </b-col>
+            <b-col cols="6" v-else v-on:click="changeExpansion()" class="link-to-patients">
+              <span v-if="!expand">
+                <font-awesome-icon icon="plus" class="fa-icon icon"></font-awesome-icon> Show
+              </span>
+              <span v-else>
+                <font-awesome-icon icon="minus" class="fa-icon icon"></font-awesome-icon> Hide
+              </span>
+              {{ patientsPerMutation[mutationIdentifier].length }} patient<span v-if="patientsPerMutation[mutationIdentifier].length > 1">s</span>
+            </b-col>
+          </b-row>
+          <b-row v-else>
+            <b-col cols="6">
+              Loading patients...
             </b-col>
           </b-row>
         </b-container>
@@ -74,6 +90,11 @@ export default {
       cDNANotation: 'COLUMN_MUTATION_CDNANOTATION'
     })
   },
+  watch: {
+    mutationIdentifier () {
+      this.getPatients()
+    }
+  },
   created () {
     this.getPatients()
   },
@@ -112,5 +133,22 @@ export default {
   }
   .card-text {
     background: white;
+  }
+  .no-patients-found {
+    color: #dc3545;
+  }
+  .icon {
+    font-size: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+  .link-to-patients {
+    color: #3198bc;
+  }
+  .link-to-patients:hover {
+    color: #1380b5;
+    text-decoration: underline;
+    cursor: pointer;
   }
 </style>

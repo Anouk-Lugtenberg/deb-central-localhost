@@ -8,7 +8,7 @@ import {
   SET_TABLE_FOR_FILTER_GROUP_INFORMATION
 } from './mutations'
 
-import {createActiveFilterQueries, setFilterGroupInformationFromURL} from './helpers'
+import { createActiveFilterQueries, setFilterGroupInformationFromURL } from './helpers'
 import { SET_ACTIVE_FILTERS_PATIENTS } from './modules/patients/mutations'
 import { SET_ACTIVE_FILTERS_MUTATIONS } from './modules/mutation/mutations'
 
@@ -25,7 +25,7 @@ export default {
     let VISIBLE_FILTERS = getters.getVisibleFilters
     let TABLES = [state.MUTATION_TABLE, state.PATIENT_TABLE]
     for (let i = 0; i < TABLES.length; i++) {
-      api.get('/api/v2/' + TABLES[i] + '?start=0&num=10')
+      api.get(`/api/v2/${TABLES[i]}?start=0&num=10`)
         .then(response => response.json())
         .then(response => {
           commit(SET_METADATA, [response.meta.attributes, TABLES[i], VISIBLE_FIELDS[TABLES[i]],
