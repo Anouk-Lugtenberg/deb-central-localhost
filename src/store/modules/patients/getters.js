@@ -3,6 +3,9 @@ import { createRSQLQuery } from '../../helpers'
 export default {
   getPatientInformation: state => state.informationPatients,
   getPatients: state => state.patients,
+  getPatientsByIdentifier: state => identifier => {
+    return state.patients[identifier]
+  },
   getAllIdentifiersPatients: state => state.allIdentifiersPatients,
   getTotalPatients: state => state.totalPatients,
   getFilteredPatientsIdentifiers: state => state.filteredPatientsIdentifiers,
@@ -11,5 +14,11 @@ export default {
   getPatientsFilterActive: state => state.patientsFilterActive,
   getActiveFiltersCheckbox: state => state.activeFiltersCheckbox,
   getPatientsIsFiltering: state => state.patientsIsFiltering,
-  getExtraPubmedInformation: state => state.extraPubmedInformation
+  getExtraPublicationInformation: state => state.extraPublicationInformation,
+  getPublicationInformationByIdentifier: (state) => (identifier) => {
+    return state.extraPublicationInformation[identifier]
+  },
+  getPatientsByPublicationIdentifier: (state) => (identifier) => {
+    return state.patientsForPublicationIdentifier[identifier]
+  }
 }

@@ -10,7 +10,8 @@ export const SET_FILTERED_PATIENTS = '__SET_FILTERED_PATIENTS__'
 export const SET_ACTIVE_FILTERS_PATIENTS = '__SET_ACTIVE_FILTERS_PATIENTS__'
 export const SET_PATIENTS_FILTER_ACTIVE = '__SET_PATIENTS_FILTER_ACTIVE__'
 export const SET_PATIENTS_IS_FILTERING = '__SET_PATIENTS_IS_FILTERING__'
-export const SET_EXTRA_PUBMED_INFORMATION = '__SET_EXTERNAL_PUBMED_URL__'
+export const SET_EXTRA_PUBLICATION_INFORMATION = '__SET_EXTERNAL_PUBMED_URL__'
+export const SET_PATIENTS_FOR_PUBLICATION_IDENTIFIER = '__SET_PATIENTS_FOR_PUBLICATION_IDENTIFIER__'
 
 const filterKeys = (obj, filter) => {
   let keys = []
@@ -74,7 +75,14 @@ export default {
   [SET_PATIENTS_IS_FILTERING] (state, boolean) {
     state.patientsIsFiltering = boolean
   },
-  [SET_EXTRA_PUBMED_INFORMATION] (state, [pubmedIdentifier, information]) {
-    Vue.set(state.extraPubmedInformation, pubmedIdentifier, information)
+  [SET_EXTRA_PUBLICATION_INFORMATION] (state, [publicationIdentifier, information]) {
+    Vue.set(state.extraPublicationInformation, publicationIdentifier, information)
+  },
+  [SET_PATIENTS_FOR_PUBLICATION_IDENTIFIER] (state, [publicationIdentifier, patients, columnPatientIdentifier]) {
+    let patientsForPublicationIdentifier = []
+    Object.keys(patients).map(function (key) {
+      patientsForPublicationIdentifier.push(patients[key][columnPatientIdentifier])
+    })
+    Vue.set(state.patientsForPublicationIdentifier, publicationIdentifier, patientsForPublicationIdentifier)
   }
 }
