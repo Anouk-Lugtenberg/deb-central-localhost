@@ -4,6 +4,7 @@ import Container from './../components/Container'
 import Home from './../components/Home'
 import MutationModel from './../components/models/MutationModel'
 import PatientModel from './../components/models/PatientModel'
+import PubMedModel from './../components/models/PubMedModel'
 import MutationsContainer from './../components/mutations/MutationsContainer'
 import PatientsContainer from './../components/patients/PatientsContainer'
 import NotFound from './../components/NotFound'
@@ -70,6 +71,14 @@ export default new Router({
       path: '/Patient/:id',
       name: 'Patient',
       component: PatientModel,
+      props: (route) => ({
+        id: route.params.id
+      })
+    },
+    {
+      path: '/PubMed/:id',
+      name: 'PubMed',
+      component: PubMedModel,
       props: (route) => ({
         id: route.params.id
       })

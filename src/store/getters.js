@@ -15,5 +15,13 @@ export default {
     visibleFilters[state.MUTATION_TABLE] = state.filtersMutations
     visibleFilters[state.PATIENT_TABLE] = state.filtersPatients
     return visibleFilters
+  },
+  getColumnNamePubMedIdentifier: (state) => {
+    let pubmedIdentifier = null
+    console.log('State: ' + state.COLUMN_PUBMED_ID)
+    if (state.COLUMN_PUBMED_ID) {
+      pubmedIdentifier = state.COLUMN_PUBMED_ID
+    }
+    return pubmedIdentifier
   }
 }

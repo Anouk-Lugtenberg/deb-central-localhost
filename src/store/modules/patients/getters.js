@@ -10,5 +10,6 @@ export default {
   getStringSearch: state => state.stringSearch,
   getPatientsFilterActive: state => state.patientsFilterActive,
   getActiveFiltersCheckbox: state => state.activeFiltersCheckbox,
-  getPatientsIsFiltering: state => state.patientsIsFiltering
+  getPatientsIsFiltering: state => state.patientsIsFiltering,
+  getExtraPubmedInformation: state => state.extraPubmedInformation
 }

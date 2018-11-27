@@ -8,5 +8,6 @@ export default {
   stringSearch: '',
   activeFiltersCheckbox: [],
   patientsFilterActive: false,
-  patientsIsFiltering: false
+  patientsIsFiltering: false,
+  extraPubmedInformation: {}
 }

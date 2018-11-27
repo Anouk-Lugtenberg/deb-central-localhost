@@ -3,13 +3,13 @@
     <div v-if="mutations.length > 0">
       <table class="mutation-table pure-table pure-table-horizontal">
         <b-row v-for="(mutation, index) in mutations" :key="index">
-          <b-col cols="2" class="bold">
+          <b-col cols="3" class="bold">
             <router-link :to="{name: 'Mutation', params: {id: allMutations[mutation][columnMutationIdentifierNumerical]}}">
               {{ mutation }}
             </router-link>
           </b-col>
           <b-col v-for="(column, index) in metadataColumnsMutations[mutationTable]" class="mutation-information"
-                 :class="{ 'col-3': index === 0, 'col-2': index === 1, 'col-5': index === 2}"
+                 :class="{ 'col-2': index === 0, 'col-2': index === 1, 'col-4': index === 2}"
                  :key="index">
               <field-types :property="column" :information="allMutations[mutation]" :entity="mutationTable"
                            :showPropertyName="false"></field-types>

@@ -32,7 +32,6 @@
           </b-row>
         </b-container>
         <div class="extra-information" v-if="expand">
-          <div class="line"></div>
           <div v-if="patientsPerMutation[mutationIdentifier]">
             <mutation-card-information-container
               :mutationIdentifier="mutationIdentifier"
@@ -124,12 +123,6 @@ export default {
   .title-mutation {
     font-size: 20px;
     font-weight: bold;
-  }
-  .line {
-    width: 98%;
-    align-content: center;
-    border-bottom: 1px solid #afc3cc;
-    margin: 5px auto 10px auto;
   }
   .card-text {
     background: white;

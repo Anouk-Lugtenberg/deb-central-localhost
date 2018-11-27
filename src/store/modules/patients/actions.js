@@ -4,7 +4,8 @@ import {
   SET_ALL_PATIENTS,
   SET_PATIENT_INFORMATION_PATIENT_ID,
   SET_FILTERED_PATIENTS,
-  SET_PATIENTS_FILTER_ACTIVE
+  SET_PATIENTS_FILTER_ACTIVE,
+  SET_EXTRA_PUBMED_INFORMATION
 } from './mutations'
 import {
   SET_ERROR
@@ -14,6 +15,7 @@ import { setFilterGroupInformationFromURL } from '../../helpers'
 export const GET_PATIENTS_INFORMATION_PATIENT_ID = '__GET_PATIENTS_INFORMATION_PATIENT_ID__'
 export const GET_ALL_PATIENTS = '__GET_ALL_PATIENTS__'
 export const GET_FILTERED_PATIENTS = '__GET_FILTERED_PATIENTS__'
+export const GET_EXTRA_PUBMED_INFORMATION = '__GET_EXTRA_PUBMED_INFORMATION__'
 
 export default {
   [GET_ALL_PATIENTS] ({commit, rootState}) {
@@ -50,5 +52,13 @@ export default {
       commit(SET_PATIENTS_FILTER_ACTIVE, false)
       commit(SET_FILTERED_PATIENTS, [])
     }
+  },
+  [GET_EXTRA_PUBMED_INFORMATION] ({state, commit}, href) {
+    api.get(href)
+      .then(response => response.json())
+      .then(response => {
+        delete response._meta
+        commit(SET_EXTRA_PUBMED_INFORMATION, [response.Pubmed, response])
+      })
   }
 }

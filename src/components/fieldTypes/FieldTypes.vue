@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div v-if="property.fieldType === 'COMPOUND'">
+    <div v-if="pubMedName === property.name">
+      <field-type-pubmed-identifier :information="information" :property="property" :entity="entity"
+                                    :showPropertyName="showPropertyName"></field-type-pubmed-identifier>
+    </div>
+    <div v-else-if="property.fieldType === 'COMPOUND'">
       <field-type-compound :information="information" :property="property" :entity="entity"
                            :showPropertyName="showPropertyName"></field-type-compound>
     </div>
@@ -28,7 +32,9 @@ import FieldTypeXREF from './FieldTypeXREF'
 import FieldTypeMREF from './FieldTypeMREF'
 import FieldTypeCompound from './FieldTypeCompound'
 import FieldTypeCategorical from './FieldTypeCategorical'
+import FieldTypePubMedIdentifier from './FieldTypePubMedIdentifier'
 import FieldTypeOther from './FieldTypeOther'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'FieldTypes',
@@ -47,13 +53,18 @@ export default {
       type: Boolean
     }
   },
-  // props: ['property', 'information', 'entity', 'showPropertyName'],
   components: {
     'field-type-xref': FieldTypeXREF,
     'field-type-mref': FieldTypeMREF,
     'field-type-compound': FieldTypeCompound,
     'field-type-categorical': FieldTypeCategorical,
+    'field-type-pubmed-identifier': FieldTypePubMedIdentifier,
     'field-type-other': FieldTypeOther
+  },
+  computed: {
+    ...mapGetters({
+      pubMedName: 'getColumnNamePubMedIdentifier'
+    })
   },
   data () {
     return {

@@ -6,12 +6,7 @@
       N/A
     </span>
     <span v-else>
-      <span v-if="isClickable">
-        <a :href="'https://www.ncbi.nlm.nih.gov/pubmed/' + attribute">{{ attribute }}</a>
-      </span>
-       <span v-else>
-         {{ attribute }}
-       </span>
+      {{ attribute }}
     </span>
   </div>
 </template>
@@ -42,15 +37,6 @@ export default {
   methods: {
     setAttribute () {
       let name = this.name
-      /* Exception for column PubMedID from col7a1_Patients table. The PubMeds are saved as a MREF field.
-      * So there isn't a hyperlink available on the fly, but this is embedded in /api/v2/col7a1_Publications.
-      * This field has to be retrieved from the data to show the pubmeds to the user.
-      * When user clicks on pubmed ID from col7a1 table, he is first redirected to a card which has a summary of
-      * the pubmed, in this card the user can click on the hyperlink to go to the pubmed article itself. */
-      if (this.name.includes('PubMedID')) {
-        name = 'Pubmed'
-        this.isClickable = true
-      }
       let attribute = ''
       let nestedInformation = this.information[this.name][0]
       if (typeof nestedInformation !== 'undefined') {
@@ -65,6 +51,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-</style>
