@@ -43,7 +43,7 @@ export const setFilterGroupInformationFromURL = (information, query) => {
     queries.forEach(function (singleQuery) {
       let strippedFilters = []
       let attribute = singleQuery.split('=').shift()
-      /* Get the active filters from the query, and remove the first and last parentheses */
+      /* Get the active filters from the query, and remove the brackets () */
       let activeFilters = singleQuery.split('=').pop().slice(1, -1)
       /* Only split when comma is NOT followed by a whitespace, otherwise filters which contain comma's
          are also split */

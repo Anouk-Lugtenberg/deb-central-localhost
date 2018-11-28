@@ -6,6 +6,7 @@
 </template>
 
 <script>
+/* https://github.com/greyby/vue-spinner */
 import MoonLoader from 'vue-spinner/src/MoonLoader'
 
 export default {

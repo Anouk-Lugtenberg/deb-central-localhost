@@ -30,7 +30,8 @@ export default {
       metadata: 'getMetadata'
     }),
     ...mapState({
-      patientTable: 'PATIENT_TABLE'
+      patientTable: 'PATIENT_TABLE',
+      columnPatientIdentifier: 'COLUMN_PATIENT_IDENTIFIER'
     }),
     /* This is created instead of using the visible fields from the metadata, because otherwise the spots from the metadata fields are
     reserved, and this leaves blank spots on the cards.
@@ -40,7 +41,7 @@ export default {
       let visibleFields = []
       for (let key in this.metadata[patientTable]) {
         if (!this.metadata[patientTable].hasOwnProperty(key)) continue
-        if (this.metadata[patientTable][key]['visible'] && this.metadata[patientTable][key]['name'] !== 'ID') {
+        if (this.metadata[patientTable][key]['visible'] && this.metadata[patientTable][key]['name'] !== this.columnPatientIdentifier) {
           visibleFields.push(this.metadata[patientTable][key])
         }
       }

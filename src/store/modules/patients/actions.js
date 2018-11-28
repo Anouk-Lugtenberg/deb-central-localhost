@@ -66,7 +66,6 @@ export default {
       })
   },
   [GET_PATIENTS_FOR_PUBLICATION_IDENTIFIER] ({state, commit, rootState}, id) {
-    console.log('Url: ' + rootState.PATIENTS_API_PATH + '?q=' + rootState.COLUMN_PUBMED_ID + '=in=' + id)
     api.get(rootState.PATIENTS_API_PATH + '?q=' + rootState.COLUMN_PUBMED_ID + '=in=' + id)
       .then(response => response.json())
       .then(response => {
