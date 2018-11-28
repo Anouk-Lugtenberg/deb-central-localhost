@@ -18,7 +18,6 @@ export default {
   },
   getColumnNamePubMedIdentifier: (state) => {
     let pubmedIdentifier = null
-    console.log('State: ' + state.COLUMN_PUBMED_ID)
     if (state.COLUMN_PUBMED_ID) {
       pubmedIdentifier = state.COLUMN_PUBMED_ID
     }

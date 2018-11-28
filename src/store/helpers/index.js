@@ -51,7 +51,9 @@ export const setFilterGroupInformationFromURL = (information, query) => {
           strippedFilters.push(filter.replace(/'/g, ''))
         })
       }
-      activeFilters.split('/(,(?=\\S)|:)/g').forEach(function (filter) {
+      /* Only split when comma is NOT followed by a whitespace, otherwise filters which contain comma's
+         are also split */
+      activeFilters.split(/,(?=\S)/).forEach(function (filter) {
         strippedFilters.push(filter.replace(/['()]/g, ''))
       })
       Object.keys(information[table]).forEach(function (filterGroup) {
