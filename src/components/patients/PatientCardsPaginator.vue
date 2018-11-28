@@ -16,9 +16,7 @@
             <patients-filter-container :pageNumber="currentPage"></patients-filter-container>
           </div>
         </div>
-        <div v-else>
-          Loading filters...
-        </div>
+        <moon-loader v-else :textForLoader="'Loading filters'"></moon-loader>
       </b-col>
       <b-col sm="9">
         <div v-if="!filtered">
@@ -29,14 +27,10 @@
                              :visibleFields="visibleFields"></patient-card>
             </div>
           </div>
-          <div v-else>
-            Loading patients...
-          </div>
+          <moon-loader v-else :textForLoader="'Loading patients'"></moon-loader>
         </div>
         <div v-else-if="filtered">
-          <div v-if="isFiltering">
-            Filtering patients...
-          </div>
+          <moon-loader v-if="isFiltering" :textForLoader="'Filtering'"></moon-loader>
           <div v-else-if="!isFiltering">
             <div v-if="patientIdentifiers.length > 0">
               <p class="amount-patients-found">
@@ -74,6 +68,7 @@ import { mapGetters, mapState } from 'vuex'
 import PatientCard from './PatientCard'
 import PatientsFilterContainer from './filters/PatientsFilterContainer'
 import { GET_FILTERED_GROUP_INFORMATION } from '../../store/actions'
+import MoonLoader from '../loader/MoonLoader'
 
 export default {
   name: 'PatientCardsPaginator',
@@ -91,7 +86,8 @@ export default {
   },
   components: {
     'patient-card': PatientCard,
-    'patients-filter-container': PatientsFilterContainer
+    'patients-filter-container': PatientsFilterContainer,
+    'moon-loader': MoonLoader
   },
   data () {
     return {
@@ -161,15 +157,22 @@ export default {
 </script>
 
 <style scoped>
-.top-row-container {
-  margin-top: 1rem;
-}
-.no-patients-found {
-  color: #dc3545;
-  text-align: center;
-}
-.amount-patients-found {
-  text-align: center;
-  font-weight: bold;
-}
+  .top-row-container {
+    margin-top: 1rem;
+  }
+  .no-patients-found {
+    color: #dc3545;
+    text-align: center;
+  }
+  .amount-patients-found {
+    text-align: center;
+    font-weight: bold;
+  }
+  .loader {
+    display: inline-block;
+    vertical-align: top;
+  }
+  .text-loader {
+    display: inline-block;
+  }
 </style>

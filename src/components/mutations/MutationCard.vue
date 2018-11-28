@@ -27,7 +27,7 @@
           </b-row>
           <b-row v-else>
             <b-col cols="6">
-              Loading patients...
+              <moon-loader :size="'15px'" :textForLoader="''"></moon-loader>
             </b-col>
           </b-row>
         </b-container>
@@ -49,6 +49,7 @@ import { mapGetters, mapState } from 'vuex'
 import MutationCardInformationContainer from './MutationCardInformationContainer'
 import FieldTypeMutationIdentifier from '../fieldTypes/FieldTypeMutationIdentifier'
 import FieldTypes from '../fieldTypes/FieldTypes'
+import MoonLoader from '../loader/MoonLoader'
 import { GET_PATIENT_FOR_MUTATION } from '../../store/modules/mutation/actions'
 
 export default {
@@ -71,7 +72,8 @@ export default {
   components: {
     'mutation-card-information-container': MutationCardInformationContainer,
     'field-type-mutation-id': FieldTypeMutationIdentifier,
-    'field-types': FieldTypes
+    'field-types': FieldTypes,
+    'moon-loader': MoonLoader
   },
   data () {
     return {

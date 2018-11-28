@@ -16,9 +16,7 @@
             <mutation-filter-container :pageNumber="currentPage"></mutation-filter-container>
           </div>
         </div>
-        <div v-else>
-          Loading filters...
-        </div>
+        <moon-loader v-else :textForLoader="'Loading filters'"></moon-loader>
       </b-col>
       <b-col sm="9">
         <div v-if="!filtered">
@@ -29,14 +27,10 @@
                              :visibleFields="visibleFields"></mutation-card>
             </div>
           </div>
-          <div v-else>
-            Loading mutations...
-          </div>
+          <moon-loader v-else :textForLoader="'Loading mutations'"></moon-loader>
         </div>
         <div v-else-if="filtered">
-          <div v-if="isFiltering">
-            Filtering mutations...
-          </div>
+          <moon-loader v-if="isFiltering" :textForLoader="'Filtering'"></moon-loader>
           <div v-else-if="!isFiltering">
             <div v-if="mutationIdentifiers.length > 0">
               <p class="amount-mutations-found">
@@ -73,6 +67,7 @@
 import { mapGetters, mapState } from 'vuex'
 import MutationCard from './MutationCard'
 import MutationFilterContainer from './filters/MutationFilterContainer'
+import MoonLoader from '../loader/MoonLoader'
 import GenomeBrowser from './../genomeBrowser/GenomeBrowser'
 import { GET_FILTERED_GROUP_INFORMATION } from '../../store/actions'
 
@@ -93,7 +88,8 @@ export default {
   components: {
     'mutation-card': MutationCard,
     'mutation-filter-container': MutationFilterContainer,
-    'genome-browser': GenomeBrowser
+    'genome-browser': GenomeBrowser,
+    'moon-loader': MoonLoader
   },
   data () {
     return {
