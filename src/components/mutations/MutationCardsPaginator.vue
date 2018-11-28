@@ -1,7 +1,8 @@
 <template>
   <div>
     <b-row class="top-row-container">
-      <b-col sm="3">
+      <b-col cols="3">
+        <b-form-select v-model="pageSize" :options="optionsPageSize" size="sm" :plain="true"></b-form-select>
       </b-col>
       <b-col sm="9">
         <b-pagination-nav :use-router="true" size="md" :link-gen="linkGenerator" align="center"
@@ -95,7 +96,13 @@ export default {
     return {
       totalPages: Math.ceil(this.mutationIdentifiers.length / 20),
       currentPage: 1,
-      pageSize: 20
+      pageSize: 20,
+      optionsPageSize: [
+        {value: 20, text: '20'},
+        {value: 50, text: '50'},
+        {value: 75, text: '75'},
+        {value: 100, text: '100'}
+      ]
     }
   },
   computed: {
@@ -118,7 +125,10 @@ export default {
       this.currentPage = parseInt(this.$route.params.pageNumURL)
     },
     mutationIdentifiers () {
-      this.totalPages = Math.ceil(this.mutationIdentifiers.length / 20)
+      this.totalPages = Math.ceil(this.mutationIdentifiers.length / this.pageSize)
+    },
+    pageSize () {
+      this.totalPages = Math.ceil(this.mutationIdentifiers.length / this.pageSize)
     }
   },
   created () {
