@@ -39,7 +39,7 @@ export default {
     Object.keys(mutations).map(function (key) {
       filteredIdentifiers.push(mutations[key][CDNANotation])
     })
-    state.filteredMutationIdentifiers = filteredIdentifiers
+    state.filteredMutationIdentifiers = naturalSort(filteredIdentifiers)
     state.mutationsIsFiltering = false
   },
   [SET_ACTIVE_FILTERS_MUTATIONS] (state, filters) {

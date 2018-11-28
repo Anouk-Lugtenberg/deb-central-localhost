@@ -63,7 +63,7 @@ export default {
     Object.keys(patients).map(function (key) {
       filteredIdentifiers.push(patients[key][columnPatientIdentifier])
     })
-    state.filteredPatientsIdentifiers = filteredIdentifiers
+    state.filteredPatientsIdentifiers = naturalSort(filteredIdentifiers)
     state.patientsIsFiltering = false
   },
   [SET_ACTIVE_FILTERS_PATIENTS] (state, filters) {
@@ -83,6 +83,6 @@ export default {
     Object.keys(patients).map(function (key) {
       patientsForPublicationIdentifier.push(patients[key][columnPatientIdentifier])
     })
-    Vue.set(state.patientsForPublicationIdentifier, publicationIdentifier, patientsForPublicationIdentifier)
+    Vue.set(state.patientsForPublicationIdentifier, publicationIdentifier, naturalSort(patientsForPublicationIdentifier))
   }
 }

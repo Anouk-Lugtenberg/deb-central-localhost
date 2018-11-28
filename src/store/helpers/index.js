@@ -51,7 +51,7 @@ export const setFilterGroupInformationFromURL = (information, query) => {
           strippedFilters.push(filter.replace(/'/g, ''))
         })
       }
-      activeFilters.split(',').forEach(function (filter) {
+      activeFilters.split('/(,(?=\\S)|:)/g').forEach(function (filter) {
         strippedFilters.push(filter.replace(/['()]/g, ''))
       })
       Object.keys(information[table]).forEach(function (filterGroup) {
