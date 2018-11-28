@@ -43,18 +43,12 @@ export const setFilterGroupInformationFromURL = (information, query) => {
     queries.forEach(function (singleQuery) {
       let strippedFilters = []
       let attribute = singleQuery.split('=').shift()
-      let activeFilters = singleQuery.split('=').pop()
-      /* Filters which contain ',' are treated differently, cause otherwise they would be split */
-      let filtersBetweenQuotes = activeFilters.match(/'[a-z, ]*'/g)
-      if (filtersBetweenQuotes) {
-        filtersBetweenQuotes.forEach(function (filter) {
-          strippedFilters.push(filter.replace(/'/g, ''))
-        })
-      }
+      /* Get the active filters from the query, and remove the first and last parentheses */
+      let activeFilters = singleQuery.split('=').pop().slice(1, -1)
       /* Only split when comma is NOT followed by a whitespace, otherwise filters which contain comma's
          are also split */
       activeFilters.split(/,(?=\S)/).forEach(function (filter) {
-        strippedFilters.push(filter.replace(/['()]/g, ''))
+        strippedFilters.push(filter.replace(/[']/g, ''))
       })
       Object.keys(information[table]).forEach(function (filterGroup) {
         if (filterGroup.includes(attribute)) {
