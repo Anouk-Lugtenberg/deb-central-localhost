@@ -39,6 +39,9 @@
           </div>
           <div v-else-if="!isFiltering">
             <div v-if="patientIdentifiers.length > 0">
+              <p class="amount-patients-found">
+                {{ patientIdentifiers.length }} patients found
+              </p>
               <div v-for="(identifier, index) in patientIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="index">
                 <patient-card :patientIdentifier="identifier"
                                :patient="patients[identifier]"
@@ -164,5 +167,9 @@ export default {
 .no-patients-found {
   color: #dc3545;
   text-align: center;
+}
+.amount-patients-found {
+  text-align: center;
+  font-weight: bold;
 }
 </style>
