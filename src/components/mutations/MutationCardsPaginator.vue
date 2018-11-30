@@ -18,6 +18,7 @@
           </div>
         </div>
         <moon-loader v-else :textForLoader="'Loading filters'"></moon-loader>
+        <data-item-selector :table="mutationTable"></data-item-selector>
       </b-col>
       <b-col sm="9">
         <div v-if="!filtered">
@@ -69,6 +70,7 @@ import { mapGetters, mapState } from 'vuex'
 import MutationCard from './MutationCard'
 import MutationFilterContainer from './filters/MutationFilterContainer'
 import MoonLoader from '../loader/MoonLoader'
+import DataItemSelector from '../settings/DataItemSelector'
 import GenomeBrowser from './../genomeBrowser/GenomeBrowser'
 import { GET_FILTERED_GROUP_INFORMATION } from '../../store/actions'
 
@@ -90,7 +92,8 @@ export default {
     'mutation-card': MutationCard,
     'mutation-filter-container': MutationFilterContainer,
     'genome-browser': GenomeBrowser,
-    'moon-loader': MoonLoader
+    'moon-loader': MoonLoader,
+    'data-item-selector': DataItemSelector
   },
   data () {
     return {

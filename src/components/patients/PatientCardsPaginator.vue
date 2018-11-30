@@ -18,6 +18,7 @@
           </div>
         </div>
         <moon-loader v-else :textForLoader="'Loading filters'"></moon-loader>
+        <data-item-selector :table="patientTable"></data-item-selector>
       </b-col>
       <b-col sm="9">
         <div v-if="!filtered">
@@ -68,6 +69,7 @@
 import { mapGetters, mapState } from 'vuex'
 import PatientCard from './PatientCard'
 import PatientsFilterContainer from './filters/PatientsFilterContainer'
+import DataItemSelector from './../settings/DataItemSelector'
 import { GET_FILTERED_GROUP_INFORMATION } from '../../store/actions'
 import MoonLoader from '../loader/MoonLoader'
 
@@ -88,6 +90,7 @@ export default {
   components: {
     'patient-card': PatientCard,
     'patients-filter-container': PatientsFilterContainer,
+    'data-item-selector': DataItemSelector,
     'moon-loader': MoonLoader
   },
   data () {

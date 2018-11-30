@@ -1,10 +1,8 @@
 <template>
   <b-card header-tag="header" header-bg-variant="light" class="rounded-1" no-body>
-    <div slot="header" class="text-center">
-      <span class="title-filters">
-        Filters
-      </span>
-    </div>
+    <span class="title-filters card-text text-center">
+      Filters
+    </span>
     <div v-if="$route.query.q" class="ml-1 mr-1 mt-2">
       <button class="btn btn-secondary btn-sm" @click="clearAllFilters">Clear filters</button><br/>
       <small>Active filters:</small>
@@ -108,5 +106,6 @@ export default {
   font-size: 20px;
   font-weight: bold;
   color: #4497be;
+  background-color: #f6f8fa;
 }
 </style>
