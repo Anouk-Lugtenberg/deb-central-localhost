@@ -44,7 +44,7 @@ export default {
       let visibleFields = []
       for (let key in this.metadata[mutationTable]) {
         if (!this.metadata[mutationTable].hasOwnProperty(key)) continue
-        if (this.metadata[mutationTable][key]['visible'] && this.metadata[mutationTable][key]['name'] !== this.cDNANotation) {
+        if (this.metadata[mutationTable][key]['fieldIsVisible'] && this.metadata[mutationTable][key]['name'] !== this.cDNANotation) {
           visibleFields.push(this.metadata[mutationTable][key])
         }
       }

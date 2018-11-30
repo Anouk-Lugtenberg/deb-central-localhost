@@ -101,16 +101,19 @@ export const createInQueryPatientsPerMutation = (mutationColumn, mutationIdentif
 export const getMetadata = (metadata, options, filters, mutationColumns) => {
   let listMetadata = []
   metadata.forEach(function (element) {
-    element.visible = determineVisibleFieldsFromSettings(element.name, options)
-    element['isFilter'] = determineIfElementIsFilter(element.name, filters)
-    if (element.fieldType === 'COMPOUND') {
-      setFiltersForFieldTypeCompound(element.attributes, filters)
-    }
-    /* Don't include the mutation columns for the patient table */
-    if (!mutationColumns.includes(element.name)) {
-      listMetadata.push(
-        element
-      )
+    /* Only add if element is not hidden field */
+    if (element.visible) {
+      element['fieldIsVisible'] = determineVisibleFieldsFromSettings(element.name, options)
+      element['isFilter'] = determineIfElementIsFilter(element.name, filters)
+      if (element.fieldType === 'COMPOUND') {
+        setFiltersForFieldTypeCompound(element.attributes, filters)
+      }
+      /* Don't include the mutation columns for the patient table */
+      if (!mutationColumns.includes(element.name)) {
+        listMetadata.push(
+          element
+        )
+      }
     }
   })
   return listMetadata

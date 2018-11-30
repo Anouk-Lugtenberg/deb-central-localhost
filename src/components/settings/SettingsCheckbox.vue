@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="checkbox" v-model="property.visible" :id="property.name"> {{ property.label }}
+    <input type="checkbox" v-model="property.fieldIsVisible" :id="property.name"> {{ property.label }}
   </div>
 </template>
 

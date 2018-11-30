@@ -70,7 +70,7 @@ export default {
       Object.keys(this.metadata).map((key) => {
         let metadataPerTable = this.metadata[key]
         Object.keys(metadataPerTable).map((meta) => {
-          metadataPerTable[meta].visible = booleanVisible
+          metadataPerTable[meta].fieldIsVisible = booleanVisible
         })
       })
     }
