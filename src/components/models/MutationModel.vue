@@ -87,7 +87,6 @@ export default {
     },
     updateIdentifiers () {
       this.numericalIdentifiers = new Set()
-      console.log('ID: ' + this.id)
       if (this.id.substring('&')) {
         let singleNumericalIdentifier = this.id.split('&')
         for (let item in singleNumericalIdentifier) {

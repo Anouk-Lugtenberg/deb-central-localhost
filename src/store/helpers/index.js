@@ -62,6 +62,11 @@ export const setFilterGroupInformationFromURL = (information, query) => {
   return information
 }
 
+/**
+ * Helper to natural sort lists
+ * @param arraylist
+ * @returns {Array}
+ */
 export const naturalSort = (arraylist) => {
   let collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'})
   let sortedlist = []
@@ -85,83 +90,64 @@ export const createInQueryPatientsPerMutation = (mutationColumn, mutationIdentif
   : []
 
 /**
- * Helper for setting the metadata fields, there's a distinction between the different tables in the metadata.
- All metadata fields contain:
- - fieldType: what kind of field e.g. CATEGORICAL, HREF
- - label: the label of the field
- - name: the name of the field
- - visible: whether the field is visible to the user true/false
- Some metadata fields contain:
- - href: this is set when field is in the filters list, so the field can be used as a filter
- * @param metadata a json containing the metadata
- * @param type the type (table name)
- * @param allFieldsVisible whether all fields are set to true, or only some
- * @param options the Object which describes which fields are visible (via config)
- * @param filters the Object which describes which filters are used (via config)
- * @param mutationColumnsForPatient
- * @returns {Array} containing the metadata with the four fields described above
+ * Sets the metadata for the fields. It uses the metadata from MOLGENIS api, but adds 'isFilter' field and uses the options
+ * from this app to determine which fields are visible on load.
+ * @param metadata metadata retrieved from MOLGENIS API
+ * @param options lists which contains which fields are visible on load
+ * @param filters lists which contains which fields should be used as filter
+ * @param mutationColumns the columns where the mutations are stored in the patient table, these shouldn't be an option for the user
+ * @returns {Array} an array containing the updated metadata
  */
-export const getMetadata = (metadata, type, allFieldsVisible, options, filters, mutationColumnsForPatient) => {
+export const getMetadata = (metadata, options, filters, mutationColumns) => {
   let listMetadata = []
   metadata.forEach(function (element) {
-    let fieldVisible = true
-    if (!allFieldsVisible && !(options.indexOf(element.name.toUpperCase()) > -1)) {
-      fieldVisible = false
+    element.visible = determineVisibleFieldsFromSettings(element.name, options)
+    element['isFilter'] = determineIfElementIsFilter(element.name, filters)
+    if (element.fieldType === 'COMPOUND') {
+      setFiltersForFieldTypeCompound(element.attributes, filters)
     }
-    /* Compounds exists of other objects, so the objects should be saved as objects from the compound in the metadata */
-    if (element.fieldType.includes('COMPOUND')) {
-      let listCompoundAttributes = []
-      Object.keys(element.attributes).map(function (compound) {
-        /*
-        Adds href to metadata object when nested metadata of type COMPOUND is in VISIBLE_FILTERS list.
-        This is used to determine the filters.
-         */
-        if (filters.includes(element.attributes[compound]['name'].toUpperCase())) {
-          listCompoundAttributes.push({
-            'name': element.attributes[compound]['name'],
-            'label': element.attributes[compound]['label'],
-            'fieldType': element.attributes[compound]['fieldType'],
-            'href': element.attributes[compound]['refEntity']['href']
-          })
-        } else {
-          listCompoundAttributes.push({
-            'name': element.attributes[compound]['name'],
-            'label': element.attributes[compound]['label'],
-            'fieldType': element.attributes[compound]['fieldType']
-          })
-        }
-      })
-      listMetadata.push({
-        'name': element.name,
-        'label': element.label,
-        'fieldType': element.fieldType,
-        'visible': fieldVisible,
-        'attributes': listCompoundAttributes
-      })
-      /*
-      Adds href field to metadata if field is in VISIBLE_FILTERS list
-      This is used to determine filter categories
-       */
-    } else if (filters.includes(element.name.toUpperCase())) {
-      listMetadata.push({
-        'name': element.name,
-        'label': element.label,
-        'fieldType': element.fieldType,
-        'visible': fieldVisible,
-        'href': element['refEntity']['href']
-      })
-      /* Mutations are saved differently for patients (and are always shown),
-      so they shouldn't be saved in the metadata */
-    } else if (!(mutationColumnsForPatient.includes(element.name.toUpperCase()))) {
-      listMetadata.push({
-        'name': element.name,
-        'label': element.label,
-        'fieldType': element.fieldType,
-        'visible': fieldVisible
-      })
+    /* Don't include the mutation columns for the patient table */
+    if (!mutationColumns.includes(element.name)) {
+      listMetadata.push(
+        element
+      )
     }
   })
   return listMetadata
+}
+
+/**
+ * Adds filters for field types compound of one level deep
+ * @param compoundAttributes the attributes from the compound
+ * @param filters list with filters
+ */
+export const setFiltersForFieldTypeCompound = (compoundAttributes, filters) => {
+  compoundAttributes.forEach(function (element) {
+    if (filters.includes(element.name.toUpperCase())) {
+      element['isFilter'] = true
+    }
+  })
+}
+
+/**
+ * Helper to determine which fields from the tables are visible on loading the page. These settings are given by
+ * INITAL STATE, by the user. If column-name is in the settings, the field will be set to visible.
+ * @param metadataElementName the element from the metadata
+ * @param options the fields which should be visible on loading the page
+ * @returns {boolean} true/false linked to visibility of field
+ */
+export const determineVisibleFieldsFromSettings = (metadataElementName, options) => {
+  return options.indexOf(metadataElementName.toUpperCase()) > -1
+}
+
+/**
+ * Helper to determine if the field is a filter.
+ * @param metadataElementName the field
+ * @param filters a list with filters
+ * @returns {*} true/false whether field is in the list with filters
+ */
+export const determineIfElementIsFilter = (metadataElementName, filters) => {
+  return filters.includes(metadataElementName.toUpperCase())
 }
 
 /**
@@ -174,11 +160,9 @@ export const getMetadataColumnsMutations = (metadata, visibleColumns) => {
   let listMetadata = []
   metadata.forEach(function (element) {
     if (visibleColumns.includes(element.name.toUpperCase())) {
-      listMetadata.push({
-        'name': element.name,
-        'label': element.label,
-        'fieldType': element.fieldType
-      })
+      listMetadata.push(
+        element
+      )
     }
   })
   return listMetadata

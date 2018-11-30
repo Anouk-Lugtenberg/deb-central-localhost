@@ -1,6 +1,14 @@
 export default {
   getMetadata: state => state.metadata,
-  getMetadataAllFieldsVisible: state => state.metadataAllFieldsVisible,
+  getMetadataAllFieldsVisible: (state) => {
+    let metadataAllFieldsVisible = JSON.parse(JSON.stringify(state.metadata))
+    Object.keys(metadataAllFieldsVisible).map(function (key) {
+      metadataAllFieldsVisible[key].forEach(function (element) {
+        element.visible = true
+      })
+    })
+    return metadataAllFieldsVisible
+  },
   getFilteredGroupInformation: state => state.filterGroupInformation,
   getMetadataColumnsMutations: state => state.metadataColumnsMutations,
   getError: state => state.error,

@@ -4,7 +4,6 @@ import {
   SET_LIST_METADATA_COLUMNS_MUTATIONS,
   SET_FILTER_GROUP_INFORMATION,
   SET_ERROR,
-  SET_METADATA_ALL_FIELDS_VISIBLE,
   SET_TABLE_FOR_FILTER_GROUP_INFORMATION
 } from './mutations'
 
@@ -30,8 +29,6 @@ export default {
         .then(response => {
           commit(SET_METADATA, [response.meta.attributes, TABLES[i], VISIBLE_FIELDS[TABLES[i]],
             VISIBLE_FILTERS[TABLES[i]], state.MUTATION_COLUMNS_FOR_PATIENT])
-          commit(SET_METADATA_ALL_FIELDS_VISIBLE, [response.meta.attributes, TABLES[i], VISIBLE_FIELDS[TABLES[i]],
-            VISIBLE_FILTERS[TABLES[i]], state.MUTATION_TABLE])
           if (state.MUTATION_TABLE.includes(TABLES[i])) {
             commit(SET_LIST_METADATA_COLUMNS_MUTATIONS, [response.meta.attributes, TABLES[i], rootState.VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD])
           }
@@ -45,8 +42,8 @@ export default {
       commit(SET_TABLE_FOR_FILTER_GROUP_INFORMATION, table)
     }
     Object.keys(state.metadata[table].map(function (field) {
-      if (field.hasOwnProperty('href')) {
-        api.get(field.href)
+      if (field.isFilter) {
+        api.get(field.refEntity.href)
           .then(response => response.json())
           .then(response => {
             commit(SET_FILTER_GROUP_INFORMATION, [table, field.name, response])
@@ -56,8 +53,8 @@ export default {
       }
       if (field.fieldType === 'COMPOUND') {
         field.attributes.forEach(function (attribute) {
-          if (attribute.hasOwnProperty('href')) {
-            api.get(attribute.href)
+          if (attribute.isFilter) {
+            api.get(attribute.refEntity.href)
               .then(response => response.json())
               .then(response => {
                 commit(SET_FILTER_GROUP_INFORMATION, [table, attribute.name, response])
@@ -67,7 +64,8 @@ export default {
           }
         })
       }
-    }))
+    }
+    ))
   },
   [SET_FILTERS_FROM_ACTIVE_CHECKBOXES] ({commit, state}) {
     Object.keys(state.filterGroupInformation).map(function (attribute) {

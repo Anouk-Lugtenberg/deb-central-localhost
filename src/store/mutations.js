@@ -2,7 +2,6 @@ import Vue from 'vue'
 import { getMetadata, getMetadataColumnsMutations } from './helpers'
 
 export const SET_METADATA = '__SET_METADATA__'
-export const SET_METADATA_ALL_FIELDS_VISIBLE = '__SET_METADATA_ALL_FIELDS_VISIBLE__'
 export const SET_TABLE_FOR_FILTER_GROUP_INFORMATION = '__SET_TABLE_FOR_FILTER_GROUP_INFORMATION__'
 export const SET_LIST_METADATA_COLUMNS_MUTATIONS = '__SET_LIST_METADATA_COLUMNS_MUTATIONS__'
 export const SET_FILTER_GROUP_INFORMATION = '__SET_FILTER_GROUP_INFORMATION__'
@@ -10,12 +9,8 @@ export const SET_ERROR = '__SET_ERROR__'
 
 export default {
   [SET_METADATA] (state, [metadata, type, options, filters, mutationColumns]) {
-    let listMetadata = getMetadata(metadata, type, false, options, filters, mutationColumns)
+    let listMetadata = getMetadata(metadata, options, filters, mutationColumns)
     Vue.set(state.metadata, type, listMetadata)
-  },
-  [SET_METADATA_ALL_FIELDS_VISIBLE] (state, [metadata, type, options, filters, mutationColumns]) {
-    let listMetadataAllFieldsVisible = getMetadata(metadata, type, true, options, filters, mutationColumns)
-    Vue.set(state.metadataAllFieldsVisible, type, listMetadataAllFieldsVisible)
   },
   [SET_LIST_METADATA_COLUMNS_MUTATIONS] (state, [metadata, type, visibleColumns]) {
     let listMetadataColumnsMutations = getMetadataColumnsMutations(metadata, visibleColumns)

@@ -178,11 +178,4 @@ export default {
     text-align: center;
     font-weight: bold;
   }
-  .loader {
-    display: inline-block;
-    vertical-align: top;
-  }
-  .text-loader {
-    display: inline-block;
-  }
 </style>

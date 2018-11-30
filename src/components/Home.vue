@@ -1,12 +1,19 @@
 <template>
   <div>
     Home page
+    {{ metadata }}
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  name: 'Home'
+  name: 'Home',
+  computed: {
+    ...mapGetters({
+      metadata: 'getMetadata'
+    })
+  }
 }
 </script>
 
