@@ -23,7 +23,7 @@
               <h6 class="year text-muted">
                 {{ getPublicationInformationByIdentifier(id).Journal }} - {{ getPublicationInformationByIdentifier(id).Year }}
               </h6>
-              <p class="card-text">
+              <p class="card-text abstract-text">
                 {{ getPublicationInformationByIdentifier(id).abstractText }}
               </p>
               <publication-model-authors :authors="getPublicationInformationByIdentifier(id).Authors"></publication-model-authors>
@@ -99,5 +99,8 @@ export default {
   .scrollable {
     overflow-y: auto;
     height: 500px;
+  }
+  .abstract-text {
+    font-size: 13px;
   }
 </style>
