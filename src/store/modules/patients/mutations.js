@@ -42,8 +42,8 @@ export default {
       Vue.set(state.patients,
         patients[key][columnPatientIdentifier],
         {
-          'information': patients[key],
-          'mutations': flattenDepth(mutations, 1)
+          information: patients[key],
+          mutations: flattenDepth(mutations, 1)
         })
     })
     state.allIdentifiersPatients = naturalSort(identifiers)

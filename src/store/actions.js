@@ -4,7 +4,8 @@ import {
   SET_LIST_METADATA_COLUMNS_MUTATIONS,
   SET_FILTER_GROUP_INFORMATION,
   SET_ERROR,
-  SET_TABLE_FOR_FILTER_GROUP_INFORMATION
+  SET_TABLE_FOR_FILTER_GROUP_INFORMATION,
+  SET_FILTER_GROUP_INFORMATION_ENUM
 } from './mutations'
 
 import { createActiveFilterQueries, setFilterGroupInformationFromURL } from './helpers'
@@ -43,6 +44,9 @@ export default {
     }
     Object.keys(state.metadata[table].map(function (field) {
       if (field.isFilter) {
+        if (field.fieldType === 'ENUM') {
+          commit(SET_FILTER_GROUP_INFORMATION_ENUM, [table, field.name, field])
+        }
         api.get(field.refEntity.href)
           .then(response => response.json())
           .then(response => {
@@ -54,13 +58,17 @@ export default {
       if (field.fieldType === 'COMPOUND') {
         field.attributes.forEach(function (attribute) {
           if (attribute.isFilter) {
-            api.get(attribute.refEntity.href)
-              .then(response => response.json())
-              .then(response => {
-                commit(SET_FILTER_GROUP_INFORMATION, [table, attribute.name, response])
-              }, error => {
-                commit(SET_ERROR, error)
-              })
+            if (attribute.fieldType === 'ENUM') {
+              commit(SET_FILTER_GROUP_INFORMATION_ENUM, [table, attribute.name, attribute])
+            } else {
+              api.get(attribute.refEntity.href)
+                .then(response => response.json())
+                .then(response => {
+                  commit(SET_FILTER_GROUP_INFORMATION, [table, attribute.name, response])
+                }, error => {
+                  commit(SET_ERROR, error)
+                })
+            }
           }
         })
       }
