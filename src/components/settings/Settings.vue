@@ -42,7 +42,7 @@ export default {
   },
   data () {
     return {
-      showTable: false,
+      showTable: true,
       active: false
     }
   },
