@@ -1,5 +1,5 @@
 <template>
-  <div class="search-field ml-1 mr-1 mt-3">
+  <div class="search-field ml-2 mr-2 mt-3">
     <input type="text" placeholder="Search patients" v-model.lazy="search">
   </div>
 </template>

@@ -1,16 +1,21 @@
 <template>
-  <b-card header-tag="header" header-bg-variant="light" class="rounded-1 mt-3" no-body>
-    <span class="title-filters card-text text-center">
+  <b-card header-tag="header" header-bg-variant="light" class="rounded-1 mt-3 item-selector" no-body>
+    <span class="title-item-selector card-text text-center">
       Item selector
     </span>
-    <div v-for="(data, tableName) in metadata">
-      <data-item-selector-group :table="table" :tableName="tableName" :data="data"></data-item-selector-group>
+    <div v-if="table === mutationTable">
+      <div v-for="(data, tableName) in metadata">
+        <data-item-selector-group :table="table" :tableName="tableName" :data="data"></data-item-selector-group>
+      </div>
+    </div>
+    <div v-else>
+      <data-item-selector-group :table="table" :tableName="table" :data="metadata[table]"></data-item-selector-group>
     </div>
   </b-card>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import SettingsCheckbox from './SettingsCheckbox'
 import DataItemSelectorGroup from './DataItemSelectorGroup'
 
@@ -24,6 +29,9 @@ export default {
   computed: {
     ...mapGetters({
       metadata: 'getMetadata'
+    }),
+    ...mapState({
+      mutationTable: 'MUTATION_TABLE'
     })
   },
   methods: {
@@ -46,10 +54,13 @@ export default {
 </script>
 
 <style scoped>
-  .title-filters {
+  .title-item-selector {
     font-size: 20px;
     font-weight: bold;
     color: #4497be;
-    background-color: #f6f8fa;
+    background-color: #dee6ed;
+  }
+  .item-selector {
+    background-color: #fafafa;
   }
 </style>

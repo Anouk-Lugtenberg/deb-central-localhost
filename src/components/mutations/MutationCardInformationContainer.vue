@@ -63,7 +63,7 @@ export default {
       let visibleFields = []
       for (let key in this.metadata[patientTable]) {
         if (!this.metadata[patientTable].hasOwnProperty(key)) continue
-        if (this.metadata[patientTable][key]['visible'] && this.metadata[patientTable][key]['name'] !== 'ID') {
+        if (this.metadata[patientTable][key]['fieldIsVisible'] && this.metadata[patientTable][key]['name'] !== 'ID') {
           visibleFields.push(this.metadata[patientTable][key])
         }
       }
