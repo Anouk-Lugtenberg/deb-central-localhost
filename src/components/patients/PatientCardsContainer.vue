@@ -3,12 +3,12 @@
     <div v-if="metadata[patientTable]">
       <div v-if="$route.query.q">
         <patient-cards-paginator :patientIdentifiers="filteredIdentifiersPatients"
-                                 :visibleFields="visibleFields"
+                                 :visibleFields="getVisibleFieldsMetadata(patientTable)"
                                  :filtered="true"></patient-cards-paginator>
       </div>
       <div v-else>
         <patient-cards-paginator :patientIdentifiers="allIdentifiersPatients"
-                                 :visibleFields="visibleFields"></patient-cards-paginator>
+                                 :visibleFields="getVisibleFieldsMetadata(patientTable)"></patient-cards-paginator>
       </div>
     </div>
   </div>
@@ -27,30 +27,13 @@ export default {
     ...mapGetters({
       allIdentifiersPatients: 'patients/getAllIdentifiersPatients',
       filteredIdentifiersPatients: 'patients/getFilteredPatientsIdentifiers',
-      metadata: 'getMetadata'
+      metadata: 'getMetadata',
+      getVisibleFieldsMetadata: 'getVisibleFieldsMetadata'
     }),
     ...mapState({
       patientTable: 'PATIENT_TABLE',
       columnPatientIdentifier: 'COLUMN_PATIENT_IDENTIFIER'
-    }),
-    /* This is created instead of using the visible fields from the metadata, because otherwise the spots from the metadata fields are
-    reserved, and this leaves blank spots on the cards.
-     */
-    visibleFields: function () {
-      let patientTable = this.patientTable
-      let visibleFields = []
-      for (let key in this.metadata[patientTable]) {
-        if (!this.metadata[patientTable].hasOwnProperty(key)) continue
-        if (this.metadata[patientTable][key]['fieldIsVisible'] && this.metadata[patientTable][key]['name'] !== this.columnPatientIdentifier) {
-          visibleFields.push(this.metadata[patientTable][key])
-        }
-      }
-      return visibleFields
-    }
+    })
   }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -22,14 +22,12 @@ export default {
   },
   created () {
     if (this.abstractText.length > 100) {
-      console.log('Created')
       this.substringAbstractText = this.abstractText.substring(0, this.abstractText.lastIndexOf(' ', 100))
       this.textCollapsed = true
     }
   },
   methods: {
     expandText () {
-      console.log('Expanding text')
       this.textCollapsed = false
     }
   }

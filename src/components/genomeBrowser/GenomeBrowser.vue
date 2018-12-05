@@ -1,7 +1,5 @@
 <template>
   <div>
-    {{ viewStart }}
-    {{ viewEnd }}
     <a href="" v-on:click="filterMutation(mutationIdentifier)" id="stuff" class="meh"></a>
     <div id="svgHolder">Couldn't load Dalliance Browser</div>
   </div>
@@ -9,6 +7,8 @@
 
 <script>
 import { Browser, Chainset } from './../../assets/js/dalliance-all.min'
+import { GET_MUTATIONS_BETWEEN_POSITION_START_AND_END } from './../../store/modules/mutation/actions'
+import _ from 'lodash'
 export default {
   name: 'GenomeBrowser',
   props: {
@@ -18,7 +18,7 @@ export default {
     },
     filterMutationsOnVisibility: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   data () {
@@ -26,7 +26,13 @@ export default {
       browser: '',
       viewStart: this.position - 50,
       viewEnd: this.position + 50,
-      mutationIdentifier: ''
+      mutationIdentifier: '',
+      interval: null
+    }
+  },
+  computed: {
+    browserViewStart () {
+      return this.browser.viewStart
     }
   },
   methods: {
@@ -40,11 +46,27 @@ export default {
     },
     filterMutation (mutationIdentifier) {
       console.log('Mutation identifier: ' + mutationIdentifier)
+    },
+    retrieveMutationsForPosition (viewStart, viewEnd) {
+      if (this.filterMutationsOnVisibility) {
+        this.$store.dispatch('mutation/' + GET_MUTATIONS_BETWEEN_POSITION_START_AND_END, [viewStart, viewEnd])
+      }
+    },
+    setUpdatedViewStartAndEnd () {
+      let viewStart = this.browser.viewStart
+      let viewEnd = this.browser.viewEnd
+      this.retrieveMutationsForPosition(viewStart, viewEnd)
     }
   },
   watch: {
     position () {
       this.setLocation('3', this.viewStart, this.viewEnd)
+    },
+    browserViewStart: _.debounce(function () {
+      this.setUpdatedViewStartAndEnd()
+    }, 500),
+    filterMutationsOnVisibility () {
+      this.setUpdatedViewStartAndEnd()
     }
   },
   mounted () {

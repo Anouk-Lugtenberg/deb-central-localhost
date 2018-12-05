@@ -9,6 +9,7 @@ export const SET_MUTATIONS_FILTER_ACTIVE = '__SET_MUTATION_FILTER_ACTIVE__'
 export const SET_ACTIVE_FILTERS_MUTATIONS = '__SET_ACTIVE_FILTERS_MUTATIONS__'
 export const SET_FILTERED_MUTATIONS = '__SET_FILTERED_MUTATIONS__'
 export const SET_MUTATIONS_IS_FILTERING = '__SET_MUTATIONS_IS_FILTERING__'
+export const SET_MUTATIONS_BETWEEN_POSITION_START_AND_END = '__SET_MUTATIONS_BETWEEN_POSITION_START_AND_END__'
 
 export default {
   [SET_ALL_MUTATIONS] (state, [mutations, CDNANotation]) {
@@ -50,5 +51,8 @@ export default {
   },
   [SET_MUTATIONS_IS_FILTERING] (state, boolean) {
     state.mutationsIsFiltering = boolean
+  },
+  [SET_MUTATIONS_BETWEEN_POSITION_START_AND_END] (state, mutations) {
+    state.mutationsBetweenPositionStartAndEnd = mutations
   }
 }

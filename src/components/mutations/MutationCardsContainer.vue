@@ -1,15 +1,14 @@
 <template>
   <div>
-    <!--<genome-browser></genome-browser>-->
     <div v-if="metadata[mutationTable]">
       <div v-if="$route.query.q">
         <mutation-card-paginator :mutationIdentifiers="filteredMutationIdentifiers"
-                                 :visibleFields="visibleFields"
+                                 :visibleFields="getVisibleFieldsMetadata(mutationTable)"
                                  :filtered="true"></mutation-card-paginator>
       </div>
       <div v-else>
         <mutation-card-paginator :mutationIdentifiers="allIdentifiersMutation"
-                                 :visibleFields="visibleFields"></mutation-card-paginator>
+                                 :visibleFields="getVisibleFieldsMetadata(mutationTable)"></mutation-card-paginator>
       </div>
     </div>
   </div>
@@ -30,26 +29,13 @@ export default {
     ...mapGetters({
       allIdentifiersMutation: 'mutation/getAllMutationIdentifiers',
       filteredMutationIdentifiers: 'mutation/getFilteredMutationIdentifiers',
-      metadata: 'getMetadata'
+      metadata: 'getMetadata',
+      getVisibleFieldsMetadata: 'getVisibleFieldsMetadata'
     }),
     ...mapState({
       mutationTable: 'MUTATION_TABLE',
       cDNANotation: 'COLUMN_MUTATION_CDNANOTATION'
-    }),
-    /* This is created instead of using the visible fields property from the metadata, because otherwise the spots from the metadata fields are
-    reserved, and this leaves blank spots on the cards.
-     */
-    visibleFields: function () {
-      let mutationTable = this.mutationTable
-      let visibleFields = []
-      for (let key in this.metadata[mutationTable]) {
-        if (!this.metadata[mutationTable].hasOwnProperty(key)) continue
-        if (this.metadata[mutationTable][key]['fieldIsVisible'] && this.metadata[mutationTable][key]['name'] !== this.cDNANotation) {
-          visibleFields.push(this.metadata[mutationTable][key])
-        }
-      }
-      return visibleFields
-    }
+    })
   }
 }
 </script>

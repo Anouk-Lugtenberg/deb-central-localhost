@@ -4,7 +4,7 @@ import {
   SET_TOTAL_MUTATIONS,
   SET_PATIENT_FOR_MUTATION,
   SET_MUTATIONS_FILTER_ACTIVE,
-  SET_FILTERED_MUTATIONS
+  SET_FILTERED_MUTATIONS, SET_MUTATIONS_BETWEEN_POSITION_START_AND_END
 } from './mutations'
 import {
   SET_ERROR
@@ -15,6 +15,7 @@ import { createInQueryPatientsPerMutation, createRSQLQueryPatientsPerMutation, s
 export const GET_FILTERED_MUTATIONS = '__GET_FILTERED_MUTATIONS__'
 export const GET_ALL_MUTATIONS = '__GET_ALL_MUTATIONS__'
 export const GET_PATIENT_FOR_MUTATION = '__GET_PATIENT_FOR_MUTATION__'
+export const GET_MUTATIONS_BETWEEN_POSITION_START_AND_END = '__GET_MUTATIONS_BETWEEN_POSITION_START_AND_END__'
 
 export default {
   [GET_ALL_MUTATIONS] ({commit, rootState}) {
@@ -56,5 +57,18 @@ export default {
       commit(SET_MUTATIONS_FILTER_ACTIVE, false)
       commit(SET_FILTERED_MUTATIONS, [])
     }
+  },
+  [GET_MUTATIONS_BETWEEN_POSITION_START_AND_END] ({state, commit, rootState}, [viewStart, viewEnd]) {
+    let start = viewStart.toFixed(0)
+    let end = viewEnd.toFixed(0)
+    let positionColumn = rootState.COLUMN_MUTATION_POSITION
+    let mutationsBetweenPosition = []
+    Object.keys(state.mutations).forEach(function (mutation) {
+      let position = state.mutations[mutation][positionColumn]
+      if (start < position && position < end) {
+        mutationsBetweenPosition.push(mutation)
+      }
+    })
+    commit(SET_MUTATIONS_BETWEEN_POSITION_START_AND_END, mutationsBetweenPosition)
   }
 }

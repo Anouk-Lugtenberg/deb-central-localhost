@@ -18,6 +18,16 @@ export default {
     visibleFields[state.PATIENT_TABLE] = state.visibleFieldsPatientTable
     return visibleFields
   },
+  getVisibleFieldsMetadata: (state) => (table) => {
+    let visibleFields = []
+    for (let key in state.metadata[table]) {
+      if (!state.metadata[table].hasOwnProperty(key)) continue
+      if (state.metadata[table][key]['fieldIsVisible'] && (state.metadata[table][key]['name'] !== (state.COLUMN_MUTATION_CDNANOTATION || state.COLUMN_PATIENT_IDENTIFIER))) {
+        visibleFields.push(state.metadata[table][key])
+      }
+    }
+    return visibleFields
+  },
   getVisibleFilters: (state) => {
     let visibleFilters = {}
     visibleFilters[state.MUTATION_TABLE] = state.filtersMutations

@@ -5,7 +5,7 @@
         <div class="sticky-top">
           <div class="card scrollable">
             <div class="card-header">
-              <span class="title-item-selector card-text text-center">
+              <span v-if="patientsByPublicationIdentifier(id)" class="title-item-selector card-text text-center">
                 Patients ({{ patientsByPublicationIdentifier(id).length}})
               </span>
             </div>
@@ -39,7 +39,8 @@
         </div>
         <div v-for="patient in patientsByPublicationIdentifier(id)">
           <div :id="patient">
-            <patient-card :patientIdentifier="patient" :patient="patientByIdentifier(patient)" :visibleFields="visibleFields"></patient-card>
+            <patient-card :patientIdentifier="patient" :patient="patientByIdentifier(patient)"
+                          :visibleFields="getVisibleFieldsMetadata(patientTable)"></patient-card>
           </div>
         </div>
       </b-col>
@@ -70,24 +71,14 @@ export default {
       getPublicationInformationByIdentifier: 'patients/getPublicationInformationByIdentifier',
       patientsByPublicationIdentifier: 'patients/getPatientsByPublicationIdentifier',
       patientByIdentifier: 'patients/getPatientsByIdentifier',
-      metadata: 'getMetadata'
+      metadata: 'getMetadata',
+      getVisibleFieldsMetadata: 'getVisibleFieldsMetadata'
     }),
     ...mapState({
       publicationsApiPath: 'PUBLICATIONS_API_PATH',
       patientTable: 'PATIENT_TABLE',
       columnPatientIdentifier: 'COLUMN_PATIENT_IDENTIFIER'
-    }),
-    visibleFields: function () {
-      let patientTable = this.patientTable
-      let visibleFields = []
-      for (let key in this.metadata[patientTable]) {
-        if (!this.metadata[patientTable].hasOwnProperty(key)) continue
-        if (this.metadata[patientTable][key]['fieldIsVisible'] && this.metadata[patientTable][key]['name'] !== this.columnPatientIdentifier) {
-          visibleFields.push(this.metadata[patientTable][key])
-        }
-      }
-      return visibleFields
-    }
+    })
   },
   created () {
     if (!this.extraPublicationInformation.hasOwnProperty(this.id)) {

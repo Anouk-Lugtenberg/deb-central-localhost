@@ -3,6 +3,8 @@
     <b-container class="margin-model-top">
       <div v-if="identifiers.length > 0">
         <b-row>
+          {{ mutationsBetweenPosition }}
+          {{ visibleFields }}
           <!--<b-col cols="3">-->
             <!--<span>Add mutations:</span>-->
             <!--<input type="text" v-model.lazy="newMutation">-->
@@ -11,10 +13,11 @@
             <!--</div>-->
           <!--</b-col>-->
           <div class="align-right">Filter mutations on visibility in Genome Browser
-          <label class="switch">
-            <input type="checkbox" v-model="filterMutationsOnVisibility">
-            <span class="slider round"></span>
-          </label></div>
+            <label class="switch">
+              <input type="checkbox" v-model="filterMutationsOnVisibility">
+              <span class="slider round"></span>
+            </label>
+          </div>
           <b-col cols="12">
             <div v-for="mutationIdentifier in identifiers" :key="mutationIdentifier">
               <div v-if="mutations[mutationIdentifier] && Object.keys(metadataAllFieldsVisible).length > 0">
@@ -29,7 +32,18 @@
                   </mutation-card>
                 </div>
                 <div v-else>
-                  Showing filtered mutations
+                  <div v-if="mutationsBetweenPosition.length > 0">
+                    <div v-for="mutationIdentifier in mutationsBetweenPosition">
+                      <mutation-card :mutationIdentifier="mutationIdentifier"
+                                     :mutation="mutations[mutationIdentifier]"
+                                     :visibleFields="metadataAllFieldsVisible[mutationTable]"
+                                     :expanded="false">
+                      </mutation-card>
+                    </div>
+                  </div>
+                  <div v-else>
+                    No mutations on this position
+                  </div>
                 </div>
               </div>
             </div>
@@ -58,7 +72,7 @@ export default {
       identifiers: [],
       newMutation: '',
       errorMutationNotFound: false,
-      filterMutationsOnVisibility: false
+      filterMutationsOnVisibility: true
     }
   },
   created () {
@@ -68,7 +82,9 @@ export default {
   computed: {
     ...mapGetters({
       metadataAllFieldsVisible: 'getMetadataAllFieldsVisible',
-      mutations: 'mutation/getMutations'
+      mutations: 'mutation/getMutations',
+      mutationsBetweenPosition: 'mutation/getMutationsBetweenPositionStartAndEnd',
+      visibleFields: 'getVisibleFields'
     }),
     ...mapState({
       columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL',

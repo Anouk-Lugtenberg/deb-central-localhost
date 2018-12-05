@@ -32,6 +32,9 @@ export default {
   /* Column name where patient ID is stored for patients */
   COLUMN_PATIENT_IDENTIFIER: INITIAL_STATE.columnPatientIdentifier,
 
+  /* Column name where position is stored for mutation */
+  COLUMN_MUTATION_POSITION: INITIAL_STATE.columnMutationPosition,
+
   /* Column(s) where Mutations are stored per Patient */
   MUTATION_COLUMNS_FOR_PATIENT: INITIAL_STATE.columnsWhereMutationsAreStoredInPatientTable,
 
