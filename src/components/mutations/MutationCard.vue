@@ -24,6 +24,9 @@
               </span>
               {{ patientsPerMutation[mutationIdentifier].length }} patient<span v-if="patientsPerMutation[mutationIdentifier].length > 1">s</span>
             </b-col>
+            <b-col cols="6">
+              <a href="#" @click="setGenomePosition()">Show in Genome Browser</a>
+            </b-col>
           </b-row>
           <b-row v-else>
             <b-col cols="6">
@@ -51,6 +54,7 @@ import FieldTypeMutationIdentifier from '../fieldTypes/FieldTypeMutationIdentifi
 import FieldTypes from '../fieldTypes/FieldTypes'
 import MoonLoader from '../loader/MoonLoader'
 import { GET_PATIENT_FOR_MUTATION } from '../../store/modules/mutation/actions'
+import { SET_GENOME_POSITION } from '../../store/modules/mutation/mutations'
 
 export default {
   name: 'MutationCard',
@@ -88,7 +92,8 @@ export default {
     }),
     ...mapState({
       mutationTable: 'MUTATION_TABLE',
-      cDNANotation: 'COLUMN_MUTATION_CDNANOTATION'
+      cDNANotation: 'COLUMN_MUTATION_CDNANOTATION',
+      columnMutationPosition: 'COLUMN_MUTATION_POSITION'
     })
   },
   watch: {
@@ -108,6 +113,9 @@ export default {
       if (!(this.mutationIdentifier in this.patientsPerMutation)) {
         this.$store.dispatch('mutation/' + GET_PATIENT_FOR_MUTATION, [this.mutationIdentifier, this.mutation[this.cDNANotation]])
       }
+    },
+    setGenomePosition () {
+      this.$store.commit('mutation/' + SET_GENOME_POSITION, this.mutation[this.columnMutationPosition])
     }
   }
 }

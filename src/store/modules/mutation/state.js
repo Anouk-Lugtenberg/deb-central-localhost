@@ -11,5 +11,6 @@ export default {
   search: '',
   activeFiltersCheckbox: [],
   mutationsIsFiltering: false,
-  mutationsBetweenPositionStartAndEnd: []
+  mutationsBetweenPositionStartAndEnd: [],
+  genomePositionMutation: ''
 }

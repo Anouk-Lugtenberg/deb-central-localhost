@@ -7,6 +7,7 @@
 <script>
 import { Browser, Chainset } from './../../assets/js/dalliance-all.min'
 import { GET_MUTATIONS_BETWEEN_POSITION_START_AND_END } from './../../store/modules/mutation/actions'
+import { mapGetters } from 'vuex'
 import _ from 'lodash'
 export default {
   name: 'GenomeBrowser',
@@ -32,7 +33,10 @@ export default {
   computed: {
     browserViewStart () {
       return this.browser.viewStart
-    }
+    },
+    ...mapGetters({
+      genomePosition: 'mutation/getGenomePositionMutation'
+    })
   },
   methods: {
     setLocation (chr, viewStart, viewEnd) {
@@ -63,6 +67,11 @@ export default {
     }, 500),
     filterMutationsOnVisibility () {
       this.setUpdatedViewStartAndEnd()
+    },
+    genomePosition () {
+      let start = this.genomePosition - 50
+      let end = this.genomePosition + 50
+      this.setLocation('3', start, end)
     }
   },
   mounted () {

@@ -13,5 +13,6 @@ export default {
   getActiveFiltersCheckbox: state => state.activeFiltersCheckbox,
   getMutationsIsFiltering: state => state.mutationsIsFiltering,
   rsqlMutation: createRSQLQuery,
-  getMutationsBetweenPositionStartAndEnd: state => state.mutationsBetweenPositionStartAndEnd
+  getMutationsBetweenPositionStartAndEnd: state => state.mutationsBetweenPositionStartAndEnd,
+  getGenomePositionMutation: state => state.genomePositionMutation
 }

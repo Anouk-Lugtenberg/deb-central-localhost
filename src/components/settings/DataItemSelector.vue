@@ -3,6 +3,10 @@
     <span class="title-item-selector card-text text-center">
       Item selector
     </span>
+    <span class="text-small pr-2">
+      <a href="#" @click="selectAll()">Select all</a>
+      <a href="#" @click="deselectAll()">Deselect all</a>
+    </span>
     <div v-if="table === mutationTable">
       <div v-for="(data, tableName) in metadata">
         <data-item-selector-group :table="table" :tableName="tableName" :data="data"></data-item-selector-group>
@@ -62,5 +66,9 @@ export default {
   }
   .item-selector {
     background-color: #fafafa;
+  }
+  .text-small {
+    font-size: 14px;
+    text-align: right;
   }
 </style>
