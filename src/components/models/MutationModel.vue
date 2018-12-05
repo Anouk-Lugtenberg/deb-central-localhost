@@ -1,54 +1,56 @@
 <template>
   <div>
-    <b-container class="margin-model-top">
+    <b-container>
       <div v-if="identifiers.length > 0">
-        <b-row>
-          {{ mutationsBetweenPosition }}
-          {{ visibleFields }}
-          <!--<b-col cols="3">-->
-            <!--<span>Add mutations:</span>-->
-            <!--<input type="text" v-model.lazy="newMutation">-->
-            <!--<div v-if="errorMutationNotFound" class="mutation-not-found">-->
-              <!--Mutation not found-->
-            <!--</div>-->
-          <!--</b-col>-->
-          <div class="align-right">Filter mutations on visibility in Genome Browser
-            <label class="switch">
-              <input type="checkbox" v-model="filterMutationsOnVisibility">
-              <span class="slider round"></span>
-            </label>
-          </div>
-          <b-col cols="12">
-            <div v-for="mutationIdentifier in identifiers" :key="mutationIdentifier">
-              <div v-if="mutations[mutationIdentifier] && Object.keys(metadataAllFieldsVisible).length > 0">
-                <div>
-                  <genome-browser :position="mutations[mutationIdentifier]['POS']" :filterMutationsOnVisibility="filterMutationsOnVisibility"></genome-browser>
-                </div>
-                <div v-if="!filterMutationsOnVisibility">
-                  <mutation-card :mutationIdentifier="mutationIdentifier"
-                                 :mutation="mutations[mutationIdentifier]"
-                                 :visibleFields="metadataAllFieldsVisible[mutationTable]"
-                                 :expanded="true">
-                  </mutation-card>
+        <div v-for="mutationIdentifier in identifiers" :key="mutationIdentifier">
+          <div v-if="mutations[mutationIdentifier] && Object.keys(metadataAllFieldsVisible).length > 0">
+            <b-row>
+              <b-col cols="12">
+                <genome-browser :position="mutations[mutationIdentifier][columnMutationPosition]" :filterMutationsOnVisibility="filterMutationsOnVisibility"></genome-browser>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col cols="3">
+                <b-card no-body class="p-2">
+                  <label class="switch">
+                    <input type="checkbox" v-model="filterMutationsOnVisibility">
+                    <span class="slider round"></span>
+                  </label>
+                  <span class="small-text">
+                    Filter mutations on visibility in Genome Browser
+                  </span>
+                </b-card>
+                <data-item-selector :table="mutationTable"></data-item-selector>
+                <!--<span>Add mutations:</span>-->
+                <!--<input type="text" v-model.lazy="newMutation">-->
+                <!--<div v-if="errorMutationNotFound" class="mutation-not-found">-->
+                  <!--Mutation not found-->
+                <!--</div>-->
+              </b-col>
+              <b-col cols="9" v-if="!filterMutationsOnVisibility">
+                <mutation-card :mutationIdentifier="mutationIdentifier"
+                               :mutation="mutations[mutationIdentifier]"
+                               :visibleFields="metadataAllFieldsVisible[mutationTable]"
+                               :expanded="true">
+                </mutation-card>
+              </b-col>
+              <b-col cols="9" v-else>
+                <div v-if="mutationsBetweenPosition.length > 0">
+                  <div v-for="mutationIdentifier in mutationsBetweenPosition">
+                    <mutation-card :mutationIdentifier="mutationIdentifier"
+                                   :mutation="mutations[mutationIdentifier]"
+                                   :visibleFields="getVisibleFieldsMetadata(mutationTable)"
+                                   :expanded="false">
+                    </mutation-card>
+                  </div>
                 </div>
                 <div v-else>
-                  <div v-if="mutationsBetweenPosition.length > 0">
-                    <div v-for="mutationIdentifier in mutationsBetweenPosition">
-                      <mutation-card :mutationIdentifier="mutationIdentifier"
-                                     :mutation="mutations[mutationIdentifier]"
-                                     :visibleFields="metadataAllFieldsVisible[mutationTable]"
-                                     :expanded="false">
-                      </mutation-card>
-                    </div>
-                  </div>
-                  <div v-else>
-                    No mutations on this position
-                  </div>
+                  No mutations on this position
                 </div>
-              </div>
-            </div>
-          </b-col>
-        </b-row>
+              </b-col>
+            </b-row>
+          </div>
+        </div>
       </div>
     </b-container>
   </div>
@@ -58,11 +60,13 @@
 import { mapGetters, mapState } from 'vuex'
 import MutationCard from './../mutations/MutationCard'
 import GenomeBrowser from './../genomeBrowser/GenomeBrowser'
+import DataItemSelector from './../settings/DataItemSelector'
 
 export default {
   name: 'MutationModel',
   props: ['id'],
   components: {
+    'data-item-selector': DataItemSelector,
     'mutation-card': MutationCard,
     'genome-browser': GenomeBrowser
   },
@@ -72,7 +76,7 @@ export default {
       identifiers: [],
       newMutation: '',
       errorMutationNotFound: false,
-      filterMutationsOnVisibility: true
+      filterMutationsOnVisibility: false
     }
   },
   created () {
@@ -84,11 +88,12 @@ export default {
       metadataAllFieldsVisible: 'getMetadataAllFieldsVisible',
       mutations: 'mutation/getMutations',
       mutationsBetweenPosition: 'mutation/getMutationsBetweenPositionStartAndEnd',
-      visibleFields: 'getVisibleFields'
+      getVisibleFieldsMetadata: 'getVisibleFieldsMetadata'
     }),
     ...mapState({
       columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL',
-      mutationTable: 'MUTATION_TABLE'
+      mutationTable: 'MUTATION_TABLE',
+      columnMutationPosition: 'COLUMN_MUTATION_POSITION'
     })
   },
   watch: {
@@ -145,69 +150,69 @@ export default {
 }
 </script>
 <style scoped>
-.margin-model-top {
-  margin-top: 70px;
-}
-/* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
+  .small-text {
+    font-size: 14px;
+  }
+  /* The switch - the box around the slider */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 25px;
+  }
 
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
 
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 19px;
+    width: 19px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
 
-input:checked + .slider {
-  background-color: #2196F3;
-}
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
+  input:checked + .slider:before {
+    -webkit-transform: translateX(19px);
+    -ms-transform: translateX(19px);
+    transform: translateX(19px);
+  }
 
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 25px;
+  }
 
-.slider.round:before {
-  border-radius: 50%;
-}
+  .slider.round:before {
+    border-radius: 50%;
+  }
 </style>

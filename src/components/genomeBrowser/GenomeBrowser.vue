@@ -1,6 +1,5 @@
 <template>
   <div>
-    <a href="" v-on:click="filterMutation(mutationIdentifier)" id="stuff" class="meh"></a>
     <div id="svgHolder">Couldn't load Dalliance Browser</div>
   </div>
 </template>
@@ -18,7 +17,7 @@ export default {
     },
     filterMutationsOnVisibility: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
   data () {
@@ -43,9 +42,6 @@ export default {
         viewEnd = viewEnd && viewEnd > 0 ? viewEnd : viewStart + maxViewWidth
         this.browser.setLocation(chr, viewStart, viewEnd)
       }
-    },
-    filterMutation (mutationIdentifier) {
-      console.log('Mutation identifier: ' + mutationIdentifier)
     },
     retrieveMutationsForPosition (viewStart, viewEnd) {
       if (this.filterMutationsOnVisibility) {
