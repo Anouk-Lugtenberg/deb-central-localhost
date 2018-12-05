@@ -21,6 +21,7 @@
         <data-item-selector :table="mutationTable"></data-item-selector>
       </b-col>
       <b-col sm="9">
+        <genome-browser></genome-browser>
         <div v-if="!filtered">
           <div v-if="mutationIdentifiers.length > 0">
             <div v-for="(identifier, index) in mutationIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="index">

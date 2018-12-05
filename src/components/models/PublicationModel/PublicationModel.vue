@@ -4,13 +4,21 @@
       <div class="col-2">
         <div class="sticky-top">
           <div class="card scrollable">
+            <div class="card-header">
+              <span class="title-item-selector card-text text-center">
+                Patients ({{ patientsByPublicationIdentifier(id).length}})
+              </span>
+            </div>
             <div class="card-body">
               <div v-for="patient in patientsByPublicationIdentifier(id)">
                 <a :href="'#' + patient">{{ patient }}</a>
               </div>
             </div>
           </div>
-          <a href="#publication">Back to top</a>
+          <a href="#publication">
+            <font-awesome-icon icon="level-up-alt" class="fa-icon ml-3"></font-awesome-icon>
+            Back to top
+          </a>
         </div>
       </div>
       <b-col cols="10">
@@ -23,9 +31,7 @@
               <h6 class="year text-muted">
                 {{ getPublicationInformationByIdentifier(id).Journal }} - {{ getPublicationInformationByIdentifier(id).Year }}
               </h6>
-              <p class="card-text abstract-text">
-                {{ getPublicationInformationByIdentifier(id).abstractText }}
-              </p>
+              <publication-model-abstract-text :abstractText="getPublicationInformationByIdentifier(id).abstractText"></publication-model-abstract-text>
               <publication-model-authors :authors="getPublicationInformationByIdentifier(id).Authors"></publication-model-authors>
               <a :href="getPublicationInformationByIdentifier(id).ExternalLink">{{ getPublicationInformationByIdentifier(id).ExternalLink }}</a>
             </div>
@@ -47,11 +53,13 @@ import { mapGetters, mapState } from 'vuex'
 import PatientCard from '../../patients/PatientCard'
 import FieldTypePatientID from '../../fieldTypes/FieldTypePatientID'
 import PublicationModelAuthors from './PublicationModelAuthors'
+import PublicationModelAbstractText from './PublicationModelAbstractText'
 
 export default {
   name: 'PubMedModel',
   props: ['id'],
   components: {
+    'publication-model-abstract-text': PublicationModelAbstractText,
     'publication-model-authors': PublicationModelAuthors,
     'patient-card': PatientCard,
     'field-type-patient-identifier': FieldTypePatientID
@@ -100,7 +108,17 @@ export default {
     overflow-y: auto;
     height: 500px;
   }
-  .abstract-text {
-    font-size: 13px;
+  .title-item-selector {
+    font-size: 19px;
+    font-weight: bold;
+    color: #4497be;
+  }
+  .fa-icon {
+    color: #2a97be;
+    font-size: 15px;
+  }
+  .fa-icon:hover {
+    color: #1380b5;
+    cursor: pointer;
   }
 </style>
