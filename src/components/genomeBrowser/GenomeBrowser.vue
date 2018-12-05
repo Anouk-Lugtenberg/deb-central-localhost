@@ -129,17 +129,6 @@ export default {
       injectionPoint: this.pageName,
       fullScreen: true
     })
-    this.browser.addFeatureInfoPlugin((f, info) => {
-      this.mutationIdentifier = info['hit'][0]['entity']['ID']
-      info.add('Mutation', this.mutationIdentifier)
-      // document.getElementById('stuff').addEventListener('click', this.filterMutation(this.mutationIdentifier))
-    })
   }
 }
 </script>
-
-<style scoped>
-.meh {
-  background-color: black;
-}
-</style>

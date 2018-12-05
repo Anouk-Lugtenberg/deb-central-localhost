@@ -1,6 +1,11 @@
 <template>
   <div>
     <b-row class="top-row-container">
+      <b-col cols="12">
+        <genome-browser></genome-browser>
+      </b-col>
+    </b-row>
+    <b-row>
       <b-col cols="3">
         <b-form-select v-model="pageSize" :options="optionsPageSize" size="sm" :plain="true"></b-form-select>
       </b-col>
@@ -21,7 +26,6 @@
         <data-item-selector :table="mutationTable"></data-item-selector>
       </b-col>
       <b-col sm="9">
-        <genome-browser></genome-browser>
         <div v-if="!filtered">
           <div v-if="mutationIdentifiers.length > 0">
             <div v-for="(identifier, index) in mutationIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="index">
