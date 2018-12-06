@@ -20,7 +20,9 @@
                     Filter mutations on visibility in Genome Browser
                   </span>
                 </b-card>
-                <data-item-selector :table="mutationTable"></data-item-selector>
+                <div v-if="filterMutationsOnVisibility">
+                  <data-item-selector :table="mutationTable"></data-item-selector>
+                </div>
                 <!--<span>Add mutations:</span>-->
                 <!--<input type="text" v-model.lazy="newMutation">-->
                 <!--<div v-if="errorMutationNotFound" class="mutation-not-found">-->

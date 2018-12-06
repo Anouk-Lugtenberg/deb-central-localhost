@@ -32,6 +32,9 @@
             <b-col cols="6">
               <moon-loader :size="'15px'" :textForLoader="''"></moon-loader>
             </b-col>
+            <b-col cols="6">
+              <a href="#" @click="setGenomePosition()">Show in Genome Browser</a>
+            </b-col>
           </b-row>
         </b-container>
         <div class="extra-information" v-if="expand">

@@ -4,6 +4,7 @@
       Item selector
     </span>
     <span class="text-small pr-2">
+      <!--<a href="#" @click="compactView()">Compact view</a>-->
       <a href="#" @click="selectAll()">Select all</a>
       <a href="#" @click="deselectAll()">Deselect all</a>
     </span>
@@ -45,6 +46,9 @@ export default {
     deselectAll () {
       this.setVisibleFields(false)
     },
+    // compactView () {
+    //
+    // },
     setVisibleFields (booleanVisible) {
       Object.keys(this.metadata).map((key) => {
         let metadataPerTable = this.metadata[key]

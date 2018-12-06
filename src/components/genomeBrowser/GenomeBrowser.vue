@@ -1,13 +1,16 @@
 <template>
   <div>
-    <div id="svgHolder">Couldn't load Dalliance Browser</div>
+    <router-link id="cdnaIdentifier" :to="{name: 'Mutation', params: {id: mutationIdentifierNumerical}}">
+    </router-link>
+    <div id="svgHolder">
+      Couldn't load Dalliance Browser</div>
   </div>
 </template>
 
 <script>
 import { Browser, Chainset } from './../../assets/js/dalliance-all.min'
 import { GET_MUTATIONS_BETWEEN_POSITION_START_AND_END } from './../../store/modules/mutation/actions'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import _ from 'lodash'
 export default {
   name: 'GenomeBrowser',
@@ -26,8 +29,7 @@ export default {
       browser: '',
       viewStart: this.position - 50,
       viewEnd: this.position + 50,
-      mutationIdentifier: '',
-      interval: null
+      mutationIdentifierNumerical: ''
     }
   },
   computed: {
@@ -35,7 +37,11 @@ export default {
       return this.browser.viewStart
     },
     ...mapGetters({
-      genomePosition: 'mutation/getGenomePositionMutation'
+      genomePosition: 'mutation/getGenomePositionMutation',
+      mutations: 'mutation/getMutations'
+    }),
+    ...mapState({
+      columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL'
     })
   },
   methods: {
@@ -56,6 +62,15 @@ export default {
       let viewStart = this.browser.viewStart
       let viewEnd = this.browser.viewEnd
       this.retrieveMutationsForPosition(viewStart, viewEnd)
+    },
+    makeElement (identifier) {
+      this.setMutationIdentifierNumerical(identifier)
+      let element = document.getElementById('cdnaIdentifier')
+      element.innerHTML = 'Show details'
+      return element
+    },
+    setMutationIdentifierNumerical (identifier) {
+      this.mutationIdentifierNumerical = this.mutations[identifier][this.columnMutationIdentifierNumerical]
     }
   },
   watch: {
@@ -114,13 +129,14 @@ export default {
         name: 'COL7A1',
         label_attr: 'cdnanotation',
         tier_type: 'molgenis',
+        featureInfoPlugin: (f, info) => {
+          if (f.id) {
+            info.add('', this.makeElement(f.id))
+          }
+        },
         uri: 'https://molgenis42.gcc.rug.nl/api/v2/col7a1_Mutations',
-        // actions: '[{' +
-        //   'label:\' ID \',' +
-        //   'run:\'alert(feature.entity["ID"])\'' +
-        //   '}]',
         track_type: 'VARIANT',
-        entity: this.mutationTable,
+        entity: 'col7a1_Mutations',
         attrs: [
           'ID:Mutation ID',
           'cdnanotation:cDNA change'
@@ -132,3 +148,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+  .hyperlink {
+
+  }
+</style>

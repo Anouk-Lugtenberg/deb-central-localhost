@@ -22,7 +22,14 @@ export default {
     let visibleFields = []
     for (let key in state.metadata[table]) {
       if (!state.metadata[table].hasOwnProperty(key)) continue
-      if (state.metadata[table][key]['fieldIsVisible'] && (state.metadata[table][key]['name'] !== (state.COLUMN_MUTATION_CDNANOTATION || state.COLUMN_PATIENT_IDENTIFIER))) {
+      console.log('name: ' + typeof state.metadata[table][key]['name'])
+      console.log('column: ' + state.COLUMN_MUTATION_CDNANOTATION)
+      let cdnanotation = JSON.stringify(state.COLUMN_MUTATION_CDNANOTATION)
+      console.log('cdnanoation: ' + cdnanotation)
+      /**
+       * EEN IS EEN OBJECT, DE ANDER IS EEN STRING
+       */
+      if (state.metadata[table][key]['fieldIsVisible'] && (state.metadata[table][key]['name'] !== cdnanotation)) {
         visibleFields.push(state.metadata[table][key])
       }
     }
