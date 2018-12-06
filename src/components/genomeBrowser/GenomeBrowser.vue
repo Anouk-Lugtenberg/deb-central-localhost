@@ -148,8 +148,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-  .hyperlink {
-
-  }
-</style>

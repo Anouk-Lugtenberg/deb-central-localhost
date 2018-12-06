@@ -22,15 +22,15 @@ export default {
     let visibleFields = []
     for (let key in state.metadata[table]) {
       if (!state.metadata[table].hasOwnProperty(key)) continue
-      console.log('name: ' + typeof state.metadata[table][key]['name'])
-      console.log('column: ' + state.COLUMN_MUTATION_CDNANOTATION)
-      let cdnanotation = JSON.stringify(state.COLUMN_MUTATION_CDNANOTATION)
-      console.log('cdnanoation: ' + cdnanotation)
-      /**
-       * EEN IS EEN OBJECT, DE ANDER IS EEN STRING
+      /*
+      columns cdna notation and patient identifier should be ignored, since they're
+      already visible in the header of the cards.
        */
-      if (state.metadata[table][key]['fieldIsVisible'] && (state.metadata[table][key]['name'] !== cdnanotation)) {
-        visibleFields.push(state.metadata[table][key])
+      if (state.metadata[table][key]['fieldIsVisible']) {
+        if (state.metadata[table][key]['name'] !== state.COLUMN_MUTATION_CDNANOTATION[0] &&
+          state.metadata[table][key]['name'] !== state.COLUMN_PATIENT_IDENTIFIER[0]) {
+          visibleFields.push(state.metadata[table][key])
+        }
       }
     }
     return visibleFields
