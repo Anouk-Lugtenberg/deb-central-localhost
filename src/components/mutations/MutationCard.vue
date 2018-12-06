@@ -125,10 +125,7 @@ export default {
 </script>
 
 <style scoped>
-  .fa-icon {
-    color: #2a97be;
-    font-size: 20px;
-  }
+  /*.fa-icon {*/
   .fa-icon:hover {
     color: #1380b5;
     cursor: pointer;
@@ -144,6 +141,7 @@ export default {
     color: #dc3545;
   }
   .icon {
+    color: #2a97be;
     font-size: 15px;
     display: inline-block;
     vertical-align: middle;

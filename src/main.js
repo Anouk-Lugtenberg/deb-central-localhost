@@ -6,10 +6,10 @@ import store from './store'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSearchPlus, faCaretRight, faCaretDown, faTimes, faPlus, faMinus, faExternalLinkAlt, faLevelUpAlt } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faCaretRight, faCaretDown, faTimes, faPlus, faMinus, faExternalLinkAlt, faLevelUpAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 sync(store, router)
-library.add(faSearchPlus, faCaretRight, faCaretDown, faTimes, faPlus, faMinus, faExternalLinkAlt, faLevelUpAlt)
+library.add(faSearch, faCaretRight, faCaretDown, faTimes, faPlus, faMinus, faExternalLinkAlt, faLevelUpAlt)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('field-types', require('./components/fieldTypes/FieldTypes'))
 Vue.use(BootstrapVue)

@@ -9,7 +9,7 @@
       <b-navbar-nav>
         <b-nav-item :to="'/Mutations'">Mutations</b-nav-item>
         <b-nav-item :to="'/Patients'">Patients</b-nav-item>
-        <b-nav-item :to="'/GenomeBrowser'">Genome Browser</b-nav-item>
+        <!--<b-nav-item :to="'/GenomeBrowser'">Genome Browser</b-nav-item>-->
       </b-navbar-nav>
     </b-navbar>
   </div>
