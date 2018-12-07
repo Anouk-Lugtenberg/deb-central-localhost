@@ -38,7 +38,12 @@
               </b-col>
               <b-col cols="9" v-else>
                 <div v-if="mutationsBetweenPosition.length > 0">
-                  <div v-for="mutationIdentifier in mutationsBetweenPosition">
+                  <div v-if="mutationsBetweenPosition.length > 20">
+                    <b-pagination-nav base-url="#" size="md" align="center"
+                                      :number-of-pages="mutationsBetweenPosition.length / pageSize" v-model="currentPage">
+                    </b-pagination-nav>
+                  </div>
+                  <div v-for="mutationIdentifier in mutationsBetweenPosition.slice(pageSize * (currentPage-1), pageSize * currentPage)">
                     <mutation-card :mutationIdentifier="mutationIdentifier"
                                    :mutation="mutations[mutationIdentifier]"
                                    :visibleFields="getVisibleFieldsMetadata(mutationTable)"
@@ -47,7 +52,9 @@
                   </div>
                 </div>
                 <div v-else>
-                  No mutations on this position
+                  <b-card class="no-mutations-found">
+                    No mutations on this position
+                  </b-card>
                 </div>
               </b-col>
             </b-row>
@@ -78,7 +85,9 @@ export default {
       identifiers: [],
       newMutation: '',
       errorMutationNotFound: false,
-      filterMutationsOnVisibility: false
+      filterMutationsOnVisibility: false,
+      currentPage: 1,
+      pageSize: 20
     }
   },
   created () {
@@ -154,6 +163,10 @@ export default {
 <style scoped>
   .small-text {
     font-size: 14px;
+  }
+  .no-mutations-found {
+    color: #dc3545;
+    text-align: center;
   }
   /* The switch - the box around the slider */
   .switch {

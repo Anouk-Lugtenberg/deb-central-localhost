@@ -13,7 +13,7 @@
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
         <b-nav-item @click="showModal = !showModal">
-          Settings
+          Item selector
           <settings-modal v-on:setVisibility="setVisibilityModal" :showModal="showModal"></settings-modal>
         </b-nav-item>
       </b-navbar-nav>

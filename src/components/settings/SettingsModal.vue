@@ -4,7 +4,7 @@
                ref="settingsModal"
                v-model="modalVisible">
         <div slot="modal-title">
-          Settings
+          Item selector
         </div>
         <b-container fluid>
           <b-row>
