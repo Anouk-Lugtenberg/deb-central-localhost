@@ -29,7 +29,7 @@ export default {
       browser: '',
       viewStart: this.position - 50,
       viewEnd: this.position + 50,
-      mutationIdentifierNumerical: ''
+      mutationIdentifierNumerical: 'M1'
     }
   },
   computed: {
@@ -46,6 +46,7 @@ export default {
   },
   methods: {
     setLocation (chr, viewStart, viewEnd) {
+      console.log('Setting location: ' + viewStart + ' end: ' + viewEnd)
       let maxViewWidth = 999999999
       if (chr) {
         viewStart = viewStart && viewStart > 0 ? viewStart : 1

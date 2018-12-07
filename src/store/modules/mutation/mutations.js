@@ -57,7 +57,6 @@ export default {
     state.mutationsBetweenPositionStartAndEnd = mutations
   },
   [SET_GENOME_POSITION] (state, position) {
-    console.log('Setting genome position : ' + position)
     state.genomePositionMutation = position
   }
 }

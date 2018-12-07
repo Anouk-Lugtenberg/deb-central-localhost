@@ -16,7 +16,7 @@
 <script>
 export default {
   name: 'FieldTypeXREF',
-  props: ['information', 'property', 'entity', 'showPropertyName'],
+  props: ['information', 'property', 'showPropertyName'],
   data: function () {
     return {
       name: this.property.name,

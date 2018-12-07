@@ -5,11 +5,11 @@
         <div class="title-patient">
           <field-type-patient-id :patient="patient" :patientIdentifier="patientIdentifier">{{ patientIdentifier }}</field-type-patient-id>
         </div>
-        <field-type-patient-mutations :listMutationsPerPatient="patient['mutations']" :entity="mutationTable"></field-type-patient-mutations>
+        <field-type-patient-mutations :listMutationsPerPatient="patient['mutations']"></field-type-patient-mutations>
         <b-row>
           <b-col cols="6" class="extra-information-patient" v-for="property in visibleFields" :key="property.name">
             <div v-if="property.visible">
-              <field-types :property="property" :information="patient['information']" :entity="patientTable"></field-types>
+              <field-types :property="property" :information="patient['information']"></field-types>
             </div>
           </b-col>
         </b-row>
@@ -22,7 +22,7 @@
 import FieldTypes from '../fieldTypes/FieldTypes'
 import FieldTypePatientID from '../fieldTypes/FieldTypePatientID'
 import FieldTypePatientMutations from '../fieldTypes/FieldTypePatientMutations'
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'PatientCard',
@@ -35,10 +35,6 @@ export default {
   computed: {
     ...mapGetters({
       metadata: 'getMetadata'
-    }),
-    ...mapState({
-      mutationTable: 'MUTATION_TABLE',
-      patientTable: 'PATIENT_TABLE'
     })
   }
 }

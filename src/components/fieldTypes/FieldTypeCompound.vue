@@ -11,7 +11,7 @@
     </div>
     <div v-if="compoundVisible" class="property-label">
       <div v-for="compoundField in property.attributes">
-        <field-types :property="compoundField" :information="information" :entity="entity"></field-types>
+        <field-types :property="compoundField" :information="information"></field-types>
       </div>
     </div>
   </div>
@@ -20,7 +20,7 @@
 <script>
 export default {
   name: 'FieldTypeCompound',
-  props: ['information', 'property', 'entity'],
+  props: ['information', 'property'],
   data () {
     return {
       compoundVisible: false

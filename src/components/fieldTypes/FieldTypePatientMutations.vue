@@ -11,7 +11,7 @@
           <b-col v-for="(column, index) in metadataColumnsMutations[mutationTable]" class="mutation-information"
                  :class="{ 'col-2': index === 0, 'col-2': index === 1, 'col-4': index === 2}"
                  :key="index">
-              <field-types :property="column" :information="allMutations[mutation]" :entity="mutationTable"
+              <field-types :property="column" :information="allMutations[mutation]"
                            :showPropertyName="false"></field-types>
           </b-col>
         </b-row>
@@ -27,7 +27,7 @@ import FieldTypes from './FieldTypes'
 
 export default {
   name: 'FieldTypePatientMutations',
-  props: ['listMutationsPerPatient', 'entity'],
+  props: ['listMutationsPerPatient'],
   components: {
     'field-types': FieldTypes
   },

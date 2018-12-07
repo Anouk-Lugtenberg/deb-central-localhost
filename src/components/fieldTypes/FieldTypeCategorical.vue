@@ -12,7 +12,7 @@
 <script>
 export default {
   name: 'FieldTypeCategorical',
-  props: ['information', 'property', 'entity', 'showPropertyName'],
+  props: ['information', 'property', 'showPropertyName'],
   data () {
     return {
       name: this.property.name,

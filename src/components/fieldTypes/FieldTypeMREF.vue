@@ -14,7 +14,7 @@
 <script>
 export default {
   name: 'FieldTypeMREF',
-  props: ['property', 'information', 'entity', 'showPropertyName'],
+  props: ['property', 'information', 'showPropertyName'],
   data () {
     return {
       label: this.property.label,

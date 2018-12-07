@@ -5,7 +5,8 @@ import {
   SET_FILTER_GROUP_INFORMATION,
   SET_ERROR,
   SET_TABLE_FOR_FILTER_GROUP_INFORMATION,
-  SET_FILTER_GROUP_INFORMATION_ENUM
+  SET_FILTER_GROUP_INFORMATION_ENUM,
+  SET_ALL_REFERENCES
 } from './mutations'
 
 import { createActiveFilterQueries, setFilterGroupInformationFromURL } from './helpers'
@@ -18,6 +19,7 @@ export const SET_FILTERS_FROM_ACTIVE_CHECKBOXES = '__SET_FILTERS_CHECKBOX__'
 export const GET_FILTERED_GROUP_INFORMATION = '__GET_FILTERED_GROUP_INFORMATION__'
 export const GET_FILTERS_FROM_URL = '__GET_FILTERS_FROM_URL__'
 export const RESET_FILTERS = '__RESET_FILTERS__'
+export const GET_ALL_REFERENCES = '__GET_ALL_REFERENCES__'
 
 export default {
   [GET_METADATA] ({commit, state, getters, rootState}) {
@@ -96,5 +98,14 @@ export default {
   [RESET_FILTERS] ({commit, state, dispatch}) {
     state.filterGroupInformation = setFilterGroupInformationFromURL(state.filterGroupInformation, '')
     dispatch(SET_FILTERS_FROM_ACTIVE_CHECKBOXES)
+  },
+  [GET_ALL_REFERENCES] ({commit, state}) {
+    api.get(state.PUBLICATIONS_API_PATH + '?start=0&num=10000')
+      .then(response => response.json())
+      .then(response => {
+        commit(SET_ALL_REFERENCES, response.items)
+      }, error => {
+        commit(SET_ERROR, error)
+      })
   }
 }

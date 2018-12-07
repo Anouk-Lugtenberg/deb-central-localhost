@@ -9,7 +9,7 @@
       <b-navbar-nav>
         <b-nav-item :to="'/Mutations'">Mutations</b-nav-item>
         <b-nav-item :to="'/Patients'">Patients</b-nav-item>
-        <!--<b-nav-item :to="'/GenomeBrowser'">Genome Browser</b-nav-item>-->
+        <b-nav-item :to="'/References'">References</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
         <b-nav-item @click="showModal = !showModal">

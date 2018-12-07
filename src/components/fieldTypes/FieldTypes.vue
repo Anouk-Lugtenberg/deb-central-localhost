@@ -1,19 +1,19 @@
 <template>
   <div>
     <div v-if="pubMedName === property.name">
-      <field-type-pubmed-identifier :information="information" :property="property" :entity="entity"
+      <field-type-pubmed-identifier :information="information" :property="property"
                                     :showPropertyName="showPropertyName"></field-type-pubmed-identifier>
     </div>
     <div v-else-if="property.fieldType === 'COMPOUND'">
-      <field-type-compound :information="information" :property="property" :entity="entity"
+      <field-type-compound :information="information" :property="property"
                            :showPropertyName="showPropertyName"></field-type-compound>
     </div>
     <div v-else-if="typeof singleInformation !== 'undefined'">
-      <field-type-xref v-if="property.fieldType === 'XREF'" :information="information" :property="property" :entity="entity"
+      <field-type-xref v-if="property.fieldType === 'XREF'" :information="information" :property="property"
                        :showPropertyName="showPropertyName"></field-type-xref>
-      <field-type-mref v-else-if="property.fieldType === 'MREF'" :information="information" :property="property" :entity="entity"
+      <field-type-mref v-else-if="property.fieldType === 'MREF'" :information="information" :property="property"
                        :showPropertyName="showPropertyName"></field-type-mref>
-      <field-type-categorical v-else-if="property.fieldType === 'CATEGORICAL'" :information="information" :property="property" :entity="entity"
+      <field-type-categorical v-else-if="property.fieldType === 'CATEGORICAL'" :information="information" :property="property"
                               :showPropertyName="showPropertyName"></field-type-categorical>
       <field-type-other v-else :information="information" :property="property"
                         :showPropertyName="showPropertyName"></field-type-other>
@@ -44,9 +44,6 @@ export default {
     },
     information: {
       type: Object
-    },
-    entity: {
-      type: String
     },
     showPropertyName: {
       default: true,

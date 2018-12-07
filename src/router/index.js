@@ -7,6 +7,7 @@ import PatientModel from './../components/models/PatientModel'
 import PubMedModel from '../components/models/PublicationModel/PublicationModel'
 import MutationsContainer from './../components/mutations/MutationsContainer'
 import PatientsContainer from './../components/patients/PatientsContainer'
+import ReferencesContainer from './../components/references/ReferencesContainer'
 import NotFound from './../components/NotFound'
 import GenomeBrowser from '../components/genomeBrowser/GenomeBrowser'
 import { INITIAL_STATE } from '../store/state'
@@ -56,9 +57,10 @@ export default new Router({
       path: '/Patients',
       redirect: '/Patients/page/1'
     },
-    /*
-    redirect for app in molgenis
-     */
+    {
+      path: '/References',
+      component: ReferencesContainer
+    },
     {
       path: '/Mutation/:id',
       name: 'Mutation',

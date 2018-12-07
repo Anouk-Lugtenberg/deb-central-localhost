@@ -6,6 +6,7 @@ export const SET_TABLE_FOR_FILTER_GROUP_INFORMATION = '__SET_TABLE_FOR_FILTER_GR
 export const SET_LIST_METADATA_COLUMNS_MUTATIONS = '__SET_LIST_METADATA_COLUMNS_MUTATIONS__'
 export const SET_FILTER_GROUP_INFORMATION = '__SET_FILTER_GROUP_INFORMATION__'
 export const SET_FILTER_GROUP_INFORMATION_ENUM = '__SET_FILTER_GROUP_INFORMATION_ENUM__'
+export const SET_ALL_REFERENCES = '__SET_ALL_REFERENCES__'
 export const SET_ERROR = '__SET_ERROR__'
 
 export default {
@@ -50,6 +51,9 @@ export default {
       })
     })
     Vue.set(state.filterGroupInformation[table], name, filterList)
+  },
+  [SET_ALL_REFERENCES] (state, references) {
+    state.allReferences = references
   },
   [SET_ERROR] (state, error) {
     state.error = {status: error.status, statusText: error.statusText, url: error.url}

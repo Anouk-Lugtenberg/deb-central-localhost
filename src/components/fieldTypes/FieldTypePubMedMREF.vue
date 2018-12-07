@@ -19,7 +19,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'FieldTypePubMedMREF',
-  props: ['information', 'property', 'entity', 'showPropertyName'],
+  props: ['information', 'property', 'showPropertyName'],
   data () {
     return {
       label: this.property.label,

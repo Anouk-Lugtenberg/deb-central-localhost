@@ -11,6 +11,7 @@ export default {
   },
   getFilteredGroupInformation: state => state.filterGroupInformation,
   getMetadataColumnsMutations: state => state.metadataColumnsMutations,
+  getAllReferences: state => state.allReferences,
   getError: state => state.error,
   getVisibleFields: (state) => {
     let visibleFields = {}

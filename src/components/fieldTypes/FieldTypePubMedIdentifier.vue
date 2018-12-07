@@ -5,14 +5,14 @@
         {{ property.label }}:
       </span>
       <span v-if="information[property.name]">
-        <a :href="information[property.name]">{{ information[property.name].split('/').pop() }}</a>
+        <a :href="information[property.name]" target="_blank">{{ information[property.name].split('/').pop() }}</a>
       </span>
       <span v-else>
         N/A
       </span>
     </div>
     <div v-else-if="property.fieldType === 'MREF'">
-      <fieldtype-pubmed-mref :information="information" :property="property" :entity="entity" :showPropertyName="showPropertyName"></fieldtype-pubmed-mref>
+      <fieldtype-pubmed-mref :information="information" :property="property" :showPropertyName="showPropertyName"></fieldtype-pubmed-mref>
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@
 import FieldTypePubMedMREF from './FieldTypePubMedMREF'
 export default {
   name: 'FieldTypePubMedIdentifier',
-  props: ['information', 'property', 'entity', 'showPropertyName'],
+  props: ['information', 'property', 'showPropertyName'],
   components: {
     'fieldtype-pubmed-mref': FieldTypePubMedMREF
   }
