@@ -2,7 +2,10 @@
   <div>
     <b-row class="top-row-container">
       <b-col sm="3">
-        <b-form-select v-model="pageSize" :options="optionsPageSize" size="sm" :plain="true"></b-form-select>
+        <b-card no-body class="p-2 patients-per-page mb-2">
+          <span>Patients per page</span>
+          <b-form-select v-model="pageSize" :options="optionsPageSize" size="sm" :plain="true"></b-form-select>
+        </b-card>
       </b-col>
       <b-col sm="9">
         <b-pagination-nav :use-router="true" size="md" :link-gen="linkGenerator" align="center"
@@ -180,5 +183,9 @@ export default {
   .amount-patients-found {
     text-align: center;
     font-weight: bold;
+  }
+  .patients-per-page {
+    font-size: 14px;
+    background-color: #fafafa;
   }
 </style>

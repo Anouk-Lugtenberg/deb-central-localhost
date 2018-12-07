@@ -7,7 +7,10 @@
     </b-row>
     <b-row>
       <b-col cols="3">
-        <b-form-select v-model="pageSize" :options="optionsPageSize" size="sm" :plain="true"></b-form-select>
+        <b-card no-body class="p-2 mutations-per-page mb-2">
+          Mutations per page
+          <b-form-select v-model="pageSize" :options="optionsPageSize" size="sm" :plain="true"></b-form-select>
+        </b-card>
       </b-col>
       <b-col sm="9">
         <b-pagination-nav :use-router="true" size="md" :link-gen="linkGenerator" align="center"
@@ -187,5 +190,9 @@ export default {
   .amount-mutations-found {
     text-align: center;
     font-weight: bold;
+  }
+  .mutations-per-page {
+    font-size: 14px;
+    background-color: #fafafa;
   }
 </style>

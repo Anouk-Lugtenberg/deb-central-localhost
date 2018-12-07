@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { Browser, Chainset } from './../../assets/js/dalliance-all.min'
+import { Browser } from './../../assets/js/dalliance-all.min'
 import { GET_MUTATIONS_BETWEEN_POSITION_START_AND_END } from './../../store/modules/mutation/actions'
 import { mapGetters, mapState } from 'vuex'
 import _ from 'lodash'
@@ -96,23 +96,12 @@ export default {
       viewStart: this.viewStart,
       viewEnd: this.viewEnd,
       cookieKey: 'human-grc_h37',
-
       coordSystem: {
         speciesName: 'Human',
         taxon: 9606,
         auth: 'GRCh',
         version: '37',
         ucscName: 'hg19'
-      },
-
-      chains: {
-        hg18ToHg19: new Chainset('http://www.derkholm.net:8080/das/hg18ToHg19/', 'NCBI36', 'GRCh37',
-          {
-            speciesName: 'Human',
-            taxon: 9606,
-            auth: 'GRCh',
-            version: 36
-          })
       },
       sources: [{
         name: 'Genome',
