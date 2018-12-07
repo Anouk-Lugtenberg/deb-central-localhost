@@ -1,11 +1,11 @@
 <template>
   <p class="card-text abstract-text">
     <span v-if="textCollapsed">
-      {{ substringAbstractText }}
-      <span class="expand-text" v-on:click="expandText()">...</span>
+      {{ substringAbstractText }}...
+      <a href="#" @click="expandText()">[expand]</a>
     </span>
-    <span v-else>
-      {{ abstractText }}
+    <span v-else-if="!textCollapsed">
+      {{ abstractText }} <a href="#" @click="expandText()">[collapse]</a>
     </span>
   </p>
 </template>
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     expandText () {
-      this.textCollapsed = false
+      this.textCollapsed = !this.textCollapsed
     }
   }
 }
@@ -36,11 +36,11 @@ export default {
 
 <style scoped>
   .abstract-text {
-    font-size: 13px;
+    font-size: 14px;
   }
   .expand-text {
     font-weight: bold;
-    font-size: 15px;
+    font-size: 16px;
   }
   .expand-text:hover {
     cursor: pointer;

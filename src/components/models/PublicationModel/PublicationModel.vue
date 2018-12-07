@@ -31,7 +31,9 @@
               <h6 class="year text-muted">
                 {{ getPublicationInformationByIdentifier(id).Journal }} - {{ getPublicationInformationByIdentifier(id).Year }}
               </h6>
-              <publication-model-abstract-text :abstractText="getPublicationInformationByIdentifier(id).abstractText"></publication-model-abstract-text>
+              <div v-if="getPublicationInformationByIdentifier(id).abstractText">
+                <publication-model-abstract-text :abstractText="getPublicationInformationByIdentifier(id).abstractText"></publication-model-abstract-text>
+              </div>
               <publication-model-authors :authors="getPublicationInformationByIdentifier(id).Authors"></publication-model-authors>
               <a :href="getPublicationInformationByIdentifier(id).ExternalLink">{{ getPublicationInformationByIdentifier(id).ExternalLink }}</a>
             </div>

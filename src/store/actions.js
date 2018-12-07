@@ -6,7 +6,8 @@ import {
   SET_ERROR,
   SET_TABLE_FOR_FILTER_GROUP_INFORMATION,
   SET_FILTER_GROUP_INFORMATION_ENUM,
-  SET_ALL_REFERENCES
+  SET_ALL_REFERENCES,
+  SET_REFERENCE_METADATA
 } from './mutations'
 
 import { createActiveFilterQueries, setFilterGroupInformationFromURL } from './helpers'
@@ -104,6 +105,7 @@ export default {
       .then(response => response.json())
       .then(response => {
         commit(SET_ALL_REFERENCES, response.items)
+        commit(SET_REFERENCE_METADATA, response.meta)
       }, error => {
         commit(SET_ERROR, error)
       })

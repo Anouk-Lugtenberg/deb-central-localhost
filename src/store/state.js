@@ -6,6 +6,7 @@ export default {
   filterGroupInformation: {},
   metadataColumnsMutations: {},
   allReferences: {},
+  referenceMetadata: {},
   error: null,
 
   // These values are retrieved from window.__INITIAL_STATE__ because MOLGENIS works with this in their App set-up.
