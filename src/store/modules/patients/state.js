@@ -9,6 +9,5 @@ export default {
   activeFiltersCheckbox: [],
   patientsFilterActive: false,
   patientsIsFiltering: false,
-  extraPublicationInformation: {},
   patientsForPublicationIdentifier: {}
 }

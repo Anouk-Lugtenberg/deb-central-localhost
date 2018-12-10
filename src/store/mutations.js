@@ -8,6 +8,8 @@ export const SET_FILTER_GROUP_INFORMATION = '__SET_FILTER_GROUP_INFORMATION__'
 export const SET_FILTER_GROUP_INFORMATION_ENUM = '__SET_FILTER_GROUP_INFORMATION_ENUM__'
 export const SET_ALL_REFERENCES = '__SET_ALL_REFERENCES__'
 export const SET_REFERENCE_METADATA = '__SET_REFERENCE_METADATA__'
+export const SET_SEARCH_REFERENCES = '__SET_SEARCH_REFERENCES__'
+export const SET_FILTERED_REFERENCES = '__SET_FILTERED_REFERENCES__'
 export const SET_ERROR = '__SET_ERROR__'
 
 export default {
@@ -54,11 +56,24 @@ export default {
     Vue.set(state.filterGroupInformation[table], name, filterList)
   },
   [SET_ALL_REFERENCES] (state, references) {
-    state.allReferences = references
+    let listReferences = {}
+    references.map(function (reference) {
+      listReferences[reference[state.COLUMN_PUBMED_ID_REFERENCE_TABLE]] = reference
+    })
+    state.allReferences = listReferences
   },
   [SET_REFERENCE_METADATA] (state, metadata) {
-    console.log(metadata)
     state.referenceMetadata = metadata
+  },
+  [SET_SEARCH_REFERENCES] (state, search) {
+    state.searchReferences = search
+  },
+  [SET_FILTERED_REFERENCES] (state, [column, references]) {
+    let filteredReferences = []
+    references.map(function (reference) {
+      filteredReferences.push(reference[column])
+    })
+    state.filteredReferences = filteredReferences
   },
   [SET_ERROR] (state, error) {
     state.error = {status: error.status, statusText: error.statusText, url: error.url}

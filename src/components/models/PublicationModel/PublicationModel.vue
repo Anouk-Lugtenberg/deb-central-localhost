@@ -22,27 +22,29 @@
         </div>
       </div>
       <b-col cols="10">
-        <div v-if="getPublicationInformationByIdentifier(id)" class="pb-2">
-          <div class="card shadow" id="publication">
-            <div class="card-body">
-              <h5 class="card-title">
-                {{ getPublicationInformationByIdentifier(id).Title }}
-              </h5>
-              <h6 class="year text-muted">
-                {{ getPublicationInformationByIdentifier(id).Journal }} - {{ getPublicationInformationByIdentifier(id).Year }}
-              </h6>
-              <div v-if="getPublicationInformationByIdentifier(id).abstractText">
-                <publication-model-abstract-text :abstractText="getPublicationInformationByIdentifier(id).abstractText"></publication-model-abstract-text>
+        <div v-if="Object.keys(allReferences).length > 0">
+          <div v-if="allReferences[id]" class="pb-2">
+            <div class="card shadow" id="publication">
+              <div class="card-body">
+                <h5 class="card-title">
+                  {{ allReferences[id].Title }}
+                </h5>
+                <h6 class="year text-muted">
+                  {{ allReferences[id].Journal }} - {{ allReferences[id].Year }}
+                </h6>
+                <div v-if="allReferences[id].abstractText">
+                  <publication-model-abstract-text :abstractText="allReferences[id].abstractText"></publication-model-abstract-text>
+                </div>
+                <publication-model-authors :authors="allReferences[id].Authors"></publication-model-authors>
+                <a :href="allReferences[id].ExternalLink">{{ allReferences[id].ExternalLink }}</a>
               </div>
-              <publication-model-authors :authors="getPublicationInformationByIdentifier(id).Authors"></publication-model-authors>
-              <a :href="getPublicationInformationByIdentifier(id).ExternalLink">{{ getPublicationInformationByIdentifier(id).ExternalLink }}</a>
             </div>
           </div>
-        </div>
-        <div v-for="patient in patientsByPublicationIdentifier(id)">
-          <div :id="patient">
-            <patient-card :patientIdentifier="patient" :patient="patientByIdentifier(patient)"
-                          :visibleFields="getVisibleFieldsMetadata(patientTable)"></patient-card>
+          <div v-for="patient in patientsByPublicationIdentifier(id)">
+            <div :id="patient">
+              <patient-card :patientIdentifier="patient" :patient="patientByIdentifier(patient)"
+                            :visibleFields="getVisibleFieldsMetadata(patientTable)"></patient-card>
+            </div>
           </div>
         </div>
       </b-col>
@@ -51,7 +53,8 @@
 </template>
 
 <script>
-import { GET_EXTRA_PUBLICATION_INFORMATION, GET_PATIENTS_FOR_PUBLICATION_IDENTIFIER } from '../../../store/modules/patients/actions'
+import { GET_PATIENTS_FOR_PUBLICATION_IDENTIFIER } from '../../../store/modules/patients/actions'
+import { GET_ALL_REFERENCES } from '../../../store/actions'
 import { mapGetters, mapState } from 'vuex'
 import PatientCard from '../../patients/PatientCard'
 import FieldTypePatientID from '../../fieldTypes/FieldTypePatientID'
@@ -69,8 +72,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      extraPublicationInformation: 'patients/getExtraPublicationInformation',
-      getPublicationInformationByIdentifier: 'patients/getPublicationInformationByIdentifier',
+      allReferences: 'getAllReferences',
+      // extraPublicationInformation: 'patients/getExtraPublicationInformation',
+      // getPublicationInformationByIdentifier: 'patients/getPublicationInformationByIdentifier',
       patientsByPublicationIdentifier: 'patients/getPatientsByPublicationIdentifier',
       patientByIdentifier: 'patients/getPatientsByIdentifier',
       metadata: 'getMetadata',
@@ -83,9 +87,12 @@ export default {
     })
   },
   created () {
-    if (!this.extraPublicationInformation.hasOwnProperty(this.id)) {
-      this.$store.dispatch('patients/' + GET_EXTRA_PUBLICATION_INFORMATION, this.publicationsApiPath + this.id)
+    if (Object.keys(this.allReferences).length === 0) {
+      this.$store.dispatch(GET_ALL_REFERENCES)
     }
+    // if (!this.extraPublicationInformation.hasOwnProperty(this.id)) {
+    //   this.$store.dispatch('patients/' + GET_EXTRA_PUBLICATION_INFORMATION, this.publicationsApiPath + this.id)
+    // }
     if (!this.patientsByPublicationIdentifier.hasOwnProperty(this.id)) {
       this.$store.dispatch('patients/' + GET_PATIENTS_FOR_PUBLICATION_IDENTIFIER, this.id)
     }

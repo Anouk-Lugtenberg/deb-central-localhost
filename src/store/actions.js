@@ -7,6 +7,7 @@ import {
   SET_TABLE_FOR_FILTER_GROUP_INFORMATION,
   SET_FILTER_GROUP_INFORMATION_ENUM,
   SET_ALL_REFERENCES,
+  SET_FILTERED_REFERENCES,
   SET_REFERENCE_METADATA
 } from './mutations'
 
@@ -21,6 +22,7 @@ export const GET_FILTERED_GROUP_INFORMATION = '__GET_FILTERED_GROUP_INFORMATION_
 export const GET_FILTERS_FROM_URL = '__GET_FILTERS_FROM_URL__'
 export const RESET_FILTERS = '__RESET_FILTERS__'
 export const GET_ALL_REFERENCES = '__GET_ALL_REFERENCES__'
+export const GET_FILTERED_REFERENCES = '__GET_FILTERED_REFERENCES__'
 
 export default {
   [GET_METADATA] ({commit, state, getters, rootState}) {
@@ -108,6 +110,13 @@ export default {
         commit(SET_REFERENCE_METADATA, response.meta)
       }, error => {
         commit(SET_ERROR, error)
+      })
+  },
+  [GET_FILTERED_REFERENCES] ({commit, state}) {
+    api.get(state.PUBLICATIONS_API_PATH + '?q=' + state.route.query.q)
+      .then(response => response.json())
+      .then(response => {
+        commit(SET_FILTERED_REFERENCES, [state.COLUMN_PUBMED_ID_REFERENCE_TABLE, response.items])
       })
   }
 }

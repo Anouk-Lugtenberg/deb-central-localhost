@@ -1,7 +1,7 @@
 <template>
   <b-card>
     <div class="title">
-      <router-link :to="{name: 'PubMed', params: {id: reference.Pubmed}}">
+      <router-link :to="{name: 'PubMed', params: {id: id}}">
         <font-awesome-icon icon="search" class="fa-icon"></font-awesome-icon>
       </router-link>
       {{ reference.Title }}
@@ -20,7 +20,7 @@ import PublicationModelAbstractText from './../models/PublicationModel/Publicati
 import { mapState } from 'vuex'
 export default {
   name: 'ReferenceCard',
-  props: ['reference'],
+  props: ['reference', 'id'],
   components: {
     'publication-model-abstract-text': PublicationModelAbstractText
   },

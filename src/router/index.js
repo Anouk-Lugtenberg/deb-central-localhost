@@ -59,6 +59,7 @@ export default new Router({
     },
     {
       path: '/References',
+      name: 'References',
       component: ReferencesContainer
     },
     {

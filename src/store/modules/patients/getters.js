@@ -14,10 +14,6 @@ export default {
   getPatientsFilterActive: state => state.patientsFilterActive,
   getActiveFiltersCheckbox: state => state.activeFiltersCheckbox,
   getPatientsIsFiltering: state => state.patientsIsFiltering,
-  getExtraPublicationInformation: state => state.extraPublicationInformation,
-  getPublicationInformationByIdentifier: (state) => (identifier) => {
-    return state.extraPublicationInformation[identifier]
-  },
   getPatientsByPublicationIdentifier: (state) => (identifier) => {
     return state.patientsForPublicationIdentifier[identifier]
   }

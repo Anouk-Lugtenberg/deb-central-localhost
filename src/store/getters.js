@@ -1,3 +1,5 @@
+import { createRSQLQueryWithOperands } from './helpers'
+
 export default {
   getMetadata: state => state.metadata,
   getMetadataAllFieldsVisible: (state) => {
@@ -12,6 +14,10 @@ export default {
   getFilteredGroupInformation: state => state.filterGroupInformation,
   getMetadataColumnsMutations: state => state.metadataColumnsMutations,
   getAllReferences: state => state.allReferences,
+  getFilteredReferences: state => state.filteredReferences,
+  getRSQLReferences: (state) => {
+    return createRSQLQueryWithOperands(state.searchReferences, ['Title', 'abstractText'])
+  },
   getError: state => state.error,
   getVisibleFields: (state) => {
     let visibleFields = {}

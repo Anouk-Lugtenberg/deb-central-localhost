@@ -1,9 +1,9 @@
 <template>
   <div>
     <span v-if="showPropertyName">{{ label }}:</span>
-    <span v-if="attribute !== 'N/A' && extraPublicationInformation[attribute]">
+    <span v-if="attribute !== 'N/A' && allReferences[attribute]">
       <router-link :to="{name: 'PubMed', params: {id: attribute}}">{{ attribute }}</router-link>
-      <a :href="extraPublicationInformation[attribute]['ExternalLink']" target="_blank">
+      <a :href="allReferences[attribute]['ExternalLink']" target="_blank">
         <font-awesome-icon icon="external-link-alt" class="fa-icon icon"></font-awesome-icon>
       </a>
     </span>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { GET_EXTRA_PUBLICATION_INFORMATION } from '../../store/modules/patients/actions'
+import { GET_ALL_REFERENCES } from '../../store/actions'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -29,17 +29,18 @@ export default {
   },
   computed: {
     ...mapGetters({
-      extraPublicationInformation: 'patients/getExtraPublicationInformation'
+      allReferences: 'getAllReferences'
     })
   },
   created () {
     this.getAttribute()
-    this.getExternalURL()
+    if (Object.keys(this.allReferences).length === 0) {
+      this.$store.dispatch(GET_ALL_REFERENCES)
+    }
   },
   watch: {
     information () {
       this.getAttribute()
-      this.getExternalURL()
     }
   },
   methods: {
@@ -56,11 +57,6 @@ export default {
           }
         })
         this.attribute = attribute
-      }
-    },
-    getExternalURL () {
-      if (!this.extraPublicationInformation.hasOwnProperty(this.attribute) && this.attribute !== 'N/A') {
-        this.$store.dispatch('patients/' + GET_EXTRA_PUBLICATION_INFORMATION, this.information[this.name][0]['_href'])
       }
     }
   }

@@ -11,6 +11,15 @@ export const createRSQLQuery = (state) => transformToRSQL({
     }] : []
   ])
 })
+export const createRSQLQueryWithOperands = (search, operands) => transformToRSQL({
+  operator: 'AND',
+  operands: flattenDeep([
+    search ? [{
+      operator: 'OR',
+      operands: operands.map(attr => ({selector: attr, comparison: '=q=', arguments: search}))
+    }] : []
+  ])
+})
 
 export const createActiveFilterQueries = (attribute, filters) => {
   let activeFilters = []

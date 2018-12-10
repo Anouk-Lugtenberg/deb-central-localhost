@@ -5,7 +5,6 @@ import {
   SET_PATIENT_INFORMATION_PATIENT_ID,
   SET_FILTERED_PATIENTS,
   SET_PATIENTS_FILTER_ACTIVE,
-  SET_EXTRA_PUBLICATION_INFORMATION,
   SET_PATIENTS_FOR_PUBLICATION_IDENTIFIER
 } from './mutations'
 import {
@@ -16,7 +15,6 @@ import { setFilterGroupInformationFromURL } from '../../helpers'
 export const GET_PATIENTS_INFORMATION_PATIENT_ID = '__GET_PATIENTS_INFORMATION_PATIENT_ID__'
 export const GET_ALL_PATIENTS = '__GET_ALL_PATIENTS__'
 export const GET_FILTERED_PATIENTS = '__GET_FILTERED_PATIENTS__'
-export const GET_EXTRA_PUBLICATION_INFORMATION = '__GET_EXTRA_PUBLICATION_INFORMATION__'
 export const GET_PATIENTS_FOR_PUBLICATION_IDENTIFIER = '__GET_PATIENTS_FOR_PUBLICATION_IDENTIFIER__'
 
 export default {
@@ -55,18 +53,8 @@ export default {
       commit(SET_FILTERED_PATIENTS, [])
     }
   },
-  [GET_EXTRA_PUBLICATION_INFORMATION] ({state, commit}, href) {
-    api.get(href)
-      .then(response => response.json())
-      .then(response => {
-        delete response._meta
-        commit(SET_EXTRA_PUBLICATION_INFORMATION, [response.Pubmed, response])
-      }, error => {
-        commit(SET_ERROR, error, {root: true})
-      })
-  },
   [GET_PATIENTS_FOR_PUBLICATION_IDENTIFIER] ({state, commit, rootState}, id) {
-    api.get(rootState.PATIENTS_API_PATH + '?q=' + rootState.COLUMN_PUBMED_ID + '=in=' + id)
+    api.get(rootState.PATIENTS_API_PATH + '?q=' + rootState.COLUMN_PUBMED_ID_PATIENT_TABLE + '=in=' + id)
       .then(response => response.json())
       .then(response => {
         commit(SET_PATIENTS_FOR_PUBLICATION_IDENTIFIER, [id, response.items, rootState.COLUMN_PATIENT_IDENTIFIER])
