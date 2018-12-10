@@ -65,8 +65,9 @@ export default {
   [SET_REFERENCE_METADATA] (state, metadata) {
     state.referenceMetadata = metadata
   },
-  [SET_SEARCH_REFERENCES] (state, search) {
+  [SET_SEARCH_REFERENCES] (state, [search, columnsToSearch]) {
     state.searchReferences = search
+    state.columnsToSearchReferences = columnsToSearch
   },
   [SET_FILTERED_REFERENCES] (state, [column, references]) {
     let filteredReferences = []

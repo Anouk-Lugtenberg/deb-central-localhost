@@ -3,9 +3,11 @@
     <span v-if="showPropertyName">{{ label }}:</span>
     <span v-if="attribute !== 'N/A' && allReferences[attribute]">
       <router-link :to="{name: 'PubMed', params: {id: attribute}}">{{ attribute }}</router-link>
-      <a :href="allReferences[attribute]['ExternalLink']" target="_blank">
-        <font-awesome-icon icon="external-link-alt" class="fa-icon icon"></font-awesome-icon>
-      </a>
+      <span v-if="allReferences[attribute]['ExternalLink']">
+        <a :href="allReferences[attribute]['ExternalLink']" target="_blank">
+          <font-awesome-icon icon="external-link-alt" class="fa-icon icon"></font-awesome-icon>
+        </a>
+      </span>
     </span>
     <span v-else>
       {{ attribute }}

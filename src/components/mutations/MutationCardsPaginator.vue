@@ -44,7 +44,7 @@
           <div v-else-if="!isFiltering">
             <div v-if="mutationIdentifiers.length > 0">
               <p class="amount-mutations-found">
-                {{ mutationIdentifiers.length }} mutations found
+                {{ mutationIdentifiers.length }} mutation(s)
               </p>
               <div v-for="(identifier, index) in mutationIdentifiers.slice(pageSize * (currentPage-1), pageSize * currentPage)" :key="index">
                 <mutation-card :mutationIdentifier="identifier"

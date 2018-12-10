@@ -1,9 +1,13 @@
 <template>
-  <div>
-    RSQL {{ rsql }}
-    search: {{ search }}
+  <b-card class="mb-2 p-2" no-body>
+    <div class="search-options">
+      Search in columns:
+      <div v-for="option in options">
+        <input type="checkbox" v-model="option.checked"> {{ option.name }}
+      </div>
+    </div>
     <input type="text" placeholder="Search references" v-model.lazy="search">
-  </div>
+  </b-card>
 </template>
 
 <script>
@@ -16,7 +20,11 @@ export default {
   data () {
     return {
       search: '',
-      filtered: false
+      filtered: false,
+      options: [
+        {id: 'Title', name: 'Title', checked: true},
+        {id: 'abstractText', name: 'Abstract Text', checked: true}
+      ]
     }
   },
   created () {
@@ -27,7 +35,13 @@ export default {
   },
   watch: {
     search () {
-      this.$store.commit(SET_SEARCH_REFERENCES, this.search)
+      this.setSearch()
+    },
+    options: {
+      handler: function () {
+        this.setSearch()
+      },
+      deep: true
     },
     rsql () {
       this.createRoute()
@@ -61,11 +75,22 @@ export default {
       this.$router.push({
         name: 'References'
       })
+    },
+    setSearch () {
+      let columnsToSearch = []
+      this.options.forEach(function (option) {
+        if (option.checked) {
+          columnsToSearch.push(option.id)
+        }
+      })
+      this.$store.commit(SET_SEARCH_REFERENCES, [this.search, columnsToSearch])
     }
   }
 }
 </script>
 
 <style scoped>
-
+.search-options {
+  font-size: 14px;
+}
 </style>

@@ -16,7 +16,7 @@ export default {
   getAllReferences: state => state.allReferences,
   getFilteredReferences: state => state.filteredReferences,
   getRSQLReferences: (state) => {
-    return createRSQLQueryWithOperands(state.searchReferences, ['Title', 'abstractText'])
+    return createRSQLQueryWithOperands(state.searchReferences, state.columnsToSearchReferences)
   },
   getError: state => state.error,
   getVisibleFields: (state) => {
