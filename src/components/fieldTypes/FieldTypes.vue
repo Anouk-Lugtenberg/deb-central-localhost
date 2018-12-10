@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="pubMedName === property.name">
+    <div v-if="pubMedIdentifierPatientTable === property.name">
       <field-type-pubmed-identifier :information="information" :property="property"
                                     :showPropertyName="showPropertyName"></field-type-pubmed-identifier>
     </div>
@@ -60,7 +60,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      pubMedName: 'getColumnNamePubMedIdentifier'
+      pubMedIdentifierPatientTable: 'getColumnNamePubMedIdentifierPatientTable'
     })
   },
   data () {

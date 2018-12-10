@@ -31,8 +31,7 @@ export default {
       getVisibleFieldsMetadata: 'getVisibleFieldsMetadata'
     }),
     ...mapState({
-      patientTable: 'PATIENT_TABLE',
-      columnPatientIdentifier: 'COLUMN_PATIENT_IDENTIFIER'
+      patientTable: 'PATIENT_TABLE'
     })
   }
 }

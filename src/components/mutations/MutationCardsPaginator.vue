@@ -2,7 +2,7 @@
   <div>
     <b-row class="top-row-container">
       <b-col cols="12">
-        <genome-browser></genome-browser>
+        <!--<genome-browser></genome-browser>-->
       </b-col>
     </b-row>
     <b-row>
@@ -13,7 +13,7 @@
         </b-card>
       </b-col>
       <b-col sm="9">
-        <b-pagination-nav :use-router="true" size="md" :link-gen="linkGenerator" align="center"
+        <b-pagination-nav v-if="totalPages > 0" :use-router="true" size="md" :link-gen="linkGenerator" align="center"
                           :number-of-pages="totalPages" v-model="currentPage">
         </b-pagination-nav>
       </b-col>
@@ -65,7 +65,7 @@
       <b-col sm="3">
       </b-col>
       <b-col sm="9">
-        <b-pagination-nav :use-router="true" size="md" :link-gen="linkGenerator" align="center"
+        <b-pagination-nav v-if="totalPages > 0" :use-router="true" size="md" :link-gen="linkGenerator" align="center"
                           :number-of-pages="totalPages" v-model="currentPage">
         </b-pagination-nav>
       </b-col>

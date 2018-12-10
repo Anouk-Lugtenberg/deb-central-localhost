@@ -22,8 +22,10 @@ export default {
   PATIENT_TABLE: INITIAL_STATE.patientsApiPath.split('/').pop(),
 
   /* Column names */
-  /* The column name where the PubMed is found, should be left empty ('') when there's no PubMed available in the data set */
-  COLUMN_PUBMED_ID: INITIAL_STATE.columnPubMedIdentifier,
+  /* The column name where the PubMed is found for the Patient table, should be left empty ('') when there's no PubMed available in the data set */
+  COLUMN_PUBMED_ID_PATIENT_TABLE: INITIAL_STATE.columnPubMedIdentifierPatientTable,
+  /* PubMed identifier in Reference table */
+  COLUMN_PUBMED_ID_REFERENCE_TABLE: INITIAL_STATE.columnPubMedIdentifierReferenceTable,
 
   /* Column name for Numerical Identifier from mutation (column which contains 'M100') */
   COLUMN_MUTATION_IDENTIFIER_NUMERICAL: INITIAL_STATE.columnMutationIdentifierNumerical,

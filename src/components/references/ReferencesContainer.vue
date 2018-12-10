@@ -1,10 +1,19 @@
 <template>
   <b-container>
-    <div v-if="references.length > 0">
-      <div v-for="reference in references" class="pt-2">
-        <reference-card :reference="reference"></reference-card>
-      </div>
-    </div>
+    <b-row>
+      <b-col cols="2">
+        <div v-for="reference in references">
+          {{ reference.Pubmed }}
+        </div>
+      </b-col>
+      <b-col cols="10">
+        <div v-if="references.length > 0">
+          <div v-for="reference in references" class="pt-2">
+            <reference-card :reference="reference" id="reference.Pubmed"></reference-card>
+          </div>
+        </div>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 

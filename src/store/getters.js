@@ -42,10 +42,10 @@ export default {
     visibleFilters[state.PATIENT_TABLE] = state.filtersPatients
     return visibleFilters
   },
-  getColumnNamePubMedIdentifier: (state) => {
+  getColumnNamePubMedIdentifierPatientTable: (state) => {
     let pubmedIdentifier = null
-    if (state.COLUMN_PUBMED_ID) {
-      pubmedIdentifier = state.COLUMN_PUBMED_ID
+    if (state.COLUMN_PUBMED_ID_PATIENT_TABLE) {
+      pubmedIdentifier = state.COLUMN_PUBMED_ID_PATIENT_TABLE
     }
     return pubmedIdentifier
   }
