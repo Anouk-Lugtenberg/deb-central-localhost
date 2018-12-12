@@ -113,7 +113,6 @@ export default {
       })
   },
   [GET_FILTERED_REFERENCES] ({commit, state}) {
-    console.log(state.PUBLICATIONS_API_PATH + '?q=' + state.route.query.q + '?start=0&num=10000')
     api.get(state.PUBLICATIONS_API_PATH + '?q=' + state.route.query.q)
       .then(response => response.json())
       .then(response => {

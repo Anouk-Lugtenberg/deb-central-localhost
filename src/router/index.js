@@ -43,6 +43,14 @@ export default new Router({
           props: (route) => ({
             pageNumURL: route.params.pageNumURL
           })
+        },
+        {
+          path: '/References/page/:pageNumURL',
+          name: 'ReferencesContainer',
+          component: ReferencesContainer,
+          props: (route) => ({
+            pageNumURL: route.params.pageNumURL
+          })
         }
       ]
     },
@@ -59,8 +67,7 @@ export default new Router({
     },
     {
       path: '/References',
-      name: 'References',
-      component: ReferencesContainer
+      redirect: 'References/page/1'
     },
     {
       path: '/Mutation/:id',

@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { SET_SEARCH_REFERENCES } from '../../store/mutations'
+import { SET_SEARCH_REFERENCES, RESET_FILTERED_REFERENCES } from '../../store/mutations'
 import { GET_FILTERED_REFERENCES } from '../../store/actions'
 import { mapGetters } from 'vuex'
 
@@ -49,6 +49,8 @@ export default {
     '$route.query.q' () {
       if (this.$route.query.q) {
         this.$store.dispatch(GET_FILTERED_REFERENCES)
+      } else {
+        this.$store.commit(RESET_FILTERED_REFERENCES)
       }
     }
   },
@@ -67,13 +69,13 @@ export default {
     },
     createRouteWithQuery () {
       this.$router.push({
-        name: 'References',
+        name: 'ReferencesContainer',
         query: {q: this.rsql}
       })
     },
     createRouteWithoutQuery () {
       this.$router.push({
-        name: 'References'
+        name: 'ReferencesContainer'
       })
     },
     setSearch () {

@@ -2,7 +2,7 @@
   <div>
     <b-row class="top-row-container">
       <b-col cols="12">
-        <!--<genome-browser></genome-browser>-->
+        <genome-browser></genome-browser>
       </b-col>
     </b-row>
     <b-row>

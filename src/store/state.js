@@ -11,6 +11,7 @@ export default {
   error: null,
   searchReferences: '',
   columnsToSearchReferences: [],
+  referencesFiltering: false,
 
   // These values are retrieved from window.__INITIAL_STATE__ because MOLGENIS works with this in their App set-up.
   // Because of the use of these values multiple mutation-patient databases which all have these values in their database

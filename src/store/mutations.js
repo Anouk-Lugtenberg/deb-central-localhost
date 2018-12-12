@@ -10,6 +10,7 @@ export const SET_ALL_REFERENCES = '__SET_ALL_REFERENCES__'
 export const SET_REFERENCE_METADATA = '__SET_REFERENCE_METADATA__'
 export const SET_SEARCH_REFERENCES = '__SET_SEARCH_REFERENCES__'
 export const SET_FILTERED_REFERENCES = '__SET_FILTERED_REFERENCES__'
+export const RESET_FILTERED_REFERENCES = '__RESET_FILTERED_REFERENCES__'
 export const SET_ERROR = '__SET_ERROR__'
 
 export default {
@@ -66,15 +67,25 @@ export default {
     state.referenceMetadata = metadata
   },
   [SET_SEARCH_REFERENCES] (state, [search, columnsToSearch]) {
+    state.referencesFiltering = false
+    if (search) {
+      state.referencesFiltering = true
+    }
     state.searchReferences = search
     state.columnsToSearchReferences = columnsToSearch
   },
+
   [SET_FILTERED_REFERENCES] (state, [column, references]) {
+    console.log('setting filtered references')
     let filteredReferences = []
     references.map(function (reference) {
       filteredReferences.push(reference[column])
     })
     state.filteredReferences = filteredReferences
+    state.referencesFiltering = false
+  },
+  [RESET_FILTERED_REFERENCES] (state) {
+    state.filteredReferences = []
   },
   [SET_ERROR] (state, error) {
     state.error = {status: error.status, statusText: error.statusText, url: error.url}
