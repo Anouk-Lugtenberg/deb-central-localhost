@@ -35,9 +35,9 @@ export default {
           option.checked = true
         }
       })
+      this.$store.dispatch(GET_FILTERED_REFERENCES)
+      this.search = this.$route.query.q.split('=').pop()
     }
-    this.$store.dispatch(GET_FILTERED_REFERENCES)
-    this.search = this.$route.query.q.split('=').pop()
   },
   watch: {
     search () {

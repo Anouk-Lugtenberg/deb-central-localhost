@@ -25,7 +25,7 @@
             <div class="amount-references-found">
               {{ filteredReferences.length }} publication(s)
             </div>
-            <div v-for="referenceIdentifier in filteredReferences" class="pb-2">
+            <div v-for="referenceIdentifier in filteredReferences.slice(pageSize * (currentPage-1), pageSize * currentPage)" class="pb-2">
               <reference-card v-if="references[referenceIdentifier]" :reference="references[referenceIdentifier]" :id="referenceIdentifier"></reference-card>
             </div>
           </div>
@@ -39,6 +39,9 @@
           </div>
         </div>
       </div>
+      <b-pagination-nav v-if="totalPages > 0" :use-router="true" size="md" align="center" :link-gen="linkGenerator"
+                        :number-of-pages="totalPages" v-model="currentPage">
+      </b-pagination-nav>
       </b-col>
     </b-row>
   </b-container>
@@ -90,6 +93,10 @@ export default {
     },
     pageSize () {
       this.setTotalPages()
+    },
+    currentPage () {
+      // scroll(0, 0)
+      console.log('current page changed')
     }
   },
   methods: {

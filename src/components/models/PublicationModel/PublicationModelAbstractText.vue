@@ -2,10 +2,10 @@
   <p class="card-text abstract-text">
     <span v-if="textCollapsed">
       {{ substringAbstractText }}...
-      <a href="#" @click="expandText()">[expand]</a>
+      <a href="#!" @click="expandText()">[expand]</a>
     </span>
     <span v-else-if="!textCollapsed">
-      {{ abstractText }} <a href="#" @click="expandText()">[collapse]</a>
+      {{ abstractText }} <a href="#!" @click="expandText()">[collapse]</a>
     </span>
   </p>
 </template>
