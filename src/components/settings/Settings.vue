@@ -54,7 +54,7 @@ export default {
   methods: {
     setVisibleCategories () {
       Object.keys(this.metadata[this.table]).map((key) => {
-        this.metadata[this.table][key].visible = this.active
+        this.metadata[this.table][key].fieldIsVisible = this.active
       })
     }
   }

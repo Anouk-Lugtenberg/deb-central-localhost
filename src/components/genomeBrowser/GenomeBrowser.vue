@@ -2,8 +2,14 @@
   <div>
     <router-link id="cdnaIdentifier" :to="{name: 'Mutation', params: {id: mutationIdentifierNumerical}}">
     </router-link>
-    <div id="svgHolder">
-      Couldn't load Dalliance Browser</div>
+    <b-card no-body @click="toggleCollapseGenomeBrowser = !toggleCollapseGenomeBrowser" class="pt-2 pb-2 mb-2 clickable">
+      <span class="align-center">Genome browser</span>
+    </b-card>
+    <b-collapse v-model="toggleCollapseGenomeBrowser">
+      <div id="svgHolder">
+        Couldn't load Dalliance Browser
+      </div>
+    </b-collapse>
   </div>
 </template>
 
@@ -26,6 +32,7 @@ export default {
   },
   data () {
     return {
+      toggleCollapseGenomeBrowser: true,
       browser: '',
       viewStart: this.position - 50,
       viewEnd: this.position + 50,
@@ -88,7 +95,7 @@ export default {
       let start = this.genomePosition - 50
       let end = this.genomePosition + 50
       this.setLocation('3', start, end)
-    }
+    },
   },
   mounted () {
     this.browser = new Browser({
@@ -138,3 +145,11 @@ export default {
   }
 }
 </script>
+<style scoped>
+  .align-center {
+    text-align: center;
+  }
+  .clickable:hover {
+    cursor: pointer;
+  }
+</style>

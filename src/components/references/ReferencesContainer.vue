@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <div>
     <b-row class="pt-3">
       <b-col cols="3">
         <b-card no-body class="p-2 references-per-page mb-2">
@@ -44,7 +44,7 @@
       </b-pagination-nav>
       </b-col>
     </b-row>
-  </b-container>
+  </div>
 </template>
 
 <script>

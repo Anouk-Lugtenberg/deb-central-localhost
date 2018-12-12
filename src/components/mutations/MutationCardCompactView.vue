@@ -44,7 +44,8 @@ export default {
     width: 98%;
     align-content: center;
     border-bottom: 1px solid #afc3cc;
-    margin: 5px auto 10px auto;
+    margin-top: 2px;
+    margin-bottom: 2px;
   }
   .fa-icon {
     border-radius: 5px;

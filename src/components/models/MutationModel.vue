@@ -11,23 +11,20 @@
             </b-row>
             <b-row>
               <b-col cols="3">
-                <b-card no-body class="p-2">
-                  <label class="switch">
-                    <input type="checkbox" v-model="filterMutationsOnVisibility">
-                    <span class="slider round"></span>
-                  </label>
-                  <span class="small-text">
-                    Filter mutations on visibility in Genome Browser
-                  </span>
+                <b-card no-body>
+                 <b-row class="small-text mt-2">
+                   <b-col cols="3" class="ml-3">
+                     <toggle-button :value="false" color="#3e81b5" :labels="true" v-model="filterMutationsOnVisibility">
+                    </toggle-button>
+                   </b-col>
+                   <b-col cols="8">
+                     Filter mutations on visibility in Genome Browser
+                   </b-col>
+                  </b-row>
                 </b-card>
                 <div v-if="filterMutationsOnVisibility">
                   <data-item-selector :table="mutationTable"></data-item-selector>
                 </div>
-                <!--<span>Add mutations:</span>-->
-                <!--<input type="text" v-model.lazy="newMutation">-->
-                <!--<div v-if="errorMutationNotFound" class="mutation-not-found">-->
-                  <!--Mutation not found-->
-                <!--</div>-->
               </b-col>
               <b-col cols="9" v-if="!filterMutationsOnVisibility">
                 <mutation-card :mutationIdentifier="mutationIdentifier"
@@ -70,6 +67,7 @@ import { mapGetters, mapState } from 'vuex'
 import MutationCard from './../mutations/MutationCard'
 import GenomeBrowser from './../genomeBrowser/GenomeBrowser'
 import DataItemSelector from './../settings/DataItemSelector'
+import ToggleButton from 'vue-js-toggle-button/src/Button'
 import { SET_BOOLEAN_COMPACT_VIEW_MUTATIONS } from '../../store/modules/mutation/mutations'
 
 export default {
@@ -78,7 +76,8 @@ export default {
   components: {
     'data-item-selector': DataItemSelector,
     'mutation-card': MutationCard,
-    'genome-browser': GenomeBrowser
+    'genome-browser': GenomeBrowser,
+    'toggle-button': ToggleButton
   },
   data () {
     return {
@@ -110,16 +109,6 @@ export default {
     })
   },
   watch: {
-    newMutation: function () {
-      if (this.mutations[this.newMutation]) {
-        this.errorMutationNotFound = false
-        this.numericalIdentifiers.add(this.mutations[this.newMutation][this.columnMutationIdentifierNumerical])
-        this.createNewRoute()
-        this.getMutationIdentifiers()
-      } else {
-        this.errorMutationNotFound = true
-      }
-    },
     id: function () {
       this.updateIdentifiers()
       this.getMutationIdentifiers()
@@ -130,10 +119,6 @@ export default {
     }
   },
   methods: {
-    createNewRoute () {
-      let stringIdentifiers = [...this.numericalIdentifiers].join('&')
-      this.$router.push('/Mutation/' + stringIdentifiers)
-    },
     updateIdentifiers () {
       this.numericalIdentifiers = new Set()
       if (this.id.substring('&')) {
@@ -169,67 +154,5 @@ export default {
   .no-mutations-found {
     color: #dc3545;
     text-align: center;
-  }
-  /* The switch - the box around the slider */
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 45px;
-    height: 25px;
-  }
-
-  /* Hide default HTML checkbox */
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-  /* The slider */
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 19px;
-    width: 19px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
-
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-
-  input:checked + .slider:before {
-    -webkit-transform: translateX(19px);
-    -ms-transform: translateX(19px);
-    transform: translateX(19px);
-  }
-
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 25px;
-  }
-
-  .slider.round:before {
-    border-radius: 50%;
   }
 </style>

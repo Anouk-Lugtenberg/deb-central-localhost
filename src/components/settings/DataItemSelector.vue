@@ -3,14 +3,20 @@
     <span class="title-item-selector card-text text-center">
       Item selector
     </span>
-    <div v-if="table === mutationTable" class="text-small pl-2 pt-1">
-      <toggle-button :value="false" color="#2196F3" :labels="true" v-model="compactView">
-      </toggle-button>
-      Compact
-    </div>
-    <span class="text-small pl-2">
-      <a href="#" @click="selectAll()">Select all</a>
-      <a href="#" @click="deselectAll()">Deselect all</a>
+    <b-card v-if="table === mutationTable" no-body class="m-2">
+      <b-row class="small-text mt-2">
+        <b-col cols="3" class="ml-2">
+          <toggle-button :value="false" color="#3e81b5" :labels="true" v-model="compactView">
+          </toggle-button>
+        </b-col>
+        <b-col cols="8">
+          Compact view
+        </b-col>
+      </b-row>
+    </b-card>
+    <span class="small-text pr-3 align-right">
+      <a href="#!" @click="selectAll()">Select all</a>
+      <a href="#!" @click="deselectAll()">Deselect all</a>
     </span>
     <div v-if="table === mutationTable">
       <div v-for="(data, tableName) in metadata">
@@ -86,8 +92,10 @@ export default {
   .item-selector {
     background-color: #fafafa;
   }
-  .text-small {
+  .small-text {
     font-size: 14px;
-    text-align: left;
+  }
+  .align-right {
+    text-align: right;
   }
 </style>
