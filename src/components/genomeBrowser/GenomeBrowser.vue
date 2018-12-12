@@ -2,8 +2,15 @@
   <div>
     <router-link id="cdnaIdentifier" :to="{name: 'Mutation', params: {id: mutationIdentifierNumerical}}">
     </router-link>
-    <b-card no-body @click="toggleCollapseGenomeBrowser = !toggleCollapseGenomeBrowser" class="pt-2 pb-2 mb-2 clickable">
-      <span class="align-center">Genome browser</span>
+    <b-card no-body @click="toggleCollapseGenomeBrowser = !toggleCollapseGenomeBrowser" class="pt-1 pb-1 mb-2 mt-3 clickable text-center genome-browser-selector">
+      <span v-if="toggleCollapseGenomeBrowser">
+        <font-awesome-icon icon="caret-down" class="fa-icon align-right"></font-awesome-icon>
+        Hide genome browser
+      </span>
+      <span v-else>
+        <font-awesome-icon icon="caret-right" class="fa-icon align-right"></font-awesome-icon>
+        Show genome browser
+      </span>
     </b-card>
     <b-collapse v-model="toggleCollapseGenomeBrowser">
       <div id="svgHolder">
@@ -95,7 +102,7 @@ export default {
       let start = this.genomePosition - 50
       let end = this.genomePosition + 50
       this.setLocation('3', start, end)
-    },
+    }
   },
   mounted () {
     this.browser = new Browser({
@@ -146,10 +153,15 @@ export default {
 }
 </script>
 <style scoped>
-  .align-center {
-    text-align: center;
+  .genome-browser-selector {
+    background-color: #2a97be;
+    color: white;
+  }
+  .align-right {
+    text-align: right;
   }
   .clickable:hover {
     cursor: pointer;
+    background-color: #1380b5;
   }
 </style>
