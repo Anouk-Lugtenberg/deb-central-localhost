@@ -3,8 +3,12 @@
     <span class="title-item-selector card-text text-center">
       Item selector
     </span>
-    <span class="text-small pr-2">
-      <!--<a href="#" @click="compactView()">Compact view</a>-->
+    <div v-if="table === mutationTable" class="text-small pl-2 pt-1">
+      <toggle-button :value="false" color="#2196F3" :labels="true" v-model="compactView">
+      </toggle-button>
+      Compact
+    </div>
+    <span class="text-small pl-2">
       <a href="#" @click="selectAll()">Select all</a>
       <a href="#" @click="deselectAll()">Deselect all</a>
     </span>
@@ -21,15 +25,23 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
+import { SET_BOOLEAN_COMPACT_VIEW_MUTATIONS } from '../../store/modules/mutation/mutations'
 import SettingsCheckbox from './SettingsCheckbox'
 import DataItemSelectorGroup from './DataItemSelectorGroup'
+import ToggleButton from 'vue-js-toggle-button/src/Button'
 
 export default {
   name: 'DataItemSelector',
   props: ['table'],
   components: {
     'data-item-selector-group': DataItemSelectorGroup,
-    'settings-checkbox': SettingsCheckbox
+    'settings-checkbox': SettingsCheckbox,
+    'toggle-button': ToggleButton
+  },
+  data () {
+    return {
+      compactView: false
+    }
   },
   computed: {
     ...mapGetters({
@@ -39,6 +51,12 @@ export default {
       mutationTable: 'MUTATION_TABLE'
     })
   },
+  watch: {
+    compactView () {
+      console.log('compact view changed: ' + this.compactView)
+      this.$store.commit('mutation/' + SET_BOOLEAN_COMPACT_VIEW_MUTATIONS, this.compactView)
+    }
+  },
   methods: {
     selectAll () {
       this.setVisibleFields(true)
@@ -46,9 +64,6 @@ export default {
     deselectAll () {
       this.setVisibleFields(false)
     },
-    // compactView () {
-    //
-    // },
     setVisibleFields (booleanVisible) {
       Object.keys(this.metadata).map((key) => {
         let metadataPerTable = this.metadata[key]
@@ -73,6 +88,6 @@ export default {
   }
   .text-small {
     font-size: 14px;
-    text-align: right;
+    text-align: left;
   }
 </style>

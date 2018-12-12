@@ -25,7 +25,6 @@
             <mutation-filter-container :pageNumber="currentPage"></mutation-filter-container>
           </div>
         </div>
-        <moon-loader v-else :textForLoader="'Loading filters'"></moon-loader>
         <data-item-selector :table="mutationTable"></data-item-selector>
       </b-col>
       <b-col sm="9">

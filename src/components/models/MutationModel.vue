@@ -70,6 +70,7 @@ import { mapGetters, mapState } from 'vuex'
 import MutationCard from './../mutations/MutationCard'
 import GenomeBrowser from './../genomeBrowser/GenomeBrowser'
 import DataItemSelector from './../settings/DataItemSelector'
+import { SET_BOOLEAN_COMPACT_VIEW_MUTATIONS } from '../../store/modules/mutation/mutations'
 
 export default {
   name: 'MutationModel',
@@ -91,6 +92,7 @@ export default {
     }
   },
   created () {
+    this.$store.commit('mutation/' + SET_BOOLEAN_COMPACT_VIEW_MUTATIONS, false)
     this.updateIdentifiers()
     this.getMutationIdentifiers()
   },

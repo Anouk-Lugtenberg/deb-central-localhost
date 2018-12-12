@@ -1,16 +1,21 @@
 <template>
   <div>
-    <b-card header-tag="header" header-bg-variant="light" no-body class="shadow card mb-2">
+    <b-card no-body class="shadow card mb-2">
       <div class="card-text">
         <b-container>
+          <div v-if="isCompactViewMutations">
+            <mutation-card-compact-view :mutation="mutation" :mutationIdentifier="mutationIdentifier"></mutation-card-compact-view>
+          </div>
+          <div v-else>
             <span class="title-mutation">
-              <field-type-mutation-id :mutation="mutation" :mutationIdentifier="mutationIdentifier">{{ mutationIdentifier }}</field-type-mutation-id>
-            </span>
-          <b-row>
-            <b-col cols="6" v-for="property in visibleFields" :key="property.name">
-              <field-types :property="property" :information="mutation" :entity="mutationTable"></field-types>
-            </b-col>
-          </b-row>
+            <field-type-mutation-id :mutation="mutation" :mutationIdentifier="mutationIdentifier">{{ mutationIdentifier }}</field-type-mutation-id>
+          </span>
+            <b-row>
+              <b-col cols="6" v-for="property in visibleFields" :key="property.name">
+                <field-types :property="property" :information="mutation" :entity="mutationTable"></field-types>
+              </b-col>
+            </b-row>
+          </div>
           <b-row v-if="patientsPerMutation[mutationIdentifier]">
             <b-col v-if="patientsPerMutation[mutationIdentifier].length === 0" cols="6" class="no-patients-found">
               No patients found with this mutation
@@ -58,6 +63,7 @@ import FieldTypes from '../fieldTypes/FieldTypes'
 import MoonLoader from '../loader/MoonLoader'
 import { GET_PATIENT_FOR_MUTATION } from '../../store/modules/mutation/actions'
 import { SET_GENOME_POSITION } from '../../store/modules/mutation/mutations'
+import MutationCardCompactView from './MutationCardCompactView'
 
 export default {
   name: 'MutationCard',
@@ -77,6 +83,7 @@ export default {
     }
   },
   components: {
+    'mutation-card-compact-view': MutationCardCompactView,
     'mutation-card-information-container': MutationCardInformationContainer,
     'field-type-mutation-id': FieldTypeMutationIdentifier,
     'field-types': FieldTypes,
@@ -96,7 +103,8 @@ export default {
     ...mapState({
       mutationTable: 'MUTATION_TABLE',
       cDNANotation: 'COLUMN_MUTATION_CDNANOTATION',
-      columnMutationPosition: 'COLUMN_MUTATION_POSITION'
+      columnMutationPosition: 'COLUMN_MUTATION_POSITION',
+      isCompactViewMutations: state => state.mutation.isCompactViewMutations
     })
   },
   watch: {

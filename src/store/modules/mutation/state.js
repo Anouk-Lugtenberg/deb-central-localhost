@@ -4,6 +4,7 @@ export default {
   allMutationIdentifiers: [],
   filteredMutationIdentifiers: [],
   totalMutations: undefined,
+  isCompactViewMutations: false,
   identifiers: undefined,
   mutationDetails: {},
   patientsPerMutation: {},

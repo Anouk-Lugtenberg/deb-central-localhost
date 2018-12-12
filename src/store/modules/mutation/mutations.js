@@ -3,6 +3,7 @@ import { naturalSort } from '../../helpers'
 
 export const SET_ALL_MUTATIONS = '__SET_ALL_MUTATIONS__'
 export const SET_TOTAL_MUTATIONS = '__SET_TOTAL_MUTATIONS__'
+export const SET_BOOLEAN_COMPACT_VIEW_MUTATIONS = '__SET_BOOLEAN_COMPACT_VIEW_MUTATIONS__'
 export const SET_PATIENT_FOR_MUTATION = '__SET_PATIENT_FOR_MUTATION__'
 export const SET_SEARCH_MUTATION = '__SET_SEARCH_MUTATION__'
 export const SET_MUTATIONS_FILTER_ACTIVE = '__SET_MUTATION_FILTER_ACTIVE__'
@@ -25,6 +26,9 @@ export default {
   },
   [SET_TOTAL_MUTATIONS] (state, number) {
     state.totalMutations = number
+  },
+  [SET_BOOLEAN_COMPACT_VIEW_MUTATIONS] (state, isCompactView) {
+    state.isCompactViewMutations = isCompactView
   },
   [SET_PATIENT_FOR_MUTATION] (state, [id, information, columnPatientIdentifier]) {
     let patients = []
