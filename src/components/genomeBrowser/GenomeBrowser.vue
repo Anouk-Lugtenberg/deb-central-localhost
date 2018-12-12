@@ -12,7 +12,7 @@
         Show genome browser
       </span>
     </b-card>
-    <b-collapse v-model="toggleCollapseGenomeBrowser">
+    <b-collapse v-model="toggleCollapseGenomeBrowser" id="genomeBrowser">
       <div id="svgHolder">
         Couldn't load Dalliance Browser
       </div>
@@ -55,12 +55,12 @@ export default {
       mutations: 'mutation/getMutations'
     }),
     ...mapState({
-      columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL'
+      columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL',
+      genomeBrowserCollapsed: 'GenomeBrowserCollapsed'
     })
   },
   methods: {
     setLocation (chr, viewStart, viewEnd) {
-      console.log('Setting location: ' + viewStart + ' end: ' + viewEnd)
       let maxViewWidth = 999999999
       if (chr) {
         viewStart = viewStart && viewStart > 0 ? viewStart : 1
@@ -154,14 +154,15 @@ export default {
 </script>
 <style scoped>
   .genome-browser-selector {
-    background-color: #2a97be;
-    color: white;
+    background-color: #dee6ed;
+    color: dimgrey;
   }
   .align-right {
     text-align: right;
   }
   .clickable:hover {
     cursor: pointer;
-    background-color: #1380b5;
+    background-color: #4898bc;
+    color: white;
   }
 </style>
