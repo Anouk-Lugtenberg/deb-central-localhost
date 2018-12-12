@@ -23,15 +23,21 @@ export default {
       filtered: false,
       options: [
         {id: 'Title', name: 'Title', checked: true},
-        {id: 'abstractText', name: 'Abstract Text', checked: true}
+        {id: 'abstractText', name: 'Abstract Text', checked: true},
+        {id: 'Authors', name: 'Authors', checked: false}
       ]
     }
   },
   created () {
     if (this.$route.query.q) {
-      this.$store.dispatch(GET_FILTERED_REFERENCES)
-      this.search = this.$route.query.q.split('=').pop()
+      this.options.forEach((option) => {
+        if (this.$route.query.q.includes(option.id)) {
+          option.checked = true
+        }
+      })
     }
+    this.$store.dispatch(GET_FILTERED_REFERENCES)
+    this.search = this.$route.query.q.split('=').pop()
   },
   watch: {
     search () {

@@ -109,7 +109,6 @@ export default {
       }
     },
     setTotalPages () {
-      console.log('Setting total pages')
       if (this.filteredReferences.length > 0) {
         this.totalPages = Math.ceil(this.filteredReferences.length / this.pageSize)
       } else {

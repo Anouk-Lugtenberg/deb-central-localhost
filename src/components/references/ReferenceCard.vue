@@ -14,20 +14,22 @@
     <div v-if="reference.abstractText">
       <publication-model-abstract-text :abstractText="reference.abstractText"></publication-model-abstract-text>
     </div>
-    <!--<field-type-pubmed-mref></field-type-pubmed-mref>-->
-
-
+    <div v-if="reference.Authors">
+      <publication-model-authors :authors="reference.Authors"></publication-model-authors>
+    </div>
   </b-card>
 </template>
 
 <script>
 import PublicationModelAbstractText from './../models/PublicationModel/PublicationModelAbstractText'
+import PublicationModelAuthors from './../models/PublicationModel/PublicationModelAuthors'
 import { mapState } from 'vuex'
 export default {
   name: 'ReferenceCard',
   props: ['reference', 'id'],
   components: {
-    'publication-model-abstract-text': PublicationModelAbstractText
+    'publication-model-abstract-text': PublicationModelAbstractText,
+    'publication-model-authors': PublicationModelAuthors
   },
   computed: {
     ...mapState({

@@ -74,9 +74,7 @@ export default {
     state.searchReferences = search
     state.columnsToSearchReferences = columnsToSearch
   },
-
   [SET_FILTERED_REFERENCES] (state, [column, references]) {
-    console.log('setting filtered references')
     let filteredReferences = []
     references.map(function (reference) {
       filteredReferences.push(reference[column])
