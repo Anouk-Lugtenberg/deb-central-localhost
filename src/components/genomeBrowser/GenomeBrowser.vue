@@ -2,17 +2,15 @@
   <div>
     <router-link id="cdnaIdentifier" :to="{name: 'Mutation', params: {id: mutationIdentifierNumerical}}">
     </router-link>
-    <b-card no-body @click="toggleCollapseGenomeBrowser = !toggleCollapseGenomeBrowser" class="pt-1 pb-1 mb-2 mt-3 clickable text-center genome-browser-selector">
-      <span v-if="toggleCollapseGenomeBrowser">
-        <font-awesome-icon icon="caret-down" class="fa-icon align-right"></font-awesome-icon>
+    <b-card no-body class="pt-1 pb-1 mb-2 mt-3 clickable text-center genome-browser-selector" @click="genomeBrowserCollapsed = !genomeBrowserCollapsed">
+      <span v-if="genomeBrowserCollapsed">
         Hide genome browser
       </span>
       <span v-else>
-        <font-awesome-icon icon="caret-right" class="fa-icon align-right"></font-awesome-icon>
         Show genome browser
       </span>
     </b-card>
-    <b-collapse v-model="toggleCollapseGenomeBrowser" id="genomeBrowser">
+    <b-collapse v-model="genomeBrowserCollapsed" id="genomeBrowser">
       <div id="svgHolder">
         Couldn't load Dalliance Browser
       </div>
@@ -23,6 +21,7 @@
 <script>
 import { Browser } from './../../assets/js/dalliance-all.min'
 import { GET_MUTATIONS_BETWEEN_POSITION_START_AND_END } from './../../store/modules/mutation/actions'
+import { SET_VISIBILITY_GENOME_BROWSER } from '../../store/modules/mutation/mutations'
 import { mapGetters, mapState } from 'vuex'
 import _ from 'lodash'
 export default {
@@ -39,7 +38,6 @@ export default {
   },
   data () {
     return {
-      toggleCollapseGenomeBrowser: true,
       browser: '',
       viewStart: this.position - 50,
       viewEnd: this.position + 50,
@@ -55,9 +53,16 @@ export default {
       mutations: 'mutation/getMutations'
     }),
     ...mapState({
-      columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL',
-      genomeBrowserCollapsed: 'GenomeBrowserCollapsed'
-    })
+      columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL'
+    }),
+    genomeBrowserCollapsed: {
+      get () {
+        return this.$store.state.mutation.genomeBrowserCollapsed
+      },
+      set (value) {
+        this.$store.commit('mutation/' + SET_VISIBILITY_GENOME_BROWSER, value)
+      }
+    }
   },
   methods: {
     setLocation (chr, viewStart, viewEnd) {
@@ -156,9 +161,6 @@ export default {
   .genome-browser-selector {
     background-color: #dee6ed;
     color: dimgrey;
-  }
-  .align-right {
-    text-align: right;
   }
   .clickable:hover {
     cursor: pointer;

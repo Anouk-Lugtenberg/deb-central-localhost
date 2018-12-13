@@ -59,7 +59,6 @@ export default {
   },
   watch: {
     compactView () {
-      console.log('compact view changed: ' + this.compactView)
       this.$store.commit('mutation/' + SET_BOOLEAN_COMPACT_VIEW_MUTATIONS, this.compactView)
     }
   },
