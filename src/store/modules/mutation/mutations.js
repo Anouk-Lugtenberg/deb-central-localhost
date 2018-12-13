@@ -59,7 +59,7 @@ export default {
     state.mutationsIsFiltering = boolean
   },
   [SET_VISIBILITY_GENOME_BROWSER] (state, isVisible) {
-    state.genomeBrowserCollapsed = isVisible
+    state.genomeBrowserVisible = isVisible
   },
   [SET_MUTATIONS_BETWEEN_POSITION_START_AND_END] (state, mutations) {
     state.mutationsBetweenPositionStartAndEnd = mutations

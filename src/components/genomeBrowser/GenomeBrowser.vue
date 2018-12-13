@@ -2,15 +2,15 @@
   <div>
     <router-link id="cdnaIdentifier" :to="{name: 'Mutation', params: {id: mutationIdentifierNumerical}}">
     </router-link>
-    <b-card no-body class="pt-1 pb-1 mb-2 mt-3 clickable text-center genome-browser-selector" @click="genomeBrowserCollapsed = !genomeBrowserCollapsed">
-      <span v-if="genomeBrowserCollapsed">
+    <b-card no-body class="pt-1 pb-1 mb-2 mt-3 clickable text-center genome-browser-selector" @click="genomeBrowserVisible = !genomeBrowserVisible">
+      <span v-if="genomeBrowserVisible">
         Hide genome browser
       </span>
       <span v-else>
         Show genome browser
       </span>
     </b-card>
-    <b-collapse v-model="genomeBrowserCollapsed" id="genomeBrowser">
+    <b-collapse v-model="genomeBrowserVisible" id="genomeBrowser">
       <div id="svgHolder">
         Couldn't load Dalliance Browser
       </div>
@@ -55,9 +55,9 @@ export default {
     ...mapState({
       columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL'
     }),
-    genomeBrowserCollapsed: {
+    genomeBrowserVisible: {
       get () {
-        return this.$store.state.mutation.genomeBrowserCollapsed
+        return this.$store.state.mutation.genomeBrowserVisible
       },
       set (value) {
         this.$store.commit('mutation/' + SET_VISIBILITY_GENOME_BROWSER, value)

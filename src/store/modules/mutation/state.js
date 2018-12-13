@@ -5,7 +5,7 @@ export default {
   filteredMutationIdentifiers: [],
   totalMutations: undefined,
   isCompactViewMutations: false,
-  genomeBrowserCollapsed: false,
+  genomeBrowserVisible: true,
   identifiers: undefined,
   mutationDetails: {},
   patientsPerMutation: {},
