@@ -63,7 +63,6 @@ export default {
   }),
 
   /*
-  TODO: add visible filter option for field type enums
   This constant variable can be adjusted to determine which fields are used as filters - should be in
   UPPERCASE, and same as 'name' field from metadata from tables.
  */

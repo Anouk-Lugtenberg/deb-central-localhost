@@ -14,8 +14,8 @@ export const RESET_FILTERED_REFERENCES = '__RESET_FILTERED_REFERENCES__'
 export const SET_ERROR = '__SET_ERROR__'
 
 export default {
-  [SET_METADATA] (state, [metadata, type, options, filters, mutationColumns]) {
-    let listMetadata = getMetadata(metadata, options, filters, mutationColumns)
+  [SET_METADATA] (state, [metadata, type, options, filters, mutationColumnsToExcludeFromMetadata]) {
+    let listMetadata = getMetadata(metadata, options, filters, mutationColumnsToExcludeFromMetadata)
     Vue.set(state.metadata, type, listMetadata)
   },
   [SET_LIST_METADATA_COLUMNS_MUTATIONS] (state, [metadata, type, visibleColumns]) {

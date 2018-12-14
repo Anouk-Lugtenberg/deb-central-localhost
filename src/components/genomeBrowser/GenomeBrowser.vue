@@ -53,7 +53,8 @@ export default {
       mutations: 'mutation/getMutations'
     }),
     ...mapState({
-      columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL'
+      columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL',
+      browserInformation: 'browserInformation'
     }),
     genomeBrowserVisible: {
       get () {
@@ -152,7 +153,7 @@ export default {
         ]
       }],
       injectionPoint: this.pageName,
-      fullScreen: true
+      fullScreen: false
     })
   }
 }

@@ -33,8 +33,7 @@ export default {
       getVisibleFieldsMetadata: 'getVisibleFieldsMetadata'
     }),
     ...mapState({
-      mutationTable: 'MUTATION_TABLE',
-      cDNANotation: 'COLUMN_MUTATION_CDNANOTATION'
+      mutationTable: 'MUTATION_TABLE'
     })
   }
 }

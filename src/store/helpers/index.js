@@ -99,26 +99,27 @@ export const createInQueryPatientsPerMutation = (mutationColumn, mutationIdentif
   : []
 
 /**
- * Sets the metadata for the fields. It uses the metadata from MOLGENIS api, but adds 'isFilter' field and uses the options
+ * Sets the metadata for the fields. It uses the metadata from MOLGENIS api, but adds 'isFilter' and 'fieldIsVisible' fields and uses the options
  * from this app to determine which fields are visible on load.
  * @param metadata metadata retrieved from MOLGENIS API
  * @param options lists which contains which fields are visible on load
  * @param filters lists which contains which fields should be used as filter
- * @param mutationColumns the columns where the mutations are stored in the patient table, these shouldn't be an option for the user
+ * @param mutationColumnsToExcludeFromMetadata the columns where the mutations are stored in the patient table, these shouldn't be an option for the user
  * @returns {Array} an array containing the updated metadata
  */
-export const getMetadata = (metadata, options, filters, mutationColumns) => {
+export const getMetadata = (metadata, options, filters, mutationColumnsToExcludeFromMetadata) => {
   let listMetadata = []
   metadata.forEach(function (element) {
     /* Only add if element is not hidden field */
     if (element.visible) {
       element['fieldIsVisible'] = determineVisibleFieldsFromSettings(element.name, options)
       element['isFilter'] = determineIfElementIsFilter(element.name, filters)
+      /* fields deeper nested in compound elements can also be used as filters */
       if (element.fieldType === 'COMPOUND') {
         setFiltersForFieldTypeCompound(element.attributes, filters)
       }
       /* Don't include the mutation columns for the patient table */
-      if (!mutationColumns.includes(element.name)) {
+      if (!mutationColumnsToExcludeFromMetadata.includes(element.name)) {
         listMetadata.push(
           element
         )

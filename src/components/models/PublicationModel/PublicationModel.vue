@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <b-row class="pt-3">
+    <b-row>
       <div class="col-2">
-        <div class="sticky-top">
+        <div class="sticky-top pt-3">
           <div class="card scrollable">
             <div class="card-header">
               <span v-if="patientsByPublicationIdentifier(id)" class="title-item-selector card-text text-center">
@@ -21,7 +21,7 @@
           </a>
         </div>
       </div>
-      <b-col cols="10">
+      <b-col cols="10" class="pt-3">
         <div v-if="Object.keys(allReferences).length > 0">
           <div v-if="allReferences[id]" class="pb-2">
             <div class="card shadow" id="publication">
@@ -73,8 +73,6 @@ export default {
   computed: {
     ...mapGetters({
       allReferences: 'getAllReferences',
-      // extraPublicationInformation: 'patients/getExtraPublicationInformation',
-      // getPublicationInformationByIdentifier: 'patients/getPublicationInformationByIdentifier',
       patientsByPublicationIdentifier: 'patients/getPatientsByPublicationIdentifier',
       patientByIdentifier: 'patients/getPatientsByIdentifier',
       metadata: 'getMetadata',
@@ -90,9 +88,6 @@ export default {
     if (Object.keys(this.allReferences).length === 0) {
       this.$store.dispatch(GET_ALL_REFERENCES)
     }
-    // if (!this.extraPublicationInformation.hasOwnProperty(this.id)) {
-    //   this.$store.dispatch('patients/' + GET_EXTRA_PUBLICATION_INFORMATION, this.publicationsApiPath + this.id)
-    // }
     if (!this.patientsByPublicationIdentifier.hasOwnProperty(this.id)) {
       this.$store.dispatch('patients/' + GET_PATIENTS_FOR_PUBLICATION_IDENTIFIER, this.id)
     }
