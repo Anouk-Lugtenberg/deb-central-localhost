@@ -2,7 +2,7 @@ import td from 'testdouble'
 import api from '@molgenis/molgenis-api-client'
 import utils from '@molgenis/molgenis-vue-test-utils'
 import actions from '../../../../src/store/actions'
-import {SET_ALL_REFERENCES, SET_METADATA, SET_REFERENCE_METADATA} from '../../../../src/store/mutations'
+import {SET_ALL_REFERENCES, SET_REFERENCE_METADATA} from '../../../../src/store/mutations'
 
 describe('store', () => {
   describe('actions', () => {
@@ -17,19 +17,19 @@ describe('store', () => {
       PUBLICATIONS_API_PATH: '/api/v2/col7a1_Publications'
     }
     describe('GET_ALL_REFERENCES', () => {
-      it('should get the references, and store them in the state', done => {
+      it('should get the references, and dispatch actions SET_ALL_REFERENCES and SET_REFERENCE_METADATA', done => {
         const response = {
           json: function () {
             return {items: [], meta: []}
           }
         }
         const get = td.function('api.get')
-        td.when(get('/api/v2/col7a1_Publications?start=0&num=10000')).thenResolve(response)
+        td.when(get(state.PUBLICATIONS_API_PATH + '?start=0&num=10000')).thenResolve(response)
         td.replace(api, 'get', get)
         const options = {
           state: state,
           expectedMutations: [{
-            type: SET_ALL_REFERENCES, payload: [],
+            type: SET_ALL_REFERENCES, payload: []
           }, {
             type: SET_REFERENCE_METADATA, payload: []
           }]
