@@ -18,7 +18,7 @@ import { SET_ACTIVE_FILTERS_MUTATIONS } from './modules/mutation/mutations'
 /* ACTION CONSTANTS */
 export const GET_METADATA_PATIENTS = '__GET_METADATA_PATIENTS__'
 export const GET_METADATA_MUTATIONS = '__GET_METADATA_MUTATIONS__'
-export const SET_FILTERS_FROM_ACTIVE_CHECKBOXES = '__SET_FILTERS_CHECKBOX__'
+export const SET_FILTERS_FROM_ACTIVE_CHECKBOXES = '__SET_FILTERS_FROM_ACTIVE_CHECKBOXES__'
 export const GET_FILTERED_GROUP_INFORMATION = '__GET_FILTERED_GROUP_INFORMATION__'
 export const GET_FILTERS_FROM_URL = '__GET_FILTERS_FROM_URL__'
 export const RESET_FILTERS = '__RESET_FILTERS__'
@@ -49,11 +49,11 @@ export default {
         commit(SET_LIST_METADATA_COLUMNS_MUTATIONS, [response.meta.attributes,
           state.MUTATION_TABLE, state.VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD])
       }, error => {
-        console.log(error)
         commit(SET_ERROR, error)
       })
   },
   [GET_FILTERED_GROUP_INFORMATION] ({commit, state}, table) {
+    /* Adds table as key if it isn't available yet */
     if (!(state.filterGroupInformation.hasOwnProperty(table))) {
       commit(SET_TABLE_FOR_FILTER_GROUP_INFORMATION, table)
     }
@@ -61,14 +61,15 @@ export default {
       if (field.isFilter) {
         if (field.fieldType === 'ENUM') {
           commit(SET_FILTER_GROUP_INFORMATION_ENUM, [table, field.name, field])
+        } else {
+          api.get(field.refEntity.href)
+            .then(response => response.json())
+            .then(response => {
+              commit(SET_FILTER_GROUP_INFORMATION, [table, field.name, response])
+            }, error => {
+              commit(SET_ERROR, error)
+            })
         }
-        api.get(field.refEntity.href)
-          .then(response => response.json())
-          .then(response => {
-            commit(SET_FILTER_GROUP_INFORMATION, [table, field.name, response])
-          }, error => {
-            commit(SET_ERROR, error)
-          })
       }
       if (field.fieldType === 'COMPOUND') {
         field.attributes.forEach(function (attribute) {

@@ -6,8 +6,17 @@ import {
   SET_ALL_REFERENCES,
   SET_LIST_METADATA_COLUMNS_MUTATIONS,
   SET_METADATA,
-  SET_REFERENCE_METADATA
+  SET_REFERENCE_METADATA,
+  SET_TABLE_FOR_FILTER_GROUP_INFORMATION,
+  SET_FILTER_GROUP_INFORMATION_ENUM,
+  SET_FILTER_GROUP_INFORMATION
 } from '../../../../src/store/mutations'
+import {
+  SET_ACTIVE_FILTERS_PATIENTS
+} from '../../../../src/store/modules/patients/mutations'
+import {
+  SET_ACTIVE_FILTERS_MUTATIONS
+} from '../../../../src/store/modules/mutation/mutations'
 
 describe('store', () => {
   describe('actions', () => {
@@ -31,6 +40,7 @@ describe('store', () => {
       MUTATION_COLUMNS_FOR_PATIENT: ['cDNAnotation'],
       VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD: ['aaNotation']
     }
+
     describe('GET_METADATA_PATIENTS', () => {
       it('should retrieve the metadata for the patients table from the server and store them in the state', done => {
         const response = {
@@ -53,7 +63,8 @@ describe('store', () => {
           getters: getters,
           state: state,
           expectedMutations: [{
-            type: SET_METADATA, payload: [response.json().meta.attributes, state.PATIENT_TABLE,
+            type: SET_METADATA,
+            payload: [response.json().meta.attributes, state.PATIENT_TABLE,
               ['fieldPatients'], ['filterPatients'], ['cDNAnotation']]
           }]
         }
@@ -61,6 +72,7 @@ describe('store', () => {
         utils.testAction(actions.__GET_METADATA_PATIENTS__, options, done)
       })
     })
+
     describe('GET_METADATA_MUTATIONS', () => {
       it('should retrieve the metadata for the mutations table from the server and dispatch mutations SET_METADATA and SET_LIST_METDATA_COLUMNS_MUTATIONS', done => {
         const response = {
@@ -83,7 +95,8 @@ describe('store', () => {
           getters: getters,
           state: state,
           expectedMutations: [{
-            type: SET_METADATA, payload: [response.json().meta.attributes, state.MUTATION_TABLE,
+            type: SET_METADATA,
+            payload: [response.json().meta.attributes, state.MUTATION_TABLE,
               ['fieldMutations'], ['filterMutations'], []]
           }, {
             type: SET_LIST_METADATA_COLUMNS_MUTATIONS, payload: [response.json().meta.attributes, state.MUTATION_TABLE, ['aaNotation']]
@@ -93,6 +106,245 @@ describe('store', () => {
         utils.testAction(actions.__GET_METADATA_MUTATIONS__, options, done)
       })
     })
+
+    describe('GET_FILTERED_GROUP_INFORMATION', () => {
+      it('should call the mutation SET_TABLE_FOR_FILTER_GROUP_INFORMATION if table doesnt exist as key in state filterGroupInformation', done => {
+        const state = {
+          filterGroupInformation: {}
+        }
+        const options = {
+          state: state,
+          expectedMutations: [
+            {type: SET_TABLE_FOR_FILTER_GROUP_INFORMATION, payload: 'Patients'}
+          ],
+          payload: 'Patients'
+        }
+        utils.testAction(actions.__GET_FILTERED_GROUP_INFORMATION__, options, done)
+      })
+
+      it('should retrieve refEntity information from state and commit SET_FILTER_GROUP_INFORMATION if field is filter', done => {
+        const state = {
+          filterGroupInformation: {
+            'Mutations': {}
+          },
+          metadata: {
+            'Mutations': [{
+              fieldType: 'MREF',
+              name: 'mrefForTest',
+              isFilter: true,
+              refEntity: {
+                href: '/url/for/test'
+              }
+            }]
+          }
+        }
+        const response = {
+          json: function () {
+            return {
+              href: '/url/for/test',
+              meta: {},
+              items: [{
+                _href: '/url/to/single/option1',
+                mrefForTest: 'option1'
+              }, {
+                _href: '/url/to/single/option2',
+                mrefForTest: 'option2'
+              }]
+            }
+          }
+        }
+        const options = {
+          state: state,
+          expectedMutations: [
+            {type: SET_FILTER_GROUP_INFORMATION,
+              payload: ['Mutations', 'mrefForTest', response.json()]}
+          ],
+          payload: 'Mutations'
+        }
+        const get = td.function('api.get')
+        td.when(get('/url/for/test')).thenResolve(response)
+        td.replace(api, 'get', get)
+
+        utils.testAction(actions.__GET_FILTERED_GROUP_INFORMATION__, options, done)
+      })
+      it('should commit mutation SET_FILTER_GROUP_INFORMATION if field which is filter is deeper nested in field with type compound', done => {
+        const state = {
+          filterGroupInformation: {
+            'Mutations': {}
+          },
+          metadata: {
+            'Mutations': [{
+              fieldType: 'COMPOUND',
+              attributes: [{
+                href: '/url/for/test/compound',
+                fieldType: 'CATEGORICAL',
+                name: 'categoricalForTest',
+                isFilter: true,
+                refEntity: {
+                  href: '/url/for/test/compound/attribute'
+                }
+              }]
+            }]
+          }
+        }
+        const response = {
+          json: function () {
+            return {
+              href: '/url/for/test/compound',
+              meta: {},
+              items: [{
+                _href: '/url/to/single/option1',
+                categoricalForTest: 'option1'
+              }, {
+                _href: '/url/to/single/option2',
+                categoricalForTest: 'option2'
+              }]
+            }
+          }
+        }
+        const options = {
+          state: state,
+          expectedMutations: [{
+            type: SET_FILTER_GROUP_INFORMATION,
+            payload: ['Mutations', 'categoricalForTest', response.json()]
+          }],
+          payload: 'Mutations'
+        }
+        const get = td.function('api.get')
+        td.when(get('/url/for/test/compound/attribute')).thenResolve(response)
+        td.replace(api, 'get', get)
+
+        utils.testAction(actions.__GET_FILTERED_GROUP_INFORMATION__, options, done)
+      })
+
+      const stateFieldTypeEnum = {
+        filterGroupInformation: {
+          'Mutations': {}
+        },
+        metadata: {
+          'Mutations': [{
+            fieldType: 'ENUM',
+            name: 'enumForTest',
+            isFilter: true
+          }, {
+            fieldType: 'COMPOUND',
+            attributes: [{
+              fieldType: 'ENUM',
+              name: 'enumForTest',
+              isFilter: true
+            }]
+          }]
+        }
+      }
+
+      it('should loop through the metadata from the tables and commit mutation SET_FILTER_GROUP_INFORMATION_ENUM is field is of fieldtype ENUM', done => {
+        const options = {
+          state: stateFieldTypeEnum,
+          expectedMutations: [
+            {type: SET_FILTER_GROUP_INFORMATION_ENUM,
+              payload: ['Mutations', 'enumForTest', {
+                fieldType: 'ENUM',
+                name: 'enumForTest',
+                isFilter: true
+              }]}
+          ],
+          payload: 'Mutations'
+        }
+        utils.testAction(actions.__GET_FILTERED_GROUP_INFORMATION__, options, done)
+      })
+      it('should commit mutation SET_FILTER_GROUP_INFORMATION_ENUM if field with type enum is deeper nested in field with type compound', done => {
+        const options = {
+          state: stateFieldTypeEnum,
+          expectedMutations: [
+            {type: SET_FILTER_GROUP_INFORMATION_ENUM,
+              payload: ['Mutations', 'enumForTest', {
+                fieldType: 'ENUM',
+                name: 'enumForTest',
+                isFilter: true
+              }]}
+          ],
+          payload: 'Mutations'
+        }
+        utils.testAction(actions.__GET_FILTERED_GROUP_INFORMATION__, options, done)
+      })
+    })
+
+    describe('SET_FILTERS_FROM_ACTIVE_CHECKBOXES', () => {
+      it('should commit mutation for setting active filters patients when there are no active filters active', done => {
+        const state = {
+          filterGroupInformation: {
+            'Patients': {
+              'blistering': [{
+                activeFilter: false,
+                name: 'yes'
+              }]
+            }
+          },
+          PATIENT_TABLE: 'Patients',
+          MUTATION_TABLE: 'Mutations'
+        }
+        const options = {
+          state: state,
+          expectedMutations: [{
+            type: 'patients/' + SET_ACTIVE_FILTERS_PATIENTS,
+            payload: [[]]
+          }]
+        }
+        utils.testAction(actions.__SET_FILTERS_FROM_ACTIVE_CHECKBOXES__, options, done)
+      })
+      it('should commit mutatoin for setting active filters mutations when there are no active filters', done => {
+        const state = {
+          filterGroupInformation: {
+            'Mutations': {
+              'consequence': [{
+                activeFilter: false,
+                name: 'no'
+              }]
+            }
+          },
+          PATIENT_TABLE: 'Patients',
+          MUTATION_TABLE: 'Mutations'
+        }
+        const options = {
+          state: state,
+          expectedMutations: [{
+            type: 'mutation/' + SET_ACTIVE_FILTERS_MUTATIONS,
+            payload: [[]]
+          }]
+        }
+        utils.testAction(actions.__SET_FILTERS_FROM_ACTIVE_CHECKBOXES__, options, done)
+      })
+      const state = {
+        filterGroupInformation: {
+          'Mutations': {
+            'consequence': [{
+              activeFilter: false,
+              name: 'consequence1'
+            }, {
+              activeFilter: true,
+              name: 'consequence2'
+            }]
+          },
+          'Patients': {
+            'blistering': [{
+              activeFilter: false,
+              name: 'yes'
+            }, {
+              activeFilter: true,
+              name: 'no'
+            }]
+          }
+        }
+      }
+      it('should add the filters which are active to the list with active filters', done => {
+        const options = {
+          state: state
+        }
+        // const activeFilters = []
+        utils.testAction(actions.__SET_FILTERS_FROM_ACTIVE_CHECKBOXES__, options, done)
+      })
+    })
+
     describe('GET_ALL_REFERENCES', () => {
       it('should get the references, and dispatch actions SET_ALL_REFERENCES and SET_REFERENCE_METADATA', done => {
         const response = {
