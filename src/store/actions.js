@@ -16,7 +16,8 @@ import { SET_ACTIVE_FILTERS_PATIENTS } from './modules/patients/mutations'
 import { SET_ACTIVE_FILTERS_MUTATIONS } from './modules/mutation/mutations'
 
 /* ACTION CONSTANTS */
-export const GET_METADATA = '__GET_METADATA__'
+export const GET_METADATA_PATIENTS = '__GET_METADATA_PATIENTS__'
+export const GET_METADATA_MUTATIONS = '__GET_METADATA_MUTATIONS__'
 export const SET_FILTERS_FROM_ACTIVE_CHECKBOXES = '__SET_FILTERS_CHECKBOX__'
 export const GET_FILTERED_GROUP_INFORMATION = '__GET_FILTERED_GROUP_INFORMATION__'
 export const GET_FILTERS_FROM_URL = '__GET_FILTERS_FROM_URL__'
@@ -25,23 +26,32 @@ export const GET_ALL_REFERENCES = '__GET_ALL_REFERENCES__'
 export const GET_FILTERED_REFERENCES = '__GET_FILTERED_REFERENCES__'
 
 export default {
-  [GET_METADATA] ({commit, state, getters, rootState}) {
-    let VISIBLE_FIELDS = getters.getVisibleFields
-    let VISIBLE_FILTERS = getters.getVisibleFilters
-    let TABLES = [state.MUTATION_TABLE, state.PATIENT_TABLE]
-    for (let i = 0; i < TABLES.length; i++) {
-      api.get(`/api/v2/${TABLES[i]}?start=0&num=10`)
-        .then(response => response.json())
-        .then(response => {
-          commit(SET_METADATA, [response.meta.attributes, TABLES[i], VISIBLE_FIELDS[TABLES[i]],
-            VISIBLE_FILTERS[TABLES[i]], state.MUTATION_COLUMNS_FOR_PATIENT])
-          if (state.MUTATION_TABLE.includes(TABLES[i])) {
-            commit(SET_LIST_METADATA_COLUMNS_MUTATIONS, [response.meta.attributes, TABLES[i], rootState.VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD])
-          }
-        }, error => {
-          commit(SET_ERROR, error)
-        })
-    }
+  [GET_METADATA_PATIENTS] ({commit, state, getters}) {
+    let VISIBLE_FIELDS = getters.getVisibleFields[state.PATIENT_TABLE]
+    let VISIBLE_FILTERS = getters.getVisibleFilters[state.PATIENT_TABLE]
+    api.get(state.PATIENTS_API_PATH + '?start=0&num=0')
+      .then(response => response.json())
+      .then(response => {
+        commit(SET_METADATA, [response.meta.attributes, state.PATIENT_TABLE,
+          VISIBLE_FIELDS, VISIBLE_FILTERS, state.MUTATION_COLUMNS_FOR_PATIENT])
+      }, error => {
+        commit(SET_ERROR, error)
+      })
+  },
+  [GET_METADATA_MUTATIONS] ({commit, state, getters}) {
+    let VISIBLE_FIELDS = getters.getVisibleFields[state.MUTATION_TABLE]
+    let VISIBLE_FILTERS = getters.getVisibleFilters[state.MUTATION_TABLE]
+    api.get(state.MUTATIONS_API_PATH + '?start=0&num=0')
+      .then(response => response.json())
+      .then(response => {
+        commit(SET_METADATA, [response.meta.attributes, state.MUTATION_TABLE,
+          VISIBLE_FIELDS, VISIBLE_FILTERS, []])
+        commit(SET_LIST_METADATA_COLUMNS_MUTATIONS, [response.meta.attributes,
+          state.MUTATION_TABLE, state.VISIBLE_COLUMNS_MUTATION_PATIENTS_CARD])
+      }, error => {
+        console.log(error)
+        commit(SET_ERROR, error)
+      })
   },
   [GET_FILTERED_GROUP_INFORMATION] ({commit, state}, table) {
     if (!(state.filterGroupInformation.hasOwnProperty(table))) {
