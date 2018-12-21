@@ -1,7 +1,8 @@
 import td from 'testdouble'
 import api from '@molgenis/molgenis-api-client'
 import utils from '@molgenis/molgenis-vue-test-utils'
-import actions from '../../../../src/store/actions'
+import { expect } from 'chai'
+import actions, {SET_FILTERS_FROM_ACTIVE_CHECKBOXES} from '../../../../src/store/actions'
 import {
   SET_ALL_REFERENCES,
   SET_LIST_METADATA_COLUMNS_MUTATIONS,
@@ -292,7 +293,7 @@ describe('store', () => {
         }
         utils.testAction(actions.__SET_FILTERS_FROM_ACTIVE_CHECKBOXES__, options, done)
       })
-      it('should commit mutatoin for setting active filters mutations when there are no active filters', done => {
+      it('should commit mutation for setting active filters mutations when there are no active filters', done => {
         const state = {
           filterGroupInformation: {
             'Mutations': {
@@ -314,34 +315,183 @@ describe('store', () => {
         }
         utils.testAction(actions.__SET_FILTERS_FROM_ACTIVE_CHECKBOXES__, options, done)
       })
+      it('should add the filters which are active to the list with active filters and commit mutation for co-responding table', done => {
+        const state = {
+          filterGroupInformation: {
+            'Mutations': {
+              'consequence': [{
+                activeFilter: false,
+                name: 'consequence1'
+              }, {
+                activeFilter: true,
+                name: 'consequence2'
+              }]
+            },
+            'Patients': {
+              'blistering': [{
+                activeFilter: true,
+                name: 'no'
+              }, {
+                activeFilter: false,
+                name: 'yes'
+              }]
+            }
+          },
+          PATIENT_TABLE: 'Patients',
+          MUTATION_TABLE: 'Mutations'
+        }
+        const activeFiltersMutations = [[{selector: 'consequence', comparison: '=in=', arguments: ['consequence2']}]]
+        const options = {
+          state: state,
+          expectedMutations: [{
+            type: 'mutation/' + SET_ACTIVE_FILTERS_MUTATIONS,
+            payload: activeFiltersMutations
+          }]
+        }
+        utils.testAction(actions.__SET_FILTERS_FROM_ACTIVE_CHECKBOXES__, options, done)
+        const activeFiltersPatients = [{selector: 'blistering', comparison: '=in=', arguments: ['no', 'yes']}]
+        const optionsPatients = {
+          state: state,
+          expectedMutations: [{
+            type: 'patients/' + SET_ACTIVE_FILTERS_PATIENTS,
+            payload: activeFiltersPatients
+          }]
+        }
+        utils.testAction(actions.__SET_FILTERS_FROM_ACTIVE_CHECKBOXES__, optionsPatients, done)
+      })
+    })
+
+    describe('GET_FILTERS_FROM_URL', () => {
       const state = {
+        route: {
+          query: {
+            q: 'blistering=in=(unknown)'
+          }
+        },
         filterGroupInformation: {
           'Mutations': {
             'consequence': [{
               activeFilter: false,
               name: 'consequence1'
             }, {
-              activeFilter: true,
+              activeFilter: false,
               name: 'consequence2'
             }]
           },
           'Patients': {
             'blistering': [{
               activeFilter: false,
-              name: 'yes'
+              name: 'unknown'
             }, {
               activeFilter: true,
-              name: 'no'
+              name: 'yes'
             }]
           }
         }
       }
-      it('should add the filters which are active to the list with active filters', done => {
+      it('should dispatch the action SET_FILTERS_FROM_ACTIVE_CHECKBOXES', done => {
         const options = {
-          state: state
+          state: state,
+          expectedActions: [{
+            type: SET_FILTERS_FROM_ACTIVE_CHECKBOXES
+          }]
         }
-        // const activeFilters = []
-        utils.testAction(actions.__SET_FILTERS_FROM_ACTIVE_CHECKBOXES__, options, done)
+        utils.testAction(actions.__GET_FILTERS_FROM_URL__, options, done)
+      })
+      it('should change the state of filter group information according to the information given in the url', () => {
+        const expectedFilterGroupInformation = {
+          'Mutations': {
+            'consequence': [{
+              activeFilter: false,
+              name: 'consequence1'
+            }, {
+              activeFilter: false,
+              name: 'consequence2'
+            }]
+          },
+          'Patients': {
+            'blistering': [{
+              activeFilter: true,
+              name: 'unknown'
+            }, {
+              activeFilter: false,
+              name: 'yes'
+            }]
+          }
+        }
+        const options = {
+          state: state,
+          dispatch: function () {}
+        }
+        actions.__GET_FILTERS_FROM_URL__(options)
+        expect(state.filterGroupInformation).to.deep.equal(expectedFilterGroupInformation)
+      })
+    })
+
+    describe('RESET_FILTERS', () => {
+      const state = {
+        route: {
+          query: {
+            q: 'blistering=in=(unknown)'
+          }
+        },
+        filterGroupInformation: {
+          'Mutations': {
+            'consequence': [{
+              activeFilter: true,
+              name: 'consequence1'
+            }, {
+              activeFilter: false,
+              name: 'consequence2'
+            }]
+          },
+          'Patients': {
+            'blistering': [{
+              activeFilter: true,
+              name: 'unknown'
+            }, {
+              activeFilter: false,
+              name: 'yes'
+            }]
+          }
+        }
+      }
+      it('should change the state of all the active filters to false in filter group information', () => {
+        const expectedFilterGroupInformation = {
+          'Mutations': {
+            'consequence': [{
+              activeFilter: false,
+              name: 'consequence1'
+            }, {
+              activeFilter: false,
+              name: 'consequence2'
+            }]
+          },
+          'Patients': {
+            'blistering': [{
+              activeFilter: false,
+              name: 'unknown'
+            }, {
+              activeFilter: false,
+              name: 'yes'
+            }]
+          }
+        }
+        const options = {
+          state: state,
+          dispatch: function () {}
+        }
+        actions.__RESET_FILTERS__(options)
+        expect(state.filterGroupInformation).to.deep.equal(expectedFilterGroupInformation)
+      })
+      it('should dispatch action SET_FILTERS_FROM_ACTIVE_CHECKBOXES', done => {
+        const options = {
+          state: state,
+          expectedActions: [{
+            type: SET_FILTERS_FROM_ACTIVE_CHECKBOXES
+          }]
+        }
+        utils.testAction(actions.__RESET_FILTERS__, options, done)
       })
     })
 
@@ -366,39 +516,5 @@ describe('store', () => {
         utils.testAction(actions.__GET_ALL_REFERENCES__, options, done)
       })
     })
-    // describe('RESET_FILTERS', () => {
-    //   it('should dispatch the action to reset the filters from the checkboxes', done => {
-    //     const state = {
-    //       filterGroupInformation: ''
-    //     }
-    //     const options = {
-    //       state: state,
-    //       expectedActions: [
-    //         {type: SET_FILTERS_FROM_ACTIVE_CHECKBOXES, payload: ''}
-    //       ]
-    //     }
-    //     utils.testAction(actions.__RESET_FILTERS__, options, done)
-    //   })
-    //   it('should reset set the active filter boolean in filteredgroupmutation to false for every filter', done => {
-    //     const state = {
-    //       filterGroupInformation: {
-    //         Mutations: {
-    //           consequence: [
-    //             {
-    //               activeFilter: true,
-    //               label: 'Consequence1',
-    //               name: 'Consequence 1'
-    //             }, {
-    //               activeFilter: true,
-    //               label: 'Consequence2',
-    //               name: 'Consequence 2'
-    //             }
-    //           ]
-    //         }
-    //       }
-    //     }
-    //
-    //   })
-    // })
   })
 })
