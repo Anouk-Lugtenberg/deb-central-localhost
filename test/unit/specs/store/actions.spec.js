@@ -10,7 +10,7 @@ import {
   SET_REFERENCE_METADATA,
   SET_TABLE_FOR_FILTER_GROUP_INFORMATION,
   SET_FILTER_GROUP_INFORMATION_ENUM,
-  SET_FILTER_GROUP_INFORMATION
+  SET_FILTER_GROUP_INFORMATION, SET_FILTERED_REFERENCES
 } from '../../../../src/store/mutations'
 import {
   SET_ACTIVE_FILTERS_PATIENTS
@@ -514,6 +514,36 @@ describe('store', () => {
           }]
         }
         utils.testAction(actions.__GET_ALL_REFERENCES__, options, done)
+      })
+    })
+
+    describe('GET_FILTERED_REFERENCES', () => {
+      it('should get the filtered publications from the server and commit mutation SET_FILTERED_REFERENCES', done => {
+        const state = {
+          route: {
+            query: {
+              q: 'Title=q=gene'
+            }
+          },
+          PUBLICATIONS_API_PATH: '/api/v2/publications',
+          COLUMN_PUBMED_ID_REFERENCE_TABLE: 'pubmedIdentifier'
+        }
+        const response = {
+          json: function () {
+            return {items: ['filteredPublications']}
+          }
+        }
+        const get = td.function('api.get')
+        td.when(get(state.PUBLICATIONS_API_PATH + '?q=' + state.route.query.q)).thenResolve(response)
+        td.replace(api, 'get', get)
+        const options = {
+          state: state,
+          expectedMutations: [{
+            type: SET_FILTERED_REFERENCES,
+            payload: [state.COLUMN_PUBMED_ID_REFERENCE_TABLE, response.json().items]
+          }]
+        }
+        utils.testAction(actions.__GET_FILTERED_REFERENCES__, options, done)
       })
     })
   })
