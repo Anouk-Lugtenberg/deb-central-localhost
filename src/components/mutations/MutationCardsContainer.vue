@@ -29,11 +29,11 @@ export default {
     ...mapGetters({
       allIdentifiersMutation: 'mutation/getAllMutationIdentifiers',
       filteredMutationIdentifiers: 'mutation/getFilteredMutationIdentifiers',
-      metadata: 'getMetadata',
       getVisibleFieldsMetadata: 'getVisibleFieldsMetadata'
     }),
     ...mapState({
-      mutationTable: 'MUTATION_TABLE'
+      mutationTable: 'MUTATION_TABLE',
+      metadata: 'metadata'
     })
   }
 }

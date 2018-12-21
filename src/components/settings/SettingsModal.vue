@@ -30,7 +30,7 @@
 
 <script>
 import Settings from './Settings'
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'SettingsModal',
@@ -39,8 +39,8 @@ export default {
   },
   props: ['showModal'],
   computed: {
-    ...mapGetters({
-      metadata: 'getMetadata'
+    ...mapState({
+      metadata: 'metadata'
     })
   },
   data () {

@@ -50,11 +50,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      metadata: 'getMetadata',
       patientInformation: 'patients/getPatientInformation',
       listAllPatients: 'patients/getPatients'
     }),
     ...mapState({
+      metadata: 'metadata',
       mutationTable: 'MUTATION_TABLE',
       patientTable: 'PATIENT_TABLE'
     }),

@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import { SET_BOOLEAN_COMPACT_VIEW_MUTATIONS } from '../../store/modules/mutation/mutations'
 import SettingsCheckbox from './SettingsCheckbox'
 import DataItemSelectorGroup from './DataItemSelectorGroup'
@@ -50,10 +50,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      metadata: 'getMetadata'
-    }),
     ...mapState({
+      metadata: 'metadata',
       mutationTable: 'MUTATION_TABLE'
     })
   },

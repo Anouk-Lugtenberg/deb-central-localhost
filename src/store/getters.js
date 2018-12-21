@@ -1,12 +1,12 @@
 import { createRSQLQueryWithOperands } from './helpers'
 
 export default {
-  getMetadata: state => state.metadata,
+  // getMetadata: state => state.metadata,
   getMetadataAllFieldsVisible: (state) => {
     let metadataAllFieldsVisible = JSON.parse(JSON.stringify(state.metadata))
     Object.keys(metadataAllFieldsVisible).map(function (key) {
       metadataAllFieldsVisible[key].forEach(function (element) {
-        element.visible = true
+        element.fieldIsVisible = true
       })
     })
     return metadataAllFieldsVisible

@@ -29,7 +29,7 @@
 
 <script>
 import SettingsCheckbox from './SettingsCheckbox'
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Settings',
@@ -47,8 +47,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      metadata: 'getMetadata'
+    ...mapState({
+      metadata: 'metadata'
     })
   },
   methods: {

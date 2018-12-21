@@ -27,10 +27,10 @@ export default {
     ...mapGetters({
       allIdentifiersPatients: 'patients/getAllIdentifiersPatients',
       filteredIdentifiersPatients: 'patients/getFilteredPatientsIdentifiers',
-      metadata: 'getMetadata',
       getVisibleFieldsMetadata: 'getVisibleFieldsMetadata'
     }),
     ...mapState({
+      metadata: 'metadata',
       patientTable: 'PATIENT_TABLE'
     })
   }
