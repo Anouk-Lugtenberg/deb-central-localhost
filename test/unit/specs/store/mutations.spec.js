@@ -389,6 +389,49 @@ describe('store', () => {
           expect(state.columnsToSearchReferences).to.equal(columnsToSearch)
         })
       })
+
+      describe('SET_FILTERED_REFERENCES', () => {
+        const state = {
+          filteredReferences: [],
+          referencesFiltering: true
+        }
+        const column = 'pubmedIdentifier'
+        it('should add the pubmed identifiers to filteredReferences', () => {
+          const references = [{
+            pubmedIdentifier: 1,
+            otherInformation: ''
+          }, {
+            pubmedIdentifier: 2,
+            otherInformation: ''
+          }]
+          const expectedFilteredReferences = [1, 2]
+          mutations.__SET_FILTERED_REFERENCES__(state, [column, references])
+          expect(state.filteredReferences).to.deep.equal(expectedFilteredReferences)
+        })
+        it('should set the state of filteredReferences to an empty list when there are no filtered publications available', () => {
+          const references = []
+          const expectedReferences = []
+          mutations.__SET_FILTERED_REFERENCES__(state, [column, references])
+          expect(state.filteredReferences).to.deep.equal(expectedReferences)
+        })
+        it('should set referencesFiltering to false', () => {
+          const references = []
+          const expectedReferencesFiltering = false
+          mutations.__SET_FILTERED_REFERENCES__(state, [column, references])
+          expect(state.referencesFiltering).to.equal(expectedReferencesFiltering)
+        })
+      })
+
+      describe('RESET_FILTERED_REFERENCES', () => {
+        it('should set the state of filtered references to an empty list', () => {
+          const state = {
+            filteredReferences: [1, 3]
+          }
+          const expectedReferences = []
+          mutations.__RESET_FILTERED_REFERENCES__(state)
+          expect(state.filteredReferences).to.deep.equal(expectedReferences)
+        })
+      })
     })
   })
 })
