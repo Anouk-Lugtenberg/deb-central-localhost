@@ -17,7 +17,7 @@
 
 <script>
 import { GET_ALL_REFERENCES } from '../../store/actions'
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'FieldTypePubMedMREF',
@@ -30,8 +30,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      allReferences: 'getAllReferences'
+    ...mapState({
+      allReferences: 'allReferences'
     })
   },
   created () {

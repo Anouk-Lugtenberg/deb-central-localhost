@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import ErrorMessage from './ErrorMessage'
 export default {
   name: 'Container',
@@ -20,8 +20,8 @@ export default {
     'error-message': ErrorMessage
   },
   computed: {
-    ...mapGetters({
-      error: 'getError'
+    ...mapState({
+      error: 'error'
     })
   }
 }

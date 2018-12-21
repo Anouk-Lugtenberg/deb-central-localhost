@@ -72,13 +72,13 @@ export default {
   },
   computed: {
     ...mapGetters({
-      allReferences: 'getAllReferences',
       patientsByPublicationIdentifier: 'patients/getPatientsByPublicationIdentifier',
       patientByIdentifier: 'patients/getPatientsByIdentifier',
       metadata: 'getMetadata',
       getVisibleFieldsMetadata: 'getVisibleFieldsMetadata'
     }),
     ...mapState({
+      allReferences: 'allReferences',
       publicationsApiPath: 'PUBLICATIONS_API_PATH',
       patientTable: 'PATIENT_TABLE',
       columnPatientIdentifier: 'COLUMN_PATIENT_IDENTIFIER'

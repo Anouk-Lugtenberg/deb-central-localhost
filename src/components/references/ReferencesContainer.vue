@@ -49,7 +49,7 @@
 
 <script>
 import { GET_ALL_REFERENCES } from '../../store/actions'
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import ReferenceCard from './ReferenceCard'
 import ReferenceStringFilter from './ReferenceStringFilter'
 import MoonLoader from './../loader/MoonLoader'
@@ -75,11 +75,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      references: 'getAllReferences',
-      filteredReferences: 'getFilteredReferences'
-    }),
     ...mapState({
+      references: 'allReferences',
+      filteredReferences: 'filteredReferences',
       columnPubmed: 'COLUMN_PUBMED_ID_REFERENCE_TABLE',
       referencesFiltering: 'referencesFiltering'
     })

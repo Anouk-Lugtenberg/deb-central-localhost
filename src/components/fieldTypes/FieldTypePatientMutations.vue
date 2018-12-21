@@ -38,11 +38,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      allMutations: 'mutation/getMutations',
-      metadataColumnsMutations: 'getMetadataColumnsMutations'
+      allMutations: 'mutation/getMutations'
     }),
     ...mapState({
       mutationTable: 'MUTATION_TABLE',
+      metadataColumnsMutations: 'metadataColumnsMutations',
       columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL',
       columnMutationCDNANotation: 'COLUMN_MUTATION_CDNANOTATION'
     })

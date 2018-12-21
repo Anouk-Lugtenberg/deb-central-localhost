@@ -10,13 +10,9 @@ export default {
     })
     return metadataAllFieldsVisible
   },
-  getMetadataColumnsMutations: state => state.metadataColumnsMutations,
-  getAllReferences: state => state.allReferences,
-  getFilteredReferences: state => state.filteredReferences,
   getRSQLReferences: (state) => {
     return createRSQLQueryWithOperands(state.searchReferences, state.columnsToSearchReferences)
   },
-  getError: state => state.error,
   getVisibleFields: (state) => {
     let visibleFields = {}
     visibleFields[state.MUTATION_TABLE] = state.visibleFieldsMutationTable
