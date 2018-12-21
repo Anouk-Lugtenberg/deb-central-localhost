@@ -118,12 +118,12 @@ export default {
   computed: {
     ...mapGetters({
       mutations: 'mutation/getMutations',
-      filteredGroupInformation: 'getFilteredGroupInformation',
       isFiltering: 'mutation/getMutationsIsFiltering',
       visibleFilters: 'getVisibleFilters'
     }),
     ...mapState({
-      mutationTable: 'MUTATION_TABLE'
+      mutationTable: 'MUTATION_TABLE',
+      filteredGroupInformation: 'filterGroupInformation'
     })
   },
   watch: {

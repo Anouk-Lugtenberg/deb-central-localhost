@@ -38,10 +38,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      rsqlQueryFromFilters: 'mutation/rsqlMutation',
-      filteredGroupInformation: 'getFilteredGroupInformation'
+      rsqlQueryFromFilters: 'mutation/rsqlMutation'
     }),
     ...mapState({
+      filteredGroupInformation: 'filterGroupInformation',
       mutationTable: 'MUTATION_TABLE'
     })
   },

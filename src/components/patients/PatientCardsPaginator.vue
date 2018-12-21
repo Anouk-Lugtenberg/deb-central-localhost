@@ -112,11 +112,11 @@ export default {
   computed: {
     ...mapGetters({
       patients: 'patients/getPatients',
-      filteredGroupInformation: 'getFilteredGroupInformation',
       isFiltering: 'patients/getPatientsIsFiltering',
       visibleFilters: 'getVisibleFilters'
     }),
     ...mapState({
+      filteredGroupInformation: 'filterGroupInformation',
       patientTable: 'PATIENT_TABLE'
     })
   },

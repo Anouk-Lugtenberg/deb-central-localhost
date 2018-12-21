@@ -1,7 +1,6 @@
 import { createRSQLQueryWithOperands } from './helpers'
 
 export default {
-  // getMetadata: state => state.metadata,
   getMetadataAllFieldsVisible: (state) => {
     let metadataAllFieldsVisible = JSON.parse(JSON.stringify(state.metadata))
     Object.keys(metadataAllFieldsVisible).map(function (key) {
@@ -11,7 +10,6 @@ export default {
     })
     return metadataAllFieldsVisible
   },
-  getFilteredGroupInformation: state => state.filterGroupInformation,
   getMetadataColumnsMutations: state => state.metadataColumnsMutations,
   getAllReferences: state => state.allReferences,
   getFilteredReferences: state => state.filteredReferences,

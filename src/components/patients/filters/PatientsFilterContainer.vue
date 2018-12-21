@@ -38,10 +38,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      rsqlQueryFromFilters: 'patients/rsqlPatients',
-      filteredGroupInformation: 'getFilteredGroupInformation'
+      rsqlQueryFromFilters: 'patients/rsqlPatients'
     }),
     ...mapState({
+      filteredGroupInformation: 'filterGroupInformation',
       patientTable: 'PATIENT_TABLE'
     })
   },
