@@ -7,7 +7,7 @@
           {{ mutationIdentifier }}
         </router-link>
       </b-col>
-      <b-col v-for="(column, index) in metadataColumnsMutations[mutationTable]" class="mutation-information"
+      <b-col v-for="(column, index) in columnsMutationsVisibleForPatientCard[mutationTable]" class="mutation-information"
              :class="{ 'col-2': index === 0, 'col-2': index === 1, 'col-4': index === 2}"
              :key="index">
         <field-types :property="column" :information="allMutations[mutationIdentifier]"
@@ -25,12 +25,12 @@ export default {
   props: ['mutation', 'mutationIdentifier'],
   computed: {
     ...mapGetters({
-      allMutations: 'mutation/getMutations',
-      metadataColumnsMutations: 'getMetadataColumnsMutations'
+      allMutations: 'mutation/getMutations'
     }),
     ...mapState({
       mutationTable: 'MUTATION_TABLE',
-      columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL'
+      columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL',
+      columnsMutationsVisibleForPatientCard: 'metadataColumnsMutations'
     })
   }
 }

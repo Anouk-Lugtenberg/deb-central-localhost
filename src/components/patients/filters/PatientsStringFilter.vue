@@ -1,6 +1,9 @@
 <template>
   <div class="search-field ml-2 mr-2 mt-3">
-    <input type="text" placeholder="Search patients" v-model.lazy="search">
+    <div v-if="searchContainsInvalidCharacter" class="warning">
+      invalid character
+    </div>
+    <input type="text" placeholder="Search patients" v-model.lazy="search" v-model="searchString">
   </div>
 </template>
 
@@ -11,10 +14,16 @@ export default {
   name: 'PatientsStringFilter',
   data () {
     return {
-      search: ''
+      search: '',
+      searchString: '',
+      searchContainsInvalidCharacter: false
     }
   },
   watch: {
+    searchString: function () {
+      // Tests if string contains any invalid characters, to let user know if his search is a valid search.
+      this.searchContainsInvalidCharacter = (/[#&^+[\]{}\\|]/).test(this.searchString)
+    },
     search: function () {
       this.$store.commit('patients/' + SET_SEARCH_PATIENTS, this.search)
     },
@@ -40,5 +49,9 @@ export default {
   }
   .search-field {
     text-align: center;
+  }
+  .warning {
+    color: #dc3545;
+    font-size: 14px;
   }
 </style>
