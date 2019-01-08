@@ -6,7 +6,7 @@
     <b-card v-if="table === mutationTable" no-body class="m-2">
       <b-row class="small-text mt-2">
         <b-col cols="3" class="ml-2">
-          <toggle-button :value="false" color="#3e81b5" :labels="true" v-model="compactView">
+          <toggle-button :value="false" color="#3e81b5" :labels="true" v-model="stateCompactView">
           </toggle-button>
         </b-col>
         <b-col cols="8">
@@ -44,20 +44,14 @@ export default {
     'settings-checkbox': SettingsCheckbox,
     'toggle-button': ToggleButton
   },
-  data () {
-    return {
-      compactView: false
-    }
-  },
   computed: {
     ...mapState({
       metadata: 'metadata',
       mutationTable: 'MUTATION_TABLE'
-    })
-  },
-  watch: {
-    compactView () {
-      this.$store.commit('mutation/' + SET_BOOLEAN_COMPACT_VIEW_MUTATIONS, this.compactView)
+    }),
+    stateCompactView: {
+      get () { return this.$store.state.mutation.isCompactViewMutations },
+      set (value) { this.$store.commit('mutation/' + SET_BOOLEAN_COMPACT_VIEW_MUTATIONS, value) }
     }
   },
   methods: {
