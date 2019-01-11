@@ -2,6 +2,7 @@ import { createRSQLQueryWithOperands } from './helpers'
 
 export default {
   getMetadataAllFieldsVisible: (state) => {
+    // Creates a deep copy of the metadata
     let metadataAllFieldsVisible = JSON.parse(JSON.stringify(state.metadata))
     Object.keys(metadataAllFieldsVisible).map(function (key) {
       metadataAllFieldsVisible[key].forEach(function (element) {

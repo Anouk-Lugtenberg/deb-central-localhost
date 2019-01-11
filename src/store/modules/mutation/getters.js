@@ -1,5 +1,5 @@
 import { createRSQLQuery } from '../../helpers'
 
 export default {
-  rsqlMutation: createRSQLQuery
+  rsqlMutation: state => createRSQLQuery(state)
 }
