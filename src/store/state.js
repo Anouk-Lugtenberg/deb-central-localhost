@@ -34,6 +34,9 @@ export default {
   /* Column name for Numerical Identifier from mutation (column which contains 'M100') */
   COLUMN_MUTATION_IDENTIFIER_NUMERICAL: INITIAL_STATE.columnMutationIdentifierNumerical,
 
+  /* Column which links the mutation data set to the patient data set (what value to search for in the patient data set) */
+  COLUMN_LINK_BETWEEN_PATIENT_MUTATION_DATA_SETS: INITIAL_STATE.columnLinkBetweenPatientMutationDataSets,
+
   /* Column name where the cDNA notation is stored for mutation */
   COLUMN_MUTATION_CDNANOTATION: INITIAL_STATE.columnCDNANotationForMutation,
 

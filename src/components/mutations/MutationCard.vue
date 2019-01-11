@@ -103,6 +103,7 @@ export default {
     ...mapState({
       mutationTable: 'MUTATION_TABLE',
       cDNANotation: 'COLUMN_MUTATION_CDNANOTATION',
+      columnLinkMutationPatient: 'COLUMN_LINK_BETWEEN_PATIENT_MUTATION_DATA_SETS',
       columnMutationPosition: 'COLUMN_MUTATION_POSITION',
       isCompactViewMutations: state => state.mutation.isCompactViewMutations
     })
@@ -120,9 +121,9 @@ export default {
       this.expand = !this.expand
       this.getPatients()
     },
-    getPatients () {
+    async getPatients () {
       if (!(this.mutationIdentifier in this.patientsPerMutation)) {
-        this.$store.dispatch('mutation/' + GET_PATIENT_FOR_MUTATION, [this.mutationIdentifier, this.mutation[this.cDNANotation]])
+        await this.$store.dispatch('mutation/' + GET_PATIENT_FOR_MUTATION, [this.mutationIdentifier, this.mutation[this.columnLinkMutationPatient]])
       }
     },
     setGenomePosition () {

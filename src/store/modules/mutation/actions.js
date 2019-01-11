@@ -4,13 +4,14 @@ import {
   SET_TOTAL_MUTATIONS,
   SET_PATIENT_FOR_MUTATION,
   SET_MUTATIONS_FILTER_ACTIVE,
-  SET_FILTERED_MUTATIONS, SET_MUTATIONS_BETWEEN_POSITION_START_AND_END
+  SET_FILTERED_MUTATIONS,
+  SET_MUTATIONS_BETWEEN_POSITION_START_AND_END
 } from './mutations'
 import {
   SET_ERROR
 } from './../../mutations'
 
-import { createInQueryPatientsPerMutation, createRSQLQueryPatientsPerMutation, setFilterGroupInformationFromURL } from '../../helpers'
+import { createInQueryPatientsPerMutation, createRSQLQueryPatientsPerMutation } from '../../helpers'
 /* Action constants */
 export const GET_FILTERED_MUTATIONS = '__GET_FILTERED_MUTATIONS__'
 export const GET_ALL_MUTATIONS = '__GET_ALL_MUTATIONS__'
@@ -28,16 +29,17 @@ export default {
         commit(SET_ERROR, error, {root: true})
       })
   },
-  [GET_PATIENT_FOR_MUTATION] ({commit, rootState}, [id, mutation]) {
+  // Identifier and linkPatientMutation are the same for DEB central, but not for CHD7/FIPA. That's why they're two different variables.
+  [GET_PATIENT_FOR_MUTATION] ({commit, rootState}, [identifier, linkPatientMutation]) {
     let query = []
     rootState.MUTATION_COLUMNS_FOR_PATIENT.forEach(function (column) {
-      query.push(createInQueryPatientsPerMutation(column, mutation))
+      query.push(createInQueryPatientsPerMutation(column, linkPatientMutation))
     })
     /* '+' is not handled right in the URL, so it's converted to '%2B' */
     api.get(rootState.PATIENTS_API_PATH + '?q=' + createRSQLQueryPatientsPerMutation(query).replace(new RegExp('\\+', 'g'), '%2B'))
       .then(response => response.json())
       .then(response => {
-        commit(SET_PATIENT_FOR_MUTATION, [id, response.items, rootState.COLUMN_PATIENT_IDENTIFIER])
+        commit(SET_PATIENT_FOR_MUTATION, [identifier, response.items, rootState.COLUMN_PATIENT_IDENTIFIER])
       }, error => {
         commit(SET_ERROR, error, {root: true})
       })
@@ -52,10 +54,6 @@ export default {
         }, error => {
           commit(SET_ERROR, error, {root: true})
         })
-    } else {
-      rootState.filterGroupInformation = setFilterGroupInformationFromURL(rootState.filterGroupInformation, '', rootState.MUTATION_TABLE)
-      commit(SET_MUTATIONS_FILTER_ACTIVE, false)
-      commit(SET_FILTERED_MUTATIONS, [])
     }
   },
   [GET_MUTATIONS_BETWEEN_POSITION_START_AND_END] ({state, commit, rootState}, [viewStart, viewEnd]) {
@@ -65,7 +63,7 @@ export default {
     let mutationsBetweenPosition = []
     Object.keys(state.mutations).forEach(function (mutation) {
       let position = state.mutations[mutation][positionColumn]
-      if (start < position && position < end) {
+      if (start <= position && position <= end) {
         mutationsBetweenPosition.push(mutation)
       }
     })

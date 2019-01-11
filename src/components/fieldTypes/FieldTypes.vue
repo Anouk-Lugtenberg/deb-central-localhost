@@ -65,7 +65,7 @@ export default {
   },
   data () {
     return {
-      singleInformation: this.information[this.property.name]
+      singleInformation: ''
     }
   },
   watch: {

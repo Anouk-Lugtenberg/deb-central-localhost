@@ -144,7 +144,7 @@ export default {
             info.add('', this.makeElement(f.id))
           }
         },
-        uri: 'https://molgenis42.gcc.rug.nl/api/v2/col7a1_Mutations',
+        uri: 'https://molgenis137.gcc.rug.nl/api/v2/col7a1_Mutations',
         track_type: 'VARIANT',
         entity: 'col7a1_Mutations',
         attrs: [
