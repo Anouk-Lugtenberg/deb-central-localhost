@@ -27,7 +27,7 @@
 <script>
 import FieldTypes from '../fieldTypes/FieldTypes'
 import FieldTypePatientMutations from '../fieldTypes/FieldTypePatientMutations'
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'MutationCardInformationContainer',
@@ -49,12 +49,9 @@ export default {
     })
   },
   computed: {
-    ...mapGetters({
-      patientInformation: 'patients/getPatientInformation',
-      listAllPatients: 'patients/getPatients'
-    }),
     ...mapState({
       metadata: 'metadata',
+      listAllPatients: state => state.patients.patients,
       mutationTable: 'MUTATION_TABLE',
       patientTable: 'PATIENT_TABLE'
     }),

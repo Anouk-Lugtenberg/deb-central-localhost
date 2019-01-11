@@ -25,11 +25,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      allIdentifiersPatients: 'patients/getAllIdentifiersPatients',
-      filteredIdentifiersPatients: 'patients/getFilteredPatientsIdentifiers',
       getVisibleFieldsMetadata: 'getVisibleFieldsMetadata'
     }),
     ...mapState({
+      allIdentifiersPatients: state => state.patients.allIdentifiersPatients,
+      filteredIdentifiersPatients: state => state.patients.filteredPatientsIdentifiers,
       metadata: 'metadata',
       patientTable: 'PATIENT_TABLE'
     })

@@ -48,10 +48,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      metadataAllFieldsVisible: 'getMetadataAllFieldsVisible',
-      patients: 'patients/getPatients'
+      metadataAllFieldsVisible: 'getMetadataAllFieldsVisible'
     }),
     ...mapState({
+      patients: state => state.patients.patients,
       patientTable: 'PATIENT_TABLE'
     })
   },

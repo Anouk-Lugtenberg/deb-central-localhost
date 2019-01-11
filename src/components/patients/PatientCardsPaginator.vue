@@ -111,11 +111,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      patients: 'patients/getPatients',
-      isFiltering: 'patients/getPatientsIsFiltering',
       visibleFilters: 'getVisibleFilters'
     }),
     ...mapState({
+      isFiltering: state => state.patients.patientsIsFiltering,
+      patients: state => state.patients.patients,
       filteredGroupInformation: 'filterGroupInformation',
       patientTable: 'PATIENT_TABLE'
     })
