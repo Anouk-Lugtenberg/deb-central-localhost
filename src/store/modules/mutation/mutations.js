@@ -3,11 +3,9 @@ import { naturalSort } from '../../helpers'
 
 export const SET_ALL_MUTATIONS = '__SET_ALL_MUTATIONS__'
 export const SET_MUTATION_IDENTIFIERS = '__SET_MUTATION_IDENTIFIERS__'
-export const SET_TOTAL_MUTATIONS = '__SET_TOTAL_MUTATIONS__'
 export const SET_BOOLEAN_COMPACT_VIEW_MUTATIONS = '__SET_BOOLEAN_COMPACT_VIEW_MUTATIONS__'
 export const SET_PATIENT_FOR_MUTATION = '__SET_PATIENT_FOR_MUTATION__'
 export const SET_SEARCH_MUTATION = '__SET_SEARCH_MUTATION__'
-export const SET_MUTATIONS_FILTER_ACTIVE = '__SET_MUTATIONS_FILTER_ACTIVE__'
 export const SET_ACTIVE_FILTERS_MUTATIONS = '__SET_ACTIVE_FILTERS_MUTATIONS__'
 export const SET_FILTERED_MUTATIONS = '__SET_FILTERED_MUTATIONS__'
 export const SET_MUTATIONS_IS_FILTERING = '__SET_MUTATIONS_IS_FILTERING__'
@@ -29,9 +27,6 @@ export default {
       identifiers.push(mutations[key][CDNANotation])
     })
     state.allMutationIdentifiers = naturalSort(identifiers)
-  },
-  [SET_TOTAL_MUTATIONS] (state, number) {
-    state.totalMutations = number
   },
   [SET_BOOLEAN_COMPACT_VIEW_MUTATIONS] (state, isCompactView) {
     state.isCompactViewMutations = isCompactView
@@ -57,9 +52,6 @@ export default {
   [SET_ACTIVE_FILTERS_MUTATIONS] (state, filters) {
     state.activeFiltersCheckbox = filters
   },
-  [SET_MUTATIONS_FILTER_ACTIVE] (state, boolean) {
-    state.mutationsFiltersActive = boolean
-  },
   [SET_MUTATIONS_IS_FILTERING] (state, boolean) {
     state.mutationsIsFiltering = boolean
   },
@@ -67,7 +59,6 @@ export default {
     state.genomeBrowserVisible = isVisible
   },
   [SET_MUTATIONS_BETWEEN_POSITION_START_AND_END] (state, mutations) {
-    console.log(mutations)
     state.mutationsBetweenPositionStartAndEnd = mutations
   },
   [SET_GENOME_POSITION] (state, position) {

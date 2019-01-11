@@ -49,10 +49,11 @@ export default {
       return this.browser.viewStart
     },
     ...mapGetters({
-      genomePosition: 'mutation/getGenomePositionMutation',
-      mutations: 'mutation/getMutations'
+      genomePosition: 'mutation/getGenomePositionMutation'
     }),
     ...mapState({
+      mutations: state => state.mutation.mutations,
+      genomePosition: state => state.mutation.genomePositionMutation,
       columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL',
       browserInformation: 'browserInformation'
     }),

@@ -19,15 +19,13 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 export default {
   name: 'MutationCardCompactView',
   props: ['mutation', 'mutationIdentifier'],
   computed: {
-    ...mapGetters({
-      allMutations: 'mutation/getMutations'
-    }),
     ...mapState({
+      allMutations: state => state.mutation.mutations,
       mutationTable: 'MUTATION_TABLE',
       columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL',
       columnsMutationsVisibleForPatientCard: 'metadataColumnsMutations'

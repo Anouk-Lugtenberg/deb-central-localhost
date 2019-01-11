@@ -73,19 +73,6 @@ describe('store', () => {
             expect(state.allMutationIdentifiers).to.deep.equal(expectedStateMutationIdentifiers)
           })
         })
-
-        describe('SET_TOTAL_MUTATIONS', () => {
-          it('should set the total of mutations to the state', () => {
-            const state = {
-              totalMutations: undefined
-            }
-            const expectedTotalMutations = 30
-
-            mutations.__SET_TOTAL_MUTATIONS__(state, 30)
-            expect(state.totalMutations).to.equal(expectedTotalMutations)
-          })
-        })
-
         describe('SET_BOOLEAN_COMPACT_VIEW_MUTATIONS', () => {
           it('should set the boolean for the compact view', () => {
             const state = {
@@ -205,16 +192,6 @@ describe('store', () => {
             const expectedActiveFilteres = [[{selector: 'consequence', comparison: '=in=', arguments: ['consequence2']}]]
             mutations.__SET_ACTIVE_FILTERS_MUTATIONS__(state, exampleActiveFilters)
             expect(state.activeFiltersCheckbox).to.deep.equal(expectedActiveFilteres)
-          })
-        })
-
-        describe('SET_MUTATIONS_FILTER_ACTIVE', () => {
-          it('should set the state according to given boolean', () => {
-            const state = {
-              mutationsFiltersActive: false
-            }
-            mutations.__SET_MUTATIONS_FILTER_ACTIVE__(state, true)
-            expect(state.mutationsFiltersActive).to.equal(true)
           })
         })
 

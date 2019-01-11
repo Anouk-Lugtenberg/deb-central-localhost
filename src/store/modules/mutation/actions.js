@@ -1,9 +1,7 @@
 import api from '@molgenis/molgenis-api-client'
 import {
   SET_ALL_MUTATIONS,
-  SET_TOTAL_MUTATIONS,
   SET_PATIENT_FOR_MUTATION,
-  SET_MUTATIONS_FILTER_ACTIVE,
   SET_FILTERED_MUTATIONS,
   SET_MUTATIONS_BETWEEN_POSITION_START_AND_END, SET_MUTATION_IDENTIFIERS
 } from './mutations'
@@ -25,7 +23,6 @@ export default {
       .then(response => {
         commit(SET_ALL_MUTATIONS, [response.items, rootState.COLUMN_MUTATION_CDNANOTATION])
         commit(SET_MUTATION_IDENTIFIERS, [response.items, rootState.COLUMN_MUTATION_CDNANOTATION])
-        commit(SET_TOTAL_MUTATIONS, response.total)
       }, error => {
         commit(SET_ERROR, error, {root: true})
       })
@@ -47,7 +44,6 @@ export default {
   },
   [GET_FILTERED_MUTATIONS] ({state, commit, rootState}) {
     if (typeof (rootState.route.query.q) !== 'undefined' && rootState.route.query.q.length > 0) {
-      commit(SET_MUTATIONS_FILTER_ACTIVE, true)
       api.get(rootState.MUTATIONS_API_PATH + '?q=' + rootState.route.query.q + '&start=0&num=10000')
         .then(response => response.json())
         .then(response => {

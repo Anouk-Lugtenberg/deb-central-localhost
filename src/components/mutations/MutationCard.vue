@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import MutationCardInformationContainer from './MutationCardInformationContainer'
 import FieldTypeMutationIdentifier from '../fieldTypes/FieldTypeMutationIdentifier'
 import FieldTypes from '../fieldTypes/FieldTypes'
@@ -97,14 +97,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      patientsPerMutation: 'mutation/getPatientsPerMutation'
-    }),
     ...mapState({
       mutationTable: 'MUTATION_TABLE',
       cDNANotation: 'COLUMN_MUTATION_CDNANOTATION',
       columnLinkMutationPatient: 'COLUMN_LINK_BETWEEN_PATIENT_MUTATION_DATA_SETS',
       columnMutationPosition: 'COLUMN_MUTATION_POSITION',
+      patientsPerMutation: state => state.mutation.patientsPerMutation,
       isCompactViewMutations: state => state.mutation.isCompactViewMutations
     })
   },

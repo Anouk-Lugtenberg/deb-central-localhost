@@ -117,11 +117,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      mutations: 'mutation/getMutations',
-      isFiltering: 'mutation/getMutationsIsFiltering',
       visibleFilters: 'getVisibleFilters'
     }),
     ...mapState({
+      mutations: state => state.mutation.mutations,
+      isFiltering: state => state.mutation.mutationsIsFiltering,
       mutationTable: 'MUTATION_TABLE',
       filteredGroupInformation: 'filterGroupInformation'
     })

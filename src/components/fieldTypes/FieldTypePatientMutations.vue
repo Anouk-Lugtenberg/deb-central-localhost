@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import FieldTypes from './FieldTypes'
 
 export default {
@@ -39,10 +39,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      allMutations: 'mutation/getMutations'
-    }),
     ...mapState({
+      allMutations: state => state.mutation.mutations,
       mutationTable: 'MUTATION_TABLE',
       metadataColumnsMutations: 'metadataColumnsMutations',
       columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL',

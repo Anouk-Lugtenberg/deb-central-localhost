@@ -4,9 +4,7 @@ import utils from '@molgenis/molgenis-vue-test-utils'
 import actions from '../../../../../../src/store/modules/mutation/actions'
 import {
   SET_ALL_MUTATIONS,
-  SET_TOTAL_MUTATIONS,
   SET_PATIENT_FOR_MUTATION,
-  SET_MUTATIONS_FILTER_ACTIVE,
   SET_FILTERED_MUTATIONS,
   SET_MUTATIONS_BETWEEN_POSITION_START_AND_END, SET_MUTATION_IDENTIFIERS
 } from '../../../../../../src/store/modules/mutation/mutations'
@@ -21,8 +19,7 @@ describe('store', () => {
             const response = {
               json: function () {
                 return {
-                  items: [],
-                  total: 0
+                  items: []
                 }
               }
             }
@@ -42,9 +39,6 @@ describe('store', () => {
               }, {
                 type: SET_MUTATION_IDENTIFIERS,
                 payload: [response.json().items, rootState.COLUMN_MUTATION_CDNANOTATION]
-              }, {
-                type: SET_TOTAL_MUTATIONS,
-                payload: response.json().total
               }]
             }
             utils.testAction(actions.__GET_ALL_MUTATIONS__, options, done)
@@ -130,9 +124,6 @@ describe('store', () => {
             const options = {
               rootState: rootState,
               expectedMutations: [{
-                type: SET_MUTATIONS_FILTER_ACTIVE,
-                payload: true
-              }, {
                 type: SET_FILTERED_MUTATIONS,
                 payload: [response.json().items, rootState.COLUMN_MUTATION_CDNANOTATION]
               }]

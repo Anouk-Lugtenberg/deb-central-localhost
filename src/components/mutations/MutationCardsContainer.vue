@@ -27,11 +27,12 @@ export default {
   },
   computed: {
     ...mapGetters({
-      allIdentifiersMutation: 'mutation/getAllMutationIdentifiers',
       filteredMutationIdentifiers: 'mutation/getFilteredMutationIdentifiers',
       getVisibleFieldsMetadata: 'getVisibleFieldsMetadata'
     }),
     ...mapState({
+      allIdentifiersMutation: state => state.mutation.allMutationIdentifiers,
+      filteredMutationIdentifiers: state => state.mutation.filteredMutationIdentifiers,
       mutationTable: 'MUTATION_TABLE',
       metadata: 'metadata'
     })

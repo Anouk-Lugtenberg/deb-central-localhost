@@ -98,14 +98,14 @@ export default {
   computed: {
     ...mapGetters({
       metadataAllFieldsVisible: 'getMetadataAllFieldsVisible',
-      mutations: 'mutation/getMutations',
-      mutationsBetweenPosition: 'mutation/getMutationsBetweenPositionStartAndEnd',
       getVisibleFieldsMetadata: 'getVisibleFieldsMetadata'
     }),
     ...mapState({
+      mutations: state => state.mutation.mutations,
       columnMutationIdentifierNumerical: 'COLUMN_MUTATION_IDENTIFIER_NUMERICAL',
       mutationTable: 'MUTATION_TABLE',
-      columnMutationPosition: 'COLUMN_MUTATION_POSITION'
+      columnMutationPosition: 'COLUMN_MUTATION_POSITION',
+      mutationsBetweenPosition: state => state.mutation.mutationsBetweenPositionStartAndEnd
     })
   },
   watch: {
