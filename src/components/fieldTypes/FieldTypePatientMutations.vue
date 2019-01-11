@@ -11,8 +11,10 @@
           <b-col v-for="(column, index) in metadataColumnsMutations[mutationTable]" class="mutation-information"
                  :class="{ 'col-2': index === 0, 'col-2': index === 1, 'col-4': index === 2}"
                  :key="index">
+            <div v-if="allMutations[mutation]">
               <field-types :property="column" :information="allMutations[mutation]"
                            :showPropertyName="false"></field-types>
+            </div>
           </b-col>
         </b-row>
       </table>

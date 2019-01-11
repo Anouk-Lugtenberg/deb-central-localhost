@@ -8,9 +8,8 @@ import {
   SET_PATIENT_FOR_MUTATION,
   SET_MUTATIONS_FILTER_ACTIVE,
   SET_FILTERED_MUTATIONS,
-  SET_MUTATIONS_BETWEEN_POSITION_START_AND_END
+  SET_MUTATIONS_BETWEEN_POSITION_START_AND_END, SET_MUTATION_IDENTIFIERS
 } from '../../../../../../src/store/modules/mutation/mutations'
-
 
 describe('store', () => {
   describe('modules', () => {
@@ -39,6 +38,9 @@ describe('store', () => {
               rootState: rootState,
               expectedMutations: [{
                 type: SET_ALL_MUTATIONS,
+                payload: [response.json().items, rootState.COLUMN_MUTATION_CDNANOTATION]
+              }, {
+                type: SET_MUTATION_IDENTIFIERS,
                 payload: [response.json().items, rootState.COLUMN_MUTATION_CDNANOTATION]
               }, {
                 type: SET_TOTAL_MUTATIONS,
@@ -122,7 +124,7 @@ describe('store', () => {
             }
 
             const get = td.function('api.get')
-            td.when(get(rootState.MUTATIONS_API_PATH +'?q=*=q=searchString&start=0&num=10000')).thenResolve(response)
+            td.when(get(rootState.MUTATIONS_API_PATH + '?q=*=q=searchString&start=0&num=10000')).thenResolve(response)
             td.replace(api, 'get', get)
 
             const options = {
@@ -169,7 +171,6 @@ describe('store', () => {
             }
 
             utils.testAction(actions.__GET_MUTATIONS_BETWEEN_POSITION_START_AND_END__, options, done)
-
           })
           it('should round viewStart and viewEnd to a fixed number', done => {
             const options = {

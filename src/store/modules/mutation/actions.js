@@ -5,7 +5,7 @@ import {
   SET_PATIENT_FOR_MUTATION,
   SET_MUTATIONS_FILTER_ACTIVE,
   SET_FILTERED_MUTATIONS,
-  SET_MUTATIONS_BETWEEN_POSITION_START_AND_END
+  SET_MUTATIONS_BETWEEN_POSITION_START_AND_END, SET_MUTATION_IDENTIFIERS
 } from './mutations'
 import {
   SET_ERROR
@@ -24,6 +24,7 @@ export default {
       .then(response => response.json())
       .then(response => {
         commit(SET_ALL_MUTATIONS, [response.items, rootState.COLUMN_MUTATION_CDNANOTATION])
+        commit(SET_MUTATION_IDENTIFIERS, [response.items, rootState.COLUMN_MUTATION_CDNANOTATION])
         commit(SET_TOTAL_MUTATIONS, response.total)
       }, error => {
         commit(SET_ERROR, error, {root: true})

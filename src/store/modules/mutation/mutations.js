@@ -2,11 +2,12 @@ import Vue from 'vue'
 import { naturalSort } from '../../helpers'
 
 export const SET_ALL_MUTATIONS = '__SET_ALL_MUTATIONS__'
+export const SET_MUTATION_IDENTIFIERS = '__SET_MUTATION_IDENTIFIERS__'
 export const SET_TOTAL_MUTATIONS = '__SET_TOTAL_MUTATIONS__'
 export const SET_BOOLEAN_COMPACT_VIEW_MUTATIONS = '__SET_BOOLEAN_COMPACT_VIEW_MUTATIONS__'
 export const SET_PATIENT_FOR_MUTATION = '__SET_PATIENT_FOR_MUTATION__'
 export const SET_SEARCH_MUTATION = '__SET_SEARCH_MUTATION__'
-export const SET_MUTATIONS_FILTER_ACTIVE = '__SET_MUTATION_FILTER_ACTIVE__'
+export const SET_MUTATIONS_FILTER_ACTIVE = '__SET_MUTATIONS_FILTER_ACTIVE__'
 export const SET_ACTIVE_FILTERS_MUTATIONS = '__SET_ACTIVE_FILTERS_MUTATIONS__'
 export const SET_FILTERED_MUTATIONS = '__SET_FILTERED_MUTATIONS__'
 export const SET_MUTATIONS_IS_FILTERING = '__SET_MUTATIONS_IS_FILTERING__'
@@ -16,12 +17,16 @@ export const SET_GENOME_POSITION = '__SET_GENOME_POSITION__'
 
 export default {
   [SET_ALL_MUTATIONS] (state, [mutations, CDNANotation]) {
-    let identifiers = []
     Object.keys(mutations).map(function (key) {
-      identifiers.push(mutations[key][CDNANotation])
       Vue.set(state.mutations,
         mutations[key][CDNANotation],
         mutations[key])
+    })
+  },
+  [SET_MUTATION_IDENTIFIERS] (state, [mutations, CDNANotation]) {
+    let identifiers = []
+    Object.keys(mutations).map(function (key) {
+      identifiers.push(mutations[key][CDNANotation])
     })
     state.allMutationIdentifiers = naturalSort(identifiers)
   },
@@ -62,6 +67,7 @@ export default {
     state.genomeBrowserVisible = isVisible
   },
   [SET_MUTATIONS_BETWEEN_POSITION_START_AND_END] (state, mutations) {
+    console.log(mutations)
     state.mutationsBetweenPositionStartAndEnd = mutations
   },
   [SET_GENOME_POSITION] (state, position) {

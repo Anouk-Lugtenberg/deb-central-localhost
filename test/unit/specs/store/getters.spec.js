@@ -5,14 +5,14 @@ describe('store', () => {
   describe('getters', () => {
     describe('getMetadataAllFieldsVisible', () => {
       it('should return the metadata with all fieldIsVisible fields set to true', () => {
-        const state =  {
+        const state = {
           metadata: {
             'Mutations': [{
               name: 'consequence',
               fieldIsVisible: false
             }, {
               name: 'details',
-            fieldIsVisible: false
+              fieldIsVisible: false
             }]
           }
         }
