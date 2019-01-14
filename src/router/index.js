@@ -9,7 +9,6 @@ import MutationsContainer from './../components/mutations/MutationsContainer'
 import PatientsContainer from './../components/patients/PatientsContainer'
 import ReferencesContainer from './../components/references/ReferencesContainer'
 import NotFound from './../components/NotFound'
-import GenomeBrowser from '../components/genomeBrowser/GenomeBrowser'
 import { INITIAL_STATE } from '../store/state'
 
 Vue.use(Router)
@@ -69,6 +68,9 @@ export default new Router({
       path: '/References',
       redirect: 'References/page/1'
     },
+    /*
+    paths for the model views of the application
+     */
     {
       path: '/Mutation/:id',
       name: 'Mutation',
@@ -93,10 +95,9 @@ export default new Router({
         id: route.params.id
       })
     },
-    {
-      path: '/GenomeBrowser',
-      component: GenomeBrowser
-    },
+    /*
+    Path for not found, * redirects every page which couldn't be found to /404
+     */
     {
       path: '/404',
       component: NotFound
