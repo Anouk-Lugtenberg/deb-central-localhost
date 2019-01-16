@@ -33,6 +33,7 @@
       patientsApiPath: '/api/v2/col7a1_Patients',
       columnPubMedIdentifierPatientTable: 'PubMedID',
       columnPubMedIdentifierReferenceTable: 'Pubmed',
+      searchableColumnsPubMed: ['Title', 'abstractText', 'Authors'],
       columnMutationIdentifierNumerical: ['ID'],
       columnLinkBetweenPatientMutationDataSets: ['cdnanotation'],
       columnCDNANotationForMutation: ['cdnanotation'],
@@ -43,7 +44,7 @@
       visibleFieldsMutationTable: ['aaNotation', 'Exon', 'Consequence', 'Pos'],
       visibleFieldsPatientTable: ['Pheno', 'Pubmedid'],
       filtersMutationTable: ['Consequence', 'Event'],
-      filtersPatientTable: ['Blistering', 'AnchoringFibrilsNumber'],
+      filtersPatientTable: ['BListering', 'Phenotypeshort'],
     }
     // INITIAL STATE for FIPA
     // window.__INITIAL_STATE__ = {

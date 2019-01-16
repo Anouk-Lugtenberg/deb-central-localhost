@@ -128,6 +128,8 @@ export default {
       .then(response => response.json())
       .then(response => {
         commit(SET_FILTERED_REFERENCES, [state.COLUMN_PUBMED_ID_REFERENCE_TABLE, response.items])
+      }, error => {
+        commit(SET_ERROR, error)
       })
   }
 }

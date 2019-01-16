@@ -30,6 +30,8 @@ export default {
   COLUMN_PUBMED_ID_PATIENT_TABLE: INITIAL_STATE.columnPubMedIdentifierPatientTable,
   /* PubMed identifier in Reference table */
   COLUMN_PUBMED_ID_REFERENCE_TABLE: INITIAL_STATE.columnPubMedIdentifierReferenceTable,
+  /* The searchable columns of the PubMed dataset */
+  SEARCHABLE_COLUMNS_PUBMED: INITIAL_STATE.searchableColumnsPubMed,
 
   /* Column name for Numerical Identifier from mutation (column which contains 'M100') */
   COLUMN_MUTATION_IDENTIFIER_NUMERICAL: INITIAL_STATE.columnMutationIdentifierNumerical,

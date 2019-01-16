@@ -91,10 +91,6 @@ export default {
     },
     pageSize () {
       this.setTotalPages()
-    },
-    currentPage () {
-      // scroll(0, 0)
-      console.log('current page changed')
     }
   },
   methods: {
