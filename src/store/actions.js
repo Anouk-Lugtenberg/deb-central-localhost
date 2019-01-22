@@ -114,14 +114,16 @@ export default {
     dispatch(SET_FILTERS_FROM_ACTIVE_CHECKBOXES)
   },
   [GET_ALL_REFERENCES] ({commit, state}) {
-    api.get(state.PUBLICATIONS_API_PATH + '?start=0&num=10000')
-      .then(response => response.json())
-      .then(response => {
-        commit(SET_ALL_REFERENCES, response.items)
-        commit(SET_REFERENCE_METADATA, response.meta)
-      }, error => {
-        commit(SET_ERROR, error)
-      })
+    if (state.PUBLICATIONS_API_PATH) {
+      api.get(state.PUBLICATIONS_API_PATH + '?start=0&num=10000')
+        .then(response => response.json())
+        .then(response => {
+          commit(SET_ALL_REFERENCES, response.items)
+          commit(SET_REFERENCE_METADATA, response.meta)
+        }, error => {
+          commit(SET_ERROR, error)
+        })
+    }
   },
   [GET_FILTERED_REFERENCES] ({commit, state}) {
     api.get(state.PUBLICATIONS_API_PATH + '?q=' + state.route.query.q)

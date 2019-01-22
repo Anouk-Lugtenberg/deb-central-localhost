@@ -1,49 +1,54 @@
 <template>
   <div>
-    <b-row class="pt-3">
-      <b-col cols="3">
-        <b-card no-body class="p-2 references-per-page mb-2">
-          References per page
-          <b-form-select v-model="pageSize" :options="optionsPageSize" size="sm" :plain="true"></b-form-select>
-        </b-card>
-      </b-col>
-      <b-col cols="9">
-        <b-pagination-nav v-if="totalPages > 0" :use-router="true" size="md" align="center" :link-gen="linkGenerator"
-                          :number-of-pages="totalPages" v-model="currentPage">
-        </b-pagination-nav>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col cols="3">
-        <reference-string-filter></reference-string-filter>
-      </b-col>
-      <b-col cols="9">
-        <div v-if="Object.keys(references).length > 0">
-          <div v-if="$route.query.q">
-          <moon-loader v-if="referencesFiltering" :textForLoader="'Filtering'"></moon-loader>
-          <div v-else-if="filteredReferences.length > 0">
-            <div class="amount-references-found">
-              {{ filteredReferences.length }} publication(s)
-            </div>
-            <div v-for="referenceIdentifier in filteredReferences.slice(pageSize * (currentPage-1), pageSize * currentPage)" class="pb-2">
-              <reference-card v-if="references[referenceIdentifier]" :reference="references[referenceIdentifier]" :id="referenceIdentifier"></reference-card>
-            </div>
-          </div>
-          <b-card v-else class="no-references-found">
-            No references found
+    <div v-if="Object.keys(references).length > 0">
+      <b-row class="pt-3">
+        <b-col cols="3">
+          <b-card no-body class="p-2 references-per-page mb-2">
+            References per page
+            <b-form-select v-model="pageSize" :options="optionsPageSize" size="sm" :plain="true"></b-form-select>
           </b-card>
-        </div>
-        <div v-else>
-          <div v-for="referenceIdentifier in Object.keys(references).slice(pageSize * (currentPage-1), pageSize * currentPage)" class="pb-2">
-            <reference-card :reference="references[referenceIdentifier]" :id=referenceIdentifier></reference-card>
+        </b-col>
+        <b-col cols="9">
+          <b-pagination-nav v-if="totalPages > 0" :use-router="true" size="md" align="center" :link-gen="linkGenerator"
+                            :number-of-pages="totalPages" v-model="currentPage">
+          </b-pagination-nav>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col cols="3">
+          <reference-string-filter></reference-string-filter>
+        </b-col>
+        <b-col cols="9">
+          <div v-if="Object.keys(references).length > 0">
+            <div v-if="$route.query.q">
+              <moon-loader v-if="referencesFiltering" :textForLoader="'Filtering'"></moon-loader>
+              <div v-else-if="filteredReferences.length > 0">
+                <div class="amount-references-found">
+                  {{ filteredReferences.length }} publication(s)
+                </div>
+                <div v-for="referenceIdentifier in filteredReferences.slice(pageSize * (currentPage-1), pageSize * currentPage)" class="pb-2">
+                  <reference-card v-if="references[referenceIdentifier]" :reference="references[referenceIdentifier]" :id="referenceIdentifier"></reference-card>
+                </div>
+              </div>
+              <b-card v-else class="no-references-found">
+                No references found
+              </b-card>
+            </div>
+            <div v-else>
+              <div v-for="referenceIdentifier in Object.keys(references).slice(pageSize * (currentPage-1), pageSize * currentPage)" class="pb-2">
+                <reference-card :reference="references[referenceIdentifier]" :id=referenceIdentifier></reference-card>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <b-pagination-nav v-if="totalPages > 0" :use-router="true" size="md" align="center" :link-gen="linkGenerator"
-                        :number-of-pages="totalPages" v-model="currentPage">
-      </b-pagination-nav>
-      </b-col>
-    </b-row>
+          <b-pagination-nav v-if="totalPages > 0" :use-router="true" size="md" align="center" :link-gen="linkGenerator"
+                            :number-of-pages="totalPages" v-model="currentPage">
+          </b-pagination-nav>
+        </b-col>
+      </b-row>
+    </div>
+    <div v-else>
+      Not available.
+    </div>
   </div>
 </template>
 

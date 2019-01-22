@@ -5,7 +5,7 @@ export default {
     return state.patients[identifier]
   },
   rsqlPatients: createRSQLQuery,
-  getPatientsByPublicationIdentifier: (state) => (identifier) => {
+  getPatientsByPublicationIdentifier: state => identifier => {
     return state.patientsForPublicationIdentifier[identifier]
   }
 }

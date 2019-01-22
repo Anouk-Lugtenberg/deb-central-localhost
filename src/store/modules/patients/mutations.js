@@ -47,12 +47,6 @@ export default {
     })
     state.allIdentifiersPatients = naturalSort(identifiers)
   },
-  [SET_TOTAL_PATIENTS] (state, total) {
-    state.totalPatients = total
-  },
-  [SET_PATIENT_INFORMATION_PATIENT_ID] (state, [id, information]) {
-    Vue.set(state.informationPatients, id, information)
-  },
   [SET_SEARCH_PATIENTS] (state, search) {
     state.search = search
   },

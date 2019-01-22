@@ -1,22 +1,30 @@
 <template>
   <div>
-    <div v-if="pubMedIdentifierPatientTable === property.name">
-      <field-type-pubmed-identifier :information="information" :property="property"
-                                    :showPropertyName="showPropertyName"></field-type-pubmed-identifier>
+    <div v-if="information[property.name]">
+      <div v-if="pubMedIdentifierPatientTable === property.name">
+        <field-type-pubmed-identifier :information="information" :property="property"
+                                      :showPropertyName="showPropertyName"></field-type-pubmed-identifier>
+      </div>
+      <div v-else-if="typeof singleInformation !== 'undefined'">
+        <field-type-xref v-if="property.fieldType === 'XREF'" :information="information" :property="property"
+                         :showPropertyName="showPropertyName"></field-type-xref>
+        <field-type-mref v-else-if="property.fieldType === 'MREF'" :information="information" :property="property"
+                         :showPropertyName="showPropertyName"></field-type-mref>
+        <field-type-categorical v-else-if="property.fieldType === 'CATEGORICAL'" :information="information" :property="property"
+                                :showPropertyName="showPropertyName"></field-type-categorical>
+        <field-type-other v-else :information="information" :property="property"
+                          :showPropertyName="showPropertyName"></field-type-other>
+      </div>
+      <div v-else>
+        <span v-if="showPropertyName">
+          {{ property.label }}:
+        </span>
+        N/A
+      </div>
     </div>
     <div v-else-if="property.fieldType === 'COMPOUND'">
       <field-type-compound :information="information" :property="property"
                            :showPropertyName="showPropertyName"></field-type-compound>
-    </div>
-    <div v-else-if="typeof singleInformation !== 'undefined'">
-      <field-type-xref v-if="property.fieldType === 'XREF'" :information="information" :property="property"
-                       :showPropertyName="showPropertyName"></field-type-xref>
-      <field-type-mref v-else-if="property.fieldType === 'MREF'" :information="information" :property="property"
-                       :showPropertyName="showPropertyName"></field-type-mref>
-      <field-type-categorical v-else-if="property.fieldType === 'CATEGORICAL'" :information="information" :property="property"
-                              :showPropertyName="showPropertyName"></field-type-categorical>
-      <field-type-other v-else :information="information" :property="property"
-                        :showPropertyName="showPropertyName"></field-type-other>
     </div>
     <div v-else>
       <span v-if="showPropertyName">

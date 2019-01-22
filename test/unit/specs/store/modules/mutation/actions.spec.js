@@ -15,7 +15,7 @@ describe('store', () => {
       describe('actions', () => {
         afterEach(() => td.reset())
         describe('GET_ALL_MUTATIONS', () => {
-          it('makes a call to the api to retrieve all the mutation information and the total amount of mutations', done => {
+          it('makes a call to the api to retrieve all the mutation information', done => {
             const response = {
               json: function () {
                 return {
